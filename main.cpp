@@ -32,7 +32,7 @@
 #define VOLATILE volatile
 
 
-namespace ver = meo;
+namespace ver = v2;
 
 
 int main ( ) {
