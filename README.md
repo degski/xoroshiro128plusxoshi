@@ -10,9 +10,9 @@ Iff results can not be confirmed, this repo will be removed.
 
 ## Results
 
-#### Speedtest
+#### Speed-test
 
-##### Environment and parameters
+##### Context
 
 * Intel Ci3-5005U (Broadwell) CPU
 * Windows 10-1803-x64 in `diagnostics mode` (core services only), and Windows Defender off
@@ -21,11 +21,12 @@ Iff results can not be confirmed, this repo will be removed.
 * Generator tested: the improved 2018  `xoroshiro128plus64 v1`
 * 100'000'000 numbers generated, 512 runs
 
+
 ##### Results
 
-  **generator**                   **fastest (ms)**   **mean (ms)**
+     **generator**            **fastest (ms)**   **mean (ms)**
 
-* meo-v1                        300           314
-* shift 48                      300           316
-* shift 32                      300           317
-* shift 16                      300           313 
+    * meo-v1                        300           314
+    * shift 48                      300           316
+    * shift 32                      300           317
+    * shift 16                      300           313 
