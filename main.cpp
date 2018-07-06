@@ -21,13 +21,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include <cstdint>
 #include <iostream>
 
 #include "plf_nanotimer.h"
 #include "xoroshiro_meo.hpp"
+#include "xoroshiro2.hpp"
 
 
 #define VOLATILE volatile
+
+
+namespace ver = meo;
 
 
 int main ( ) {
@@ -37,11 +42,11 @@ int main ( ) {
 
     std::uint64_t cnt = 1;
 
-    xoroshiro128plus64 gen1 ( 0xBE1C0467EBA5FAC1 );
-    xoroshiro128plus64 gen2 ( 0xBE2C0467EBA5FAC2 );
-    xoroshiro128plus64 gen3 ( 0xBE3C0467EBA5FAC3 );
-    xoroshiro128plus64 gen4 ( 0xBE4C0467EBA5FAC4 );
-    xoroshiro128plus64 gen5 ( 0xBE5C0467EBA5FAC5 );
+    ver::xoroshiro128plus64 gen1 ( 0xBE1C0467EBA5FAC1 );
+    ver::xoroshiro128plus64 gen2 ( 0xBE2C0467EBA5FAC2 );
+    ver::xoroshiro128plus64 gen3 ( 0xBE3C0467EBA5FAC3 );
+    ver::xoroshiro128plus64 gen4 ( 0xBE4C0467EBA5FAC4 );
+    ver::xoroshiro128plus64 gen5 ( 0xBE5C0467EBA5FAC5 );
 
     while ( cnt-- ) {
 

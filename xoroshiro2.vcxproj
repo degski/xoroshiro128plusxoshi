@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="plf_nanotimer.h" />
+    <ClInclude Include="xoroshiro_degski.hpp" />
     <ClInclude Include="xoroshiro_meo.hpp" />
   </ItemGroup>
   <ItemGroup>
