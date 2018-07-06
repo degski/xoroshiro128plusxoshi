@@ -10,9 +10,9 @@ Iff results can not be confirmed, this repo will be removed.
 
 ## Results
 
-#### Speed-test
+### Speed-test
 
-##### Context
+#### Context
 
 * Intel Ci3-5005U (Broadwell) CPU
 * Windows 10-1803-x64 in `diagnostics mode` (core services only), and Windows Defender off
@@ -21,11 +21,64 @@ Iff results can not be confirmed, this repo will be removed.
 * Generator tested: the improved 2018  `xoroshiro128plus64 v1`
 * 100'000'000 numbers generated, 512 runs
 
-##### Results
+#### Results
 
      generator                    fastest (ms)    mean (ms)
 
     * meo-v1                        300            314
     * shift 48                      300            316
     * shift 32                      300            317
-    * shift 16                      300            313 
+    * shift 16                      300            313
+
+
+### Practrand results
+
+#### Shift 16
+
+    RNG_test using PractRand version 0.93
+    RNG = RNG_stdin64, seed = 0xdb4dda77
+    test set = normal, folding = standard (64 bit)
+
+    rng=RNG_stdin64, seed=0xdb4dda77
+    length= 128 megabytes (2^27 bytes), time= 2.3 seconds
+      no anomalies in 148 test result(s)
+
+    rng=RNG_stdin64, seed=0xdb4dda77
+    length= 256 megabytes (2^28 bytes), time= 5.4 seconds
+      no anomalies in 159 test result(s)
+
+    rng=RNG_stdin64, seed=0xdb4dda77
+    length= 512 megabytes (2^29 bytes), time= 10.6 seconds
+      no anomalies in 169 test result(s)
+
+    rng=RNG_stdin64, seed=0xdb4dda77
+    length= 1 gigabyte (2^30 bytes), time= 20.4 seconds
+      no anomalies in 180 test result(s)
+
+    rng=RNG_stdin64, seed=0xdb4dda77
+    length= 2 gigabytes (2^31 bytes), time= 38.8 seconds
+      no anomalies in 191 test result(s)
+
+    rng=RNG_stdin64, seed=0xdb4dda77
+    length= 4 gigabytes (2^32 bytes), time= 73.8 seconds
+      no anomalies in 201 test result(s)
+
+    rng=RNG_stdin64, seed=0xdb4dda77
+    length= 8 gigabytes (2^33 bytes), time= 146 seconds
+      no anomalies in 212 test result(s)
+
+    rng=RNG_stdin64, seed=0xdb4dda77
+    length= 16 gigabytes (2^34 bytes), time= 287 seconds
+      no anomalies in 223 test result(s)
+
+    rng=RNG_stdin64, seed=0xdb4dda77
+    length= 32 gigabytes (2^35 bytes), time= 569 seconds
+      Test Name                         Raw       Processed     Evaluation
+      [Low1/64]Gap-16:A                 R=  +4.8  p =  1.2e-3   unusual
+      ...and 232 test result(s) without anomalies
+
+    rng=RNG_stdin64, seed=0xdb4dda77
+    length= 64 gigabytes (2^36 bytes), time= 1135 seconds
+      Test Name                         Raw       Processed     Evaluation
+      BRank(12):12K(1)                  R= +1272  p~=  5.4e-384   FAIL !!!!!!!
+      ...and 243 test result(s) without anomalies
