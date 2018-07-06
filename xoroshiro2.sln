@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xoroshiro2", "xoroshiro2.vcxproj", "{4A284FF7-D292-4E25-B266-EF8F13FC5D71}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "practrand", "practrand\practrand.vcxproj", "{A2F0A55A-473C-494C-89F2-EDB59537D314}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -15,6 +17,10 @@ Global
 		{4A284FF7-D292-4E25-B266-EF8F13FC5D71}.Debug|x64.Build.0 = Debug|x64
 		{4A284FF7-D292-4E25-B266-EF8F13FC5D71}.Release|x64.ActiveCfg = Release|x64
 		{4A284FF7-D292-4E25-B266-EF8F13FC5D71}.Release|x64.Build.0 = Release|x64
+		{A2F0A55A-473C-494C-89F2-EDB59537D314}.Debug|x64.ActiveCfg = Debug|x64
+		{A2F0A55A-473C-494C-89F2-EDB59537D314}.Debug|x64.Build.0 = Debug|x64
+		{A2F0A55A-473C-494C-89F2-EDB59537D314}.Release|x64.ActiveCfg = Release|x64
+		{A2F0A55A-473C-494C-89F2-EDB59537D314}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

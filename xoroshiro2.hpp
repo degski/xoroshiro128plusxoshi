@@ -671,7 +671,7 @@ using xoroshiro16plus8 =
 
 using xoroshiro16star8 =
     xoroshiro_detail::xoroshiro_star<uint8_t, uint8_t, 4, 7, 3, 0xBB>;
-    
+
 }
 
 #endif // XOROSHIRO2_HPP_INCLUDED
