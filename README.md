@@ -137,3 +137,51 @@ Included a modified xoroshiro implementation by Melissa E. O'Neill, the author o
 
 
 #### Shift 48
+
+    RNG_test using PractRand version 0.93
+    RNG = RNG_stdin64, seed = 0xd2d51fe2
+    test set = normal, folding = standard (64 bit)
+
+    rng=RNG_stdin64, seed=0xd2d51fe2
+    length= 128 megabytes (2^27 bytes), time= 2.3 seconds
+      no anomalies in 148 test result(s)
+
+    rng=RNG_stdin64, seed=0xd2d51fe2
+    length= 256 megabytes (2^28 bytes), time= 5.4 seconds
+      no anomalies in 159 test result(s)
+
+    rng=RNG_stdin64, seed=0xd2d51fe2
+    length= 512 megabytes (2^29 bytes), time= 10.6 seconds
+      no anomalies in 169 test result(s)
+
+    rng=RNG_stdin64, seed=0xd2d51fe2
+    length= 1 gigabyte (2^30 bytes), time= 20.4 seconds
+      no anomalies in 180 test result(s)
+
+    rng=RNG_stdin64, seed=0xd2d51fe2
+    length= 2 gigabytes (2^31 bytes), time= 38.8 seconds
+      Test Name                         Raw       Processed     Evaluation
+      [Low16/64]FPF-14+6/16:cross       R=  -2.4  p =1-4.0e-4   unusual
+      ...and 190 test result(s) without anomalies
+
+    rng=RNG_stdin64, seed=0xd2d51fe2
+    length= 4 gigabytes (2^32 bytes), time= 73.8 seconds
+      no anomalies in 201 test result(s)
+
+    rng=RNG_stdin64, seed=0xd2d51fe2
+    length= 8 gigabytes (2^33 bytes), time= 145 seconds
+      no anomalies in 212 test result(s)
+
+    rng=RNG_stdin64, seed=0xd2d51fe2
+    length= 16 gigabytes (2^34 bytes), time= 286 seconds
+      no anomalies in 223 test result(s)
+
+    rng=RNG_stdin64, seed=0xd2d51fe2
+    length= 32 gigabytes (2^35 bytes), time= 564 seconds
+      no anomalies in 233 test result(s)
+
+    rng=RNG_stdin64, seed=0xd2d51fe2
+    length= 64 gigabytes (2^36 bytes), time= 1186 seconds
+      Test Name                         Raw       Processed     Evaluation
+      BRank(12):12K(1)                  R= +1272  p~=  5.4e-384   FAIL !!!!!!!
+      ...and 243 test result(s) without anomalies
