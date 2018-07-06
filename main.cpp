@@ -23,8 +23,12 @@
 
 #include <cstdint>
 #include <iostream>
+#include <limits>
+#include <cmath>
+#include <vector>
 
 #include "plf_nanotimer.h"
+#include "statistics.hpp"
 #include "xoroshiro_meo.hpp"
 #include "xoroshiro2.hpp"
 
@@ -35,46 +39,41 @@
 namespace ver = v2;
 
 
-int main ( ) {
+double test ( ) noexcept {
 
     plf::nanotimer timer;
-    double results = 0.0;
+    double result = 0.0;
 
-    std::uint64_t cnt = 1;
+    std::int64_t cnt = 100'000'000;
 
-    ver::xoroshiro128plus64 gen1 ( 0xBE1C0467EBA5FAC1 );
-    ver::xoroshiro128plus64 gen2 ( 0xBE2C0467EBA5FAC2 );
-    ver::xoroshiro128plus64 gen3 ( 0xBE3C0467EBA5FAC3 );
-    ver::xoroshiro128plus64 gen4 ( 0xBE4C0467EBA5FAC4 );
-    ver::xoroshiro128plus64 gen5 ( 0xBE5C0467EBA5FAC5 );
+    ver::xoroshiro128plus64 gen ( 0xBE1C0467EBA5FAC1 );
 
-    while ( cnt-- ) {
+    VOLATILE std::uint64_t acc = 0;
 
-        std::int64_t cnt1 = 1'000'000'000, cnt2 = cnt1, cnt3 = cnt1, cnt4 = cnt1, cnt5 = cnt1;
-
-        VOLATILE std::uint64_t acc1 = 0;
-        timer.start ( );
-        while ( cnt1-- ) acc1 += gen1 ( );
-        results = timer.get_elapsed_ms ( ); std::cout << "Timing: " << ( std::uint64_t ) results << " milliseconds." << std::endl;
-
-        VOLATILE std::uint64_t acc2 = 0;
-        timer.start ( );
-        while ( cnt2-- ) acc2 += gen2 ( );
-        results = timer.get_elapsed_ms ( ); std::cout << "Timing: " << ( std::uint64_t ) results << " milliseconds." << std::endl;
-
-        VOLATILE std::uint64_t acc3 = 0;
-        timer.start ( );
-        while ( cnt3-- ) acc3 += gen3 ( );
-        results = timer.get_elapsed_ms ( ); std::cout << "Timing: " << ( std::uint64_t ) results << " milliseconds." << std::endl;
-
-        VOLATILE std::uint64_t acc4 = 0;
-        timer.start ( );
-        while ( cnt4-- ) acc4 += gen4 ( );
-        results = timer.get_elapsed_ms ( ); std::cout << "Timing: " << ( std::uint64_t ) results << " milliseconds." << std::endl;
-
-        VOLATILE std::uint64_t acc5 = 0;
-        timer.start ( );
-        while ( cnt5-- ) acc1 += gen5 ( );
-        results = timer.get_elapsed_ms ( ); std::cout << "Timing: " << ( std::uint64_t ) results << " milliseconds." << std::endl;
+    for  ( std::size_t i = 0; i < 256; ++i ) { // some warmup
+        acc += gen ( );
     }
+
+    timer.start ( );
+    while ( cnt-- ) acc += gen ( );
+    result = timer.get_elapsed_ms ( ); // std::cout << "Timing: " << ( std::uint64_t ) result << " milliseconds." << std::endl;
+
+    return result;
+}
+
+
+int main ( ) {
+
+    const std::size_t n = 512;
+
+    std::vector<double> results;
+    results.reserve ( n );
+
+    for  ( std::size_t i = 0; i < n; ++i ) {
+        results.push_back ( test ( ) );
+    }
+
+    std::cout << "Lowest : " << ( std::uint64_t ) stats::ddmin ( results.data ( ), results.size ( ) ) << " milliseconds." << std::endl;
+    std::cout << "Average: " << ( std::uint64_t ) stats::ddmean ( results.data ( ), results.size ( ) ) << " milliseconds." << std::endl;
+    std::cout << "St Dev.: " << ( std::uint64_t ) std::sqrt ( stats::ddvariance ( results.data ( ), results.size ( ) ) / results.size ( ) ) << " milliseconds." << std::endl;
 }

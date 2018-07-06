@@ -18,6 +18,9 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="statistics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="xoroshiro_meo.hpp">
@@ -27,6 +30,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="xoroshiro_degski.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="statistics.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -82,9 +82,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="statistics.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="plf_nanotimer.h" />
+    <ClInclude Include="statistics.hpp" />
     <ClInclude Include="xoroshiro_degski.hpp" />
     <ClInclude Include="xoroshiro_meo.hpp" />
   </ItemGroup>
