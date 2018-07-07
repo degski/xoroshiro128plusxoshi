@@ -188,6 +188,62 @@ Included a modified xoroshiro implementation by Melissa E. O'Neill, the author o
       ...and 225 test result(s) without anomalies
 
 
+#### Splitmix64
+
+    Z:\REPOS\xoroshiro2>practrand-tester.exe   | rng_test-0.93.exe stdin64 -tlmaxonly
+    RNG_test using PractRand version 0.93
+    RNG = RNG_stdin64, seed = 0x842e3c04
+    test set = normal, folding = standard (64 bit)
+
+    rng=RNG_stdin64, seed=0x842e3c04
+    length= 128 megabytes (2^27 bytes), time= 2.3 seconds
+      Test Name                         Raw       Processed     Evaluation
+      [Low16/64]Gap-16:B                R=  -4.1  p =1-1.7e-3   unusual
+      ...and 147 test result(s) without anomalies
+
+    rng=RNG_stdin64, seed=0x842e3c04
+    length= 256 megabytes (2^28 bytes), time= 5.4 seconds
+      no anomalies in 159 test result(s)
+
+    rng=RNG_stdin64, seed=0x842e3c04
+    length= 512 megabytes (2^29 bytes), time= 10.6 seconds
+      Test Name                         Raw       Processed     Evaluation
+      [Low4/64]DC6-9x1Bytes-1           R=  -3.9  p =1-7.4e-3   unusual
+      ...and 168 test result(s) without anomalies
+
+    rng=RNG_stdin64, seed=0x842e3c04
+    length= 1 gigabyte (2^30 bytes), time= 20.3 seconds
+      no anomalies in 180 test result(s)
+
+    rng=RNG_stdin64, seed=0x842e3c04
+    length= 2 gigabytes (2^31 bytes), time= 39.0 seconds
+      no anomalies in 191 test result(s)
+
+    rng=RNG_stdin64, seed=0x842e3c04
+    length= 4 gigabytes (2^32 bytes), time= 74.8 seconds
+      no anomalies in 201 test result(s)
+
+    rng=RNG_stdin64, seed=0x842e3c04
+    length= 8 gigabytes (2^33 bytes), time= 147 seconds
+      no anomalies in 212 test result(s)
+
+    rng=RNG_stdin64, seed=0x842e3c04
+    length= 16 gigabytes (2^34 bytes), time= 289 seconds
+      no anomalies in 223 test result(s)
+
+    rng=RNG_stdin64, seed=0x842e3c04
+    length= 32 gigabytes (2^35 bytes), time= 563 seconds
+      no anomalies in 233 test result(s)
+
+    rng=RNG_stdin64, seed=0x842e3c04
+    length= 64 gigabytes (2^36 bytes), time= 1144 seconds
+      no anomalies in 244 test result(s)
+
+    rng=RNG_stdin64, seed=0x842e3c04
+    length= 128 gigabytes (2^37 bytes), time= 2331 seconds
+      no anomalies in 255 test result(s)
+
+
 #### Shift 16
 
     RNG_test using PractRand version 0.93
