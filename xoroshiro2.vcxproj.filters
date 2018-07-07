@@ -35,6 +35,9 @@
     <ClInclude Include="xoroshiro2.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="version.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="LICENCE.md" />

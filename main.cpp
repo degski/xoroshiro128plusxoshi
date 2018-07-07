@@ -31,13 +31,7 @@
 #include "statistics.hpp"
 #include "xoroshiro_meo.hpp"
 #include "xoroshiro2.hpp"
-
-
-#define VOLATILE volatile
-
-
-namespace ver = v2;
-
+#include "version.hpp" // in this order.
 
 double test ( ) noexcept {
 
@@ -48,7 +42,7 @@ double test ( ) noexcept {
 
     ver::xoroshiro128plus64 gen ( 0xBE1C0467EBA5FAC1 );
 
-    VOLATILE std::uint64_t acc = 0;
+    volatile std::uint64_t acc = 0;
 
     for  ( std::size_t i = 0; i < 256; ++i ) { // some warmup
         acc += gen ( );

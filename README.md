@@ -33,6 +33,159 @@ Included a modified xoroshiro implementation by Melissa E. O'Neill, the author o
 
 #### meo-v1
 
+    RNG_test using PractRand version 0.93
+    RNG = RNG_stdin64, seed = 0x6259a10f
+    test set = normal, folding = standard (64 bit)
+
+    rng=RNG_stdin64, seed=0x6259a10f
+    length= 128 megabytes (2^27 bytes), time= 3.9 seconds
+      Test Name                         Raw       Processed     Evaluation
+      [Low1/64]BRank(12):256(2)         R= +3748  p~=  3e-1129    FAIL !!!!!!!!
+      [Low1/64]BRank(12):384(1)         R= +5405  p~=  3e-1628    FAIL !!!!!!!!
+      ...and 146 test result(s) without anomalies
+
+    rng=RNG_stdin64, seed=0x6259a10f
+    length= 256 megabytes (2^28 bytes), time= 9.3 seconds
+      Test Name                         Raw       Processed     Evaluation
+      [Low4/64]BRank(12):768(1)         R= +1272  p~=  5.4e-384   FAIL !!!!!!!
+      [Low1/64]BRank(12):256(2)         R= +3748  p~=  3e-1129    FAIL !!!!!!!!
+      [Low1/64]BRank(12):384(1)         R= +5405  p~=  3e-1628    FAIL !!!!!!!!
+      [Low1/64]BRank(12):512(1)         R= +8161  p~=  1e-2457    FAIL !!!!!!!!
+      ...and 155 test result(s) without anomalies
+
+    rng=RNG_stdin64, seed=0x6259a10f
+    length= 512 megabytes (2^29 bytes), time= 18.4 seconds
+      Test Name                         Raw       Processed     Evaluation
+      [Low4/64]BRank(12):768(1)         R= +1272  p~=  5.4e-384   FAIL !!!!!!!
+      [Low4/64]BRank(12):1K(1)          R= +2650  p~=  9.8e-799   FAIL !!!!!!!
+      [Low1/64]Gap-16:A                 R=  -3.5  p =1-1.5e-3   unusual
+      [Low1/64]BRank(12):256(2)         R= +3748  p~=  3e-1129    FAIL !!!!!!!!
+      [Low1/64]BRank(12):384(1)         R= +5405  p~=  3e-1628    FAIL !!!!!!!!
+      [Low1/64]BRank(12):512(1)         R= +8161  p~=  1e-2457    FAIL !!!!!!!!
+      ...and 163 test result(s) without anomalies
+
+    rng=RNG_stdin64, seed=0x6259a10f
+    length= 1 gigabyte (2^30 bytes), time= 35.7 seconds
+      Test Name                         Raw       Processed     Evaluation
+      [Low4/64]BRank(12):768(1)         R= +1272  p~=  5.4e-384   FAIL !!!!!!!
+      [Low4/64]BRank(12):1K(1)          R= +2650  p~=  9.8e-799   FAIL !!!!!!!
+      [Low1/64]DC6-9x1Bytes-1           R=  +5.4  p =  8.8e-3   unusual
+      [Low1/64]BRank(12):256(2)         R= +3748  p~=  3e-1129    FAIL !!!!!!!!
+      [Low1/64]BRank(12):384(1)         R= +5405  p~=  3e-1628    FAIL !!!!!!!!
+      [Low1/64]BRank(12):512(2)         R=+11541  p~=  2e-3475    FAIL !!!!!!!!
+      [Low1/64]BRank(12):768(1)         R=+13672  p~=  1e-4116    FAIL !!!!!!!!
+      ...and 173 test result(s) without anomalies
+
+    rng=RNG_stdin64, seed=0x6259a10f
+    length= 2 gigabytes (2^31 bytes), time= 63.2 seconds
+      Test Name                         Raw       Processed     Evaluation
+      [Low4/64]BRank(12):768(1)         R= +1272  p~=  5.4e-384   FAIL !!!!!!!
+      [Low4/64]BRank(12):1K(2)          R= +3748  p~=  3e-1129    FAIL !!!!!!!!
+      [Low4/64]BRank(12):1536(1)        R= +5405  p~=  3e-1628    FAIL !!!!!!!!
+      [Low1/64]BRank(12):256(2)         R= +3748  p~=  3e-1129    FAIL !!!!!!!!
+      [Low1/64]BRank(12):384(1)         R= +5405  p~=  3e-1628    FAIL !!!!!!!!
+      [Low1/64]BRank(12):512(2)         R=+11541  p~=  2e-3475    FAIL !!!!!!!!
+      [Low1/64]BRank(12):768(1)         R=+13672  p~=  1e-4116    FAIL !!!!!!!!
+      [Low1/64]BRank(12):1K(1)          R=+19183  p~=  1e-5775    FAIL !!!!!!!!
+      ...and 183 test result(s) without anomalies
+
+    rng=RNG_stdin64, seed=0x6259a10f
+    length= 4 gigabytes (2^32 bytes), time= 121 seconds
+      Test Name                         Raw       Processed     Evaluation
+      [Low16/64]BRank(12):3K(1)         R= +1272  p~=  5.4e-384   FAIL !!!!!!!
+      [Low4/64]BRank(12):768(1)         R= +1272  p~=  5.4e-384   FAIL !!!!!!!
+      [Low4/64]BRank(12):1K(2)          R= +3748  p~=  3e-1129    FAIL !!!!!!!!
+      [Low4/64]BRank(12):1536(1)        R= +5405  p~=  3e-1628    FAIL !!!!!!!!
+      [Low4/64]BRank(12):2K(1)          R= +8161  p~=  1e-2457    FAIL !!!!!!!!
+      [Low1/64]BRank(12):256(2)         R= +3748  p~=  3e-1129    FAIL !!!!!!!!
+      [Low1/64]BRank(12):384(1)         R= +5405  p~=  3e-1628    FAIL !!!!!!!!
+      [Low1/64]BRank(12):512(2)         R=+11541  p~=  2e-3475    FAIL !!!!!!!!
+      [Low1/64]BRank(12):768(1)         R=+13672  p~=  1e-4116    FAIL !!!!!!!!
+      [Low1/64]BRank(12):1K(1)          R=+19183  p~=  1e-5775    FAIL !!!!!!!!
+      ...and 191 test result(s) without anomalies
+
+    rng=RNG_stdin64, seed=0x6259a10f
+    length= 8 gigabytes (2^33 bytes), time= 248 seconds
+      Test Name                         Raw       Processed     Evaluation
+      [Low16/64]FPF-14+6/16:cross       R=  +4.0  p =  1.0e-3   unusual
+      [Low16/64]BRank(12):3K(1)         R= +1272  p~=  5.4e-384   FAIL !!!!!!!
+      [Low16/64]BRank(12):4K(1)         R= +2650  p~=  9.8e-799   FAIL !!!!!!!
+      [Low4/64]DC6-9x1Bytes-1           R=  -4.1  p =1-5.6e-3   unusual
+      [Low4/64]BRank(12):768(1)         R= +1272  p~=  5.4e-384   FAIL !!!!!!!
+      [Low4/64]BRank(12):1K(2)          R= +3748  p~=  3e-1129    FAIL !!!!!!!!
+      [Low4/64]BRank(12):1536(1)        R= +5405  p~=  3e-1628    FAIL !!!!!!!!
+      [Low4/64]BRank(12):2K(1)          R= +8161  p~=  1e-2457    FAIL !!!!!!!!
+      [Low1/64]BRank(12):256(4)         R= +5300  p~=  1e-2819    FAIL !!!!!!!!
+      [Low1/64]BRank(12):384(1)         R= +5405  p~=  3e-1628    FAIL !!!!!!!!
+      [Low1/64]BRank(12):512(2)         R=+11541  p~=  2e-3475    FAIL !!!!!!!!
+      [Low1/64]BRank(12):768(1)         R=+13672  p~=  1e-4116    FAIL !!!!!!!!
+      [Low1/64]BRank(12):1K(2)          R=+27129  p~=  1e-8167    FAIL !!!!!!!!
+      [Low1/64]BRank(12):1536(1)        R=+30205  p~=  1e-9093    FAIL !!!!!!!!
+      ...and 198 test result(s) without anomalies
+
+    rng=RNG_stdin64, seed=0x6259a10f
+    length= 16 gigabytes (2^34 bytes), time= 467 seconds
+      Test Name                         Raw       Processed     Evaluation
+      [Low16/64]BRank(12):3K(1)         R= +1272  p~=  5.4e-384   FAIL !!!!!!!
+      [Low16/64]BRank(12):4K(1)         R= +2650  p~=  9.8e-799   FAIL !!!!!!!
+      [Low4/64]BRank(12):768(1)         R= +1272  p~=  5.4e-384   FAIL !!!!!!!
+      [Low4/64]BRank(12):1K(2)          R= +3748  p~=  3e-1129    FAIL !!!!!!!!
+      [Low4/64]BRank(12):1536(1)        R= +5405  p~=  3e-1628    FAIL !!!!!!!!
+      [Low4/64]BRank(12):2K(2)          R=+11541  p~=  2e-3475    FAIL !!!!!!!!
+      [Low4/64]BRank(12):3K(1)          R=+13672  p~=  1e-4116    FAIL !!!!!!!!
+      [Low1/64]BRank(12):256(4)         R= +5300  p~=  1e-2819    FAIL !!!!!!!!
+      [Low1/64]BRank(12):384(1)         R= +5405  p~=  3e-1628    FAIL !!!!!!!!
+      [Low1/64]BRank(12):512(2)         R=+11541  p~=  2e-3475    FAIL !!!!!!!!
+      [Low1/64]BRank(12):768(1)         R=+13672  p~=  1e-4116    FAIL !!!!!!!!
+      [Low1/64]BRank(12):1K(2)          R=+27129  p~=  1e-8167    FAIL !!!!!!!!
+      [Low1/64]BRank(12):1536(1)        R=+30205  p~=  1e-9093    FAIL !!!!!!!!
+      [Low1/64]BRank(12):2K(1)          R=+41227  p~= 0           FAIL !!!!!!!!
+      ...and 209 test result(s) without anomalies
+
+    rng=RNG_stdin64, seed=0x6259a10f
+    length= 32 gigabytes (2^35 bytes), time= 767 seconds
+      Test Name                         Raw       Processed     Evaluation
+      [Low16/64]BRank(12):3K(1)         R= +1272  p~=  5.4e-384   FAIL !!!!!!!
+      [Low16/64]BRank(12):4K(2)         R= +3748  p~=  3e-1129    FAIL !!!!!!!!
+      [Low16/64]BRank(12):6K(1)         R= +5405  p~=  3e-1628    FAIL !!!!!!!!
+      [Low4/64]BRank(12):768(1)         R= +1272  p~=  5.4e-384   FAIL !!!!!!!
+      [Low4/64]BRank(12):1K(2)          R= +3748  p~=  3e-1129    FAIL !!!!!!!!
+      [Low4/64]BRank(12):1536(1)        R= +5405  p~=  3e-1628    FAIL !!!!!!!!
+      [Low4/64]BRank(12):2K(2)          R=+11541  p~=  2e-3475    FAIL !!!!!!!!
+      [Low4/64]BRank(12):3K(1)          R=+13672  p~=  1e-4116    FAIL !!!!!!!!
+      [Low4/64]BRank(12):4K(1)          R=+19183  p~=  1e-5775    FAIL !!!!!!!!
+      [Low1/64]BRank(12):256(4)         R= +5300  p~=  1e-2819    FAIL !!!!!!!!
+      [Low1/64]BRank(12):384(1)         R= +5405  p~=  3e-1628    FAIL !!!!!!!!
+      [Low1/64]BRank(12):512(2)         R=+11541  p~=  2e-3475    FAIL !!!!!!!!
+      [Low1/64]BRank(12):768(1)         R=+13672  p~=  1e-4116    FAIL !!!!!!!!
+      [Low1/64]BRank(12):1K(2)          R=+27129  p~=  1e-8167    FAIL !!!!!!!!
+      [Low1/64]BRank(12):1536(1)        R=+30205  p~=  1e-9093    FAIL !!!!!!!!
+      [Low1/64]BRank(12):2K(1)          R=+41227  p~= 0           FAIL !!!!!!!!
+      ...and 217 test result(s) without anomalies
+
+    rng=RNG_stdin64, seed=0x6259a10f
+    length= 64 gigabytes (2^36 bytes), time= 1370 seconds
+      Test Name                         Raw       Processed     Evaluation
+      BRank(12):12K(1)                  R= +1272  p~=  5.4e-384   FAIL !!!!!!!
+      [Low16/64]BRank(12):3K(1)         R= +1272  p~=  5.4e-384   FAIL !!!!!!!
+      [Low16/64]BRank(12):4K(2)         R= +3748  p~=  3e-1129    FAIL !!!!!!!!
+      [Low16/64]BRank(12):6K(1)         R= +5405  p~=  3e-1628    FAIL !!!!!!!!
+      [Low16/64]BRank(12):8K(1)         R= +8161  p~=  1e-2457    FAIL !!!!!!!!
+      [Low4/64]BRank(12):768(1)         R= +1272  p~=  5.4e-384   FAIL !!!!!!!
+      [Low4/64]BRank(12):1K(2)          R= +3748  p~=  3e-1129    FAIL !!!!!!!!
+      [Low4/64]BRank(12):1536(1)        R= +5405  p~=  3e-1628    FAIL !!!!!!!!
+      [Low4/64]BRank(12):2K(2)          R=+11541  p~=  2e-3475    FAIL !!!!!!!!
+      [Low4/64]BRank(12):3K(1)          R=+13672  p~=  1e-4116    FAIL !!!!!!!!
+      [Low4/64]BRank(12):4K(1)          R=+19183  p~=  1e-5775    FAIL !!!!!!!!
+      [Low1/64]BRank(12):256(4)         R= +5300  p~=  1e-2819    FAIL !!!!!!!!
+      [Low1/64]BRank(12):384(1)         R= +5405  p~=  3e-1628    FAIL !!!!!!!!
+      [Low1/64]BRank(12):512(4)         R=+16322  p~=  1e-8681    FAIL !!!!!!!!
+      [Low1/64]BRank(12):768(1)         R=+13672  p~=  1e-4116    FAIL !!!!!!!!
+      [Low1/64]BRank(12):1K(2)          R=+27129  p~=  1e-8167    FAIL !!!!!!!!
+      [Low1/64]BRank(12):1536(1)        R=+30205  p~=  1e-9093    FAIL !!!!!!!!
+      [Low1/64]BRank(12):2K(2)          R=+58303  p~= 0           FAIL !!!!!!!!
+      [Low1/64]BRank(12):3K(1)          R=+63271  p~= 0           FAIL !!!!!!!!
+      ...and 225 test result(s) without anomalies
 
 
 #### Shift 16

@@ -31,11 +31,7 @@
 
 #include "../xoroshiro_meo.hpp"
 #include "../xoroshiro2.hpp"
-
-
-#define __AVX2__ 1
-
-namespace ver = meo;
+#include "../version.hpp" // in this order.
 
 auto main ( ) -> int {
 
