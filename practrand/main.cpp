@@ -31,7 +31,9 @@
 
 #include "../xoroshiro_meo.hpp"
 #include "../xoroshiro2.hpp"
+#include "../splitmix.hpp"
 #include "../version.hpp" // in this order.
+
 
 auto main ( ) -> int {
 
@@ -39,9 +41,7 @@ auto main ( ) -> int {
     _setmode ( _fileno ( stdout ), _O_BINARY );
 #endif
 
-    using Generator = ver::xoroshiro128plus64;
-
-    using result_type = typename ver::xoroshiro128plus64::result_type;
+    using result_type = typename Generator::result_type;
 
     Generator rng ( 0xBEAC0467EBA5FACB );
 

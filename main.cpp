@@ -31,7 +31,9 @@
 #include "statistics.hpp"
 #include "xoroshiro_meo.hpp"
 #include "xoroshiro2.hpp"
+#include "splitmix.hpp"
 #include "version.hpp" // in this order.
+
 
 double test ( ) noexcept {
 
@@ -40,7 +42,7 @@ double test ( ) noexcept {
 
     std::int64_t cnt = 100'000'000;
 
-    ver::xoroshiro128plus64 gen ( 0xBE1C0467EBA5FAC1 );
+    Generator gen ( 0xBE1C0467EBA5FAC1 );
 
     volatile std::uint64_t acc = 0;
 

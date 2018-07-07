@@ -123,7 +123,7 @@ public:
         // Melissa E. O'Neill:
         // return result >> ( base::ITYPE_BITS - base::RTYPE_BITS );
         // degski:
-        return ( ( result >> 11 ) ^ ( ~result ) ) >> ( base::ITYPE_BITS - base::RTYPE_BITS );
+        return ( ( ( result >> 24 ) & 0b00000000'00000000'00000000'00000000'00000000'00000000'11111111'11111111 ) ^ ( result ) ) >> ( base::ITYPE_BITS - base::RTYPE_BITS );
     }
 };
 
