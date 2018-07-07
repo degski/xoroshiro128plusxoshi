@@ -31,6 +31,10 @@ Included a modified xoroshiro implementation by Melissa E. O'Neill, the author o
 
 ### Practrand results
 
+#### meo-v1
+
+
+
 #### Shift 16
 
     RNG_test using PractRand version 0.93
@@ -77,6 +81,58 @@ Included a modified xoroshiro implementation by Melissa E. O'Neill, the author o
 
     rng=RNG_stdin64, seed=0xdb4dda77
     length= 64 gigabytes (2^36 bytes), time= 1135 seconds
+      Test Name                         Raw       Processed     Evaluation
+      BRank(12):12K(1)                  R= +1272  p~=  5.4e-384   FAIL !!!!!!!
+      ...and 243 test result(s) without anomalies
+
+
+#### Shift 21
+
+    RNG_test using PractRand version 0.93
+    RNG = RNG_stdin64, seed = 0x3b9d8777
+    test set = normal, folding = standard (64 bit)
+
+    rng=RNG_stdin64, seed=0x3b9d8777
+    length= 128 megabytes (2^27 bytes), time= 2.4 seconds
+      no anomalies in 148 test result(s)
+
+    rng=RNG_stdin64, seed=0x3b9d8777
+    length= 256 megabytes (2^28 bytes), time= 5.6 seconds
+      no anomalies in 159 test result(s)
+
+    rng=RNG_stdin64, seed=0x3b9d8777
+    length= 512 megabytes (2^29 bytes), time= 11.4 seconds
+      no anomalies in 169 test result(s)
+
+    rng=RNG_stdin64, seed=0x3b9d8777
+    length= 1 gigabyte (2^30 bytes), time= 23.6 seconds
+      Test Name                         Raw       Processed     Evaluation
+      BCFN(2+0,13-1,T)                  R=  -6.8  p =1-1.8e-3   unusual
+      [Low1/64]BCFN(2+0,13-5,T)         R=  +8.6  p =  1.5e-3   unusual
+      ...and 178 test result(s) without anomalies
+
+    rng=RNG_stdin64, seed=0x3b9d8777
+    length= 2 gigabytes (2^31 bytes), time= 44.6 seconds
+      no anomalies in 191 test result(s)
+
+    rng=RNG_stdin64, seed=0x3b9d8777
+    length= 4 gigabytes (2^32 bytes), time= 81.8 seconds
+      no anomalies in 201 test result(s)
+
+    rng=RNG_stdin64, seed=0x3b9d8777
+    length= 8 gigabytes (2^33 bytes), time= 157 seconds
+      no anomalies in 212 test result(s)
+
+    rng=RNG_stdin64, seed=0x3b9d8777
+    length= 16 gigabytes (2^34 bytes), time= 305 seconds
+      no anomalies in 223 test result(s)
+
+    rng=RNG_stdin64, seed=0x3b9d8777
+    length= 32 gigabytes (2^35 bytes), time= 593 seconds
+      no anomalies in 233 test result(s)
+
+    rng=RNG_stdin64, seed=0x3b9d8777
+    length= 64 gigabytes (2^36 bytes), time= 1192 seconds
       Test Name                         Raw       Processed     Evaluation
       BRank(12):12K(1)                  R= +1272  p~=  5.4e-384   FAIL !!!!!!!
       ...and 243 test result(s) without anomalies

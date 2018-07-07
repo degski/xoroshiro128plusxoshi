@@ -35,7 +35,7 @@
 
 #define __AVX2__ 1
 
-namespace ver = v2;
+namespace ver = meo;
 
 auto main ( ) -> int {
 
