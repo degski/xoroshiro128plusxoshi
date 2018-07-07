@@ -87,7 +87,7 @@
   <ItemGroup>
     <ClInclude Include="plf_nanotimer.h" />
     <ClInclude Include="statistics.hpp" />
-    <ClInclude Include="version.hpp" />
+    <ClInclude Include="generator.hpp" />
     <ClInclude Include="xoroshiro2.hpp" />
     <ClInclude Include="xoroshiro_meo.hpp" />
   </ItemGroup>

@@ -29,10 +29,7 @@
 #include <cstdint>
 #include <iostream>
 
-#include "../xoroshiro_meo.hpp"
-#include "../xoroshiro2.hpp"
-#include "../splitmix.hpp"
-#include "../version.hpp" // in this order.
+#include "../generator.hpp" // in this order.
 
 
 auto main ( ) -> int {
