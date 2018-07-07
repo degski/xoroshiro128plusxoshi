@@ -3,7 +3,7 @@
 
 #define __AVX2__ 1
 
-namespace ver = v2;
 
-// using Generator = ver::xoroshiro128plus64;
+// using Generator = meo::xoroshiro128plus64;
+// using Generator = v2::xoroshiro128plus64;
 using Generator = splitmix64;
