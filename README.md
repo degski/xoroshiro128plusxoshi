@@ -8,6 +8,7 @@ Included a modified xoroshiro implementation by Melissa E. O'Neill, the author o
 
 ## Results
 
+
 ### Speed-test
 
 #### Context
@@ -19,10 +20,13 @@ Included a modified xoroshiro implementation by Melissa E. O'Neill, the author o
 * Generator tested: the improved 2018  `xoroshiro128plus64 v1`
 * 100'000'000 numbers generated, 512 runs
 
+
 #### Results
 
      generator                    fastest (ms)    mean (ms)
 
+    * splitmix64                    305            309
+    * pcg64                         372            373
     * meo-v1                        300            314
     * shift 48                      300            316
     * shift 32                      300            317
@@ -190,7 +194,6 @@ Included a modified xoroshiro implementation by Melissa E. O'Neill, the author o
 
 #### Splitmix64
 
-    Z:\REPOS\xoroshiro2>practrand-tester.exe   | rng_test-0.93.exe stdin64 -tlmaxonly
     RNG_test using PractRand version 0.93
     RNG = RNG_stdin64, seed = 0x842e3c04
     test set = normal, folding = standard (64 bit)
@@ -242,6 +245,13 @@ Included a modified xoroshiro implementation by Melissa E. O'Neill, the author o
     rng=RNG_stdin64, seed=0x842e3c04
     length= 128 gigabytes (2^37 bytes), time= 2331 seconds
       no anomalies in 255 test result(s)
+
+    I'll test some more.
+
+
+#### pcg64
+
+    pcg64 was not tested. I don't have enough time to wait for it to fail.
 
 
 #### Shift 16
