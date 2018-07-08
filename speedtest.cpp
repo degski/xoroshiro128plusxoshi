@@ -69,5 +69,5 @@ int main ( ) {
 
     std::cout << "Lowest : " << ( std::uint64_t ) stats::ddmin ( results.data ( ), results.size ( ) ) << " milliseconds." << std::endl;
     std::cout << "Average: " << ( std::uint64_t ) stats::ddmean ( results.data ( ), results.size ( ) ) << " milliseconds." << std::endl;
-    std::cout << "St Dev.: " << ( std::uint64_t ) std::sqrt ( stats::ddvariance ( results.data ( ), results.size ( ) ) / results.size ( ) ) << " milliseconds." << std::endl;
+    // std::cout << "St Dev.: " << ( std::uint64_t ) std::sqrt ( stats::ddvariance ( results.data ( ), results.size ( ) ) / results.size ( ) ) << " milliseconds." << std::endl;
 }
