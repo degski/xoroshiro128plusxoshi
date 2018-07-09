@@ -41,7 +41,7 @@ struct generator_cache : private Generator {
 
     result_type operator ( ) ( ) noexcept {
         if ( m_index ) {
-            return m_data [ --m_index ];
+            return m_data [ m_index-- ]; // makes the order of the decrement free to schedule for the compiler.
         }
         else {
             Generator::generate ( std::begin ( m_data ), std::end ( m_data ) );
