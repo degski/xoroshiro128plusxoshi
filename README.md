@@ -29,7 +29,7 @@ tl;dr: the output function of `xoroshiro128plus` has been modified as per below:
 
 * Intel Ci3-5005U (Broadwell) CPU
 * Windows 10-1803-x64 in `diagnostics mode` (core services only), and Windows Defender off
-* Compiler: [`LLVM-7.0.0-r336178-win64`](https://llvm.org/builds/)
+* Compiler: [`LLVM-7.0.0-r336178-win64`](http://prereleases.llvm.org/win-snapshots/LLVM-7.0.0-r336178-win64.exe)
 * Command-line: `clang-cl -fuse-ld=lld -flto=thin  /D "NDEBUG" /D "_CONSOLE" /D "NOMINMAX" /D "_UNICODE" /D "UNICODE" -Xclang -fcxx-exceptions /Ox /Oi /MT main.cpp statistics.cpp -Xclang -std=c++2a -Xclang -ffast-math -mmmx  -msse  -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mavx -mavx2`
 * Generator tested: the improved 2018  `xoroshiro128plus64 v1`
 * 100'000'000 numbers generated, 512 runs
@@ -53,7 +53,7 @@ tl;dr: the output function of `xoroshiro128plus` has been modified as per below:
 
 ### Practrand results
 
-#### xoroshiro128plus64-v1
+#### Xoroshiro128plus64-v1
 
     RNG_test using PractRand version 0.93
     RNG = RNG_stdin64, seed = 0x6259a10f
@@ -267,12 +267,12 @@ tl;dr: the output function of `xoroshiro128plus` has been modified as per below:
     I'll test some more.
 
 
-#### pcg64
+#### Pcg64
 
     pcg64 was not tested. I don't have enough time to wait for it to fail.
 
 
-#### Shift 16
+#### Xoroshiro128plus64-v1 + Shift 16
 
     RNG_test using PractRand version 0.93
     RNG = RNG_stdin64, seed = 0xdb4dda77
@@ -323,7 +323,7 @@ tl;dr: the output function of `xoroshiro128plus` has been modified as per below:
       ...and 243 test result(s) without anomalies
 
 
-#### Shift 21 (I tested some other 'odd' values, with similar results)
+#### Xoroshiro128plus64-v1 + Shift 21 (I tested some other 'odd' values, with similar results)
 
     RNG_test using PractRand version 0.93
     RNG = RNG_stdin64, seed = 0x3b9d8777
@@ -375,7 +375,7 @@ tl;dr: the output function of `xoroshiro128plus` has been modified as per below:
       ...and 243 test result(s) without anomalies
 
 
-#### Shift 32
+#### Xoroshiro128plus64-v1 + Shift 32
 
     RNG_test using PractRand version 0.93
     RNG = RNG_stdin64, seed = 0x47700e2c
@@ -429,7 +429,7 @@ tl;dr: the output function of `xoroshiro128plus` has been modified as per below:
       ...and 243 test result(s) without anomalies
 
 
-#### Shift 48
+#### Xoroshiro128plus64-v1 + Shift 48
 
     RNG_test using PractRand version 0.93
     RNG = RNG_stdin64, seed = 0xd2d51fe2
