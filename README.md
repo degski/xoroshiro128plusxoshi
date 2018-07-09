@@ -5,7 +5,7 @@ Improved xoroshiro generator, better at **zero cost** (Intel Ci3-5005U (Broadwel
 
 Included a modified xoroshiro implementation by Melissa E. O'Neill, the author of the excellent [pcg](http://www.pcg-random.org/) familiy of prng's. Don't miss her [blog](http://www.pcg-random.org/blog/), which is a gold-mine of information (and code) and is updated regulary.
 
-TL:DR: the output function of `xoroshiro128plus` has been modified as per below:
+tl;dr: the output function of `xoroshiro128plus` has been modified as per below:
 
     rtype operator()()
     {
@@ -49,7 +49,7 @@ TL:DR: the output function of `xoroshiro128plus` has been modified as per below:
 
 ### Practrand results
 
-#### meo-v1
+#### xoroshiro128plus64-v1
 
     RNG_test using PractRand version 0.93
     RNG = RNG_stdin64, seed = 0x6259a10f
