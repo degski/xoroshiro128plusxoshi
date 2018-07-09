@@ -39,10 +39,10 @@ tl;dr: the output function of `xoroshiro128plus` has been modified as per below:
 
      generator                    fastest (ms)    mean (ms)
 
-    * splitmix64                    305            309
     * pcg64                         372            373
     * sfc (Chris Doty-Humphrey)     357            365 *)
     * lehmer_fast (meo)             318            324 *)
+    * splitmix64                    305            309
     * xoroshiro128plus64-v1         300            314
     * shift 48                      300            316
     * shift 32                      300            317
