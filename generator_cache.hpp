@@ -39,7 +39,7 @@ struct generator_cache : private Generator {
     template<typename It>
     generator_cache ( It & first_, It last ) : Generator ( first_, last ) { }
 
-    result_type operator ( ) ( ) noexcept {
+    result_type operator ( ) ( ) noexcept { // can still be improved (do something else than shift if sizes differ)
         if ( m_index ) {
             return m_data [ m_index-- ] >> ( 8 * ( sizeof ( DataType ) - sizeof ( typename Generator::result_type ) ) ); // makes the order of the decrement free to schedule for the compiler.
         }
