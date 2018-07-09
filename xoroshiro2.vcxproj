@@ -96,6 +96,7 @@
   <ItemGroup>
     <ClInclude Include="generator_cache.hpp" />
     <ClInclude Include="plf_nanotimer.h" />
+    <ClInclude Include="splitmix.hpp" />
     <ClInclude Include="statistics.hpp" />
     <ClInclude Include="generator.hpp" />
     <ClInclude Include="xoroshiro2.hpp" />

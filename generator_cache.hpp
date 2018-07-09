@@ -40,7 +40,7 @@ struct generator_cache : private Generator {
     generator_cache ( It & first_, It last ) : Generator ( first_, last ) { }
 
     result_type operator ( ) ( ) noexcept {
-        if ( m_index == data_size ( ) ) {
+        if ( data_size ( ) == m_index ) {
             Generator::generate ( std::begin ( m_data ), std::end ( m_data ) );
             // std::generate ( std::begin ( m_data ), std::end ( m_data ), [ this ] ( ) { return Generator::operator ( ) ( ); } );
             m_index = 1;
@@ -51,7 +51,7 @@ struct generator_cache : private Generator {
 
     static inline constexpr result_type min ( ) noexcept { return Generator::min ( ); }
     static inline constexpr result_type max ( ) noexcept { return Generator::max ( ); }
-    static inline constexpr std::size_t data_size ( ) noexcept { return std::size_t { 64 } / sizeof ( result_type ); } // assumes a 64 byte cache.
+    static inline constexpr std::size_t const data_size ( ) noexcept { return std::size_t { 64 } / sizeof ( result_type ); } // assumes a 64 byte cache.
 
     result_type m_data [ data_size ( ) ];
     size_type m_index = data_size ( );
