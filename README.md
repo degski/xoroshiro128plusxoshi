@@ -9,33 +9,35 @@ tl;dr: the output function of `xoroshiro128plus` has been modified as per below:
 
     rtype operator()()
     {
-            const itype result = base::s0_ + base::s1_;
+        const itype result = base::s0_ + base::s1_;
 
-            base::advance();
+        base::advance();
 
-            // Melissa E. O'Neill:
-            // return result >> ( base::ITYPE_BITS - base::RTYPE_BITS );
-            // degski:
-            return ( ( result >> 16 ) ^ result ) >> ( base::ITYPE_BITS - base::RTYPE_BITS );
+        // Melissa E. O'Neill:
+        // return result >> ( base::ITYPE_BITS - base::RTYPE_BITS );
+        // degski:
+        return ( ( result >> 16 ) ^ result ) >> ( base::ITYPE_BITS - base::RTYPE_BITS );
     }
 
 The above modification of `Xoroshiro128plus64-v1` is designated `Xoroshiro128plus64-v1 + shift 16 xor`, the others are analoguosly named.
 
 
-### ToDo:
+### TODO:
 
+I've "designed" another variant (wutshamacallit: `xoroshiro128plusxoshistarxoshi` maybe :-) ):
 
-I've "designed" another variant:
-
-    std::uint64_t operator()( )
+    rtype operator()()
     {
-            std::uint64_t r = _s [ 0 ] + _s [ 1 ];
-            advance ( );
-            r = ( ( r >> 32 ) ^ r ) * std::uint64_t { 0x1AEC805299990163 };
-            return ( r >> 32 ) ^ r;
+        itype result = base::s0_ + base::s1_;
+        base::advance ( );
+        // Melissa E. O'Neill:
+        // return result >> ( base::ITYPE_BITS - base::RTYPE_BITS );
+        // degski:
+        result = ( ( result >> 32 ) ^ result ) * result { 0x1AEC805299990163 };
+        return ( ( result >> 16 ) ^ result ) >> ( base::ITYPE_BITS - base::RTYPE_BITS );
     }
 
-I have good hopes on that one, I'll post results.
+I'll post results.
 
 
 ## Results
