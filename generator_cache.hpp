@@ -26,7 +26,7 @@
 #include <cstdint>
 
 
-template<typename Generator>
+template<typename Generator, std::size_t CacheLineSize = 64>  // assumes a 64 byte cache-line-size.
 struct generator_cache : private Generator {
 
     using result_type = typename Generator::result_type;
@@ -50,7 +50,7 @@ struct generator_cache : private Generator {
 
     static inline constexpr result_type min ( ) noexcept { return Generator::min ( ); }
     static inline constexpr result_type max ( ) noexcept { return Generator::max ( ); }
-    static inline constexpr std::size_t const data_size ( ) noexcept { return std::size_t { 64 } / sizeof ( result_type ); } // assumes a 64 byte cache.
+    static inline constexpr std::size_t const data_size ( ) noexcept { return CacheLineSize / sizeof ( result_type ); }
 
     result_type m_data [ data_size ( ) ];
     size_type m_index = data_size ( );

@@ -116,7 +116,7 @@ protected:
         return (n < 24) ? x ^ 0xaaaaaaaaaaaaaaaa : x;
     }
 
-    static uint64_t mix64(uint64_t x) {
+    static inline constexpr uint64_t mix64(uint64_t x) {
         x ^= x >> s;
         x *= m3;
         x ^= x >> t;
@@ -147,6 +147,7 @@ public:
         return mix64(next_seed());
     }
 
+    // degski:
     template<typename It>
     void generate (It it, const It end) {
         while (it != end) {
