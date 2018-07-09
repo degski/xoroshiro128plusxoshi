@@ -37,17 +37,17 @@ tl;dr: the output function of `xoroshiro128plus` has been modified as per below:
 
 #### Results
 
-     generator                          fastest (ms)    mean (ms)
+     generator                             fastest (ms)    mean (ms)
 
-    * pcg64                                 372            373
-    * sfc (Chris Doty-Humphrey)             357            365 *)
-    * mcg128 (Lehmer)                       308            313 *)
-    * splitmix64                            305            309
-    * mcg128_fast (Lehmer)                  303            308 *)
-    * xoroshiro128plus64-v1                 300            314
-    * xoroshiro128plus64-v1 + shift 48      300            316
-    * xoroshiro128plus64-v1 + shift 32      300            317
-    * xoroshiro128plus64-v1 + shift 16      300            313
+    * pcg64                                    372            373
+    * sfc (Chris Doty-Humphrey)                357            365 *)
+    * mcg128 (Lehmer)                          308            313 *)
+    * splitmix64                               305            309
+    * mcg128_fast (Lehmer)                     303            308 *)
+    * xoroshiro128plus64-v1                    300            314
+    * xoroshiro128plus64-v1 + shift 48 xor     300            316
+    * xoroshiro128plus64-v1 + shift 32 xor     300            317
+    * xoroshiro128plus64-v1 + shift 16 xor     300            313
 
 *) not yet tested in `diagnostic mode`, will shave of some ms.
 
@@ -341,7 +341,7 @@ tl;dr: the output function of `xoroshiro128plus` has been modified as per below:
     pcg64 was not tested. I don't have enough time to wait for it to fail.
 
 
-#### Xoroshiro128plus64-v1 + Shift 16
+#### Xoroshiro128plus64-v1 + shift 16 xor
 
     RNG_test using PractRand version 0.93
     RNG = RNG_stdin64, seed = 0xdb4dda77
@@ -392,7 +392,7 @@ tl;dr: the output function of `xoroshiro128plus` has been modified as per below:
       ...and 243 test result(s) without anomalies
 
 
-#### Xoroshiro128plus64-v1 + Shift 21 (I tested some other 'odd' values, with similar results)
+#### Xoroshiro128plus64-v1 + shift 21 xor (I tested some other 'odd' values, with similar results)
 
     RNG_test using PractRand version 0.93
     RNG = RNG_stdin64, seed = 0x3b9d8777
@@ -444,7 +444,7 @@ tl;dr: the output function of `xoroshiro128plus` has been modified as per below:
       ...and 243 test result(s) without anomalies
 
 
-#### Xoroshiro128plus64-v1 + Shift 32
+#### Xoroshiro128plus64-v1 + shift 32 xor
 
     RNG_test using PractRand version 0.93
     RNG = RNG_stdin64, seed = 0x47700e2c
@@ -498,7 +498,7 @@ tl;dr: the output function of `xoroshiro128plus` has been modified as per below:
       ...and 243 test result(s) without anomalies
 
 
-#### Xoroshiro128plus64-v1 + Shift 48
+#### Xoroshiro128plus64-v1 + shift 48 xor
 
     RNG_test using PractRand version 0.93
     RNG = RNG_stdin64, seed = 0xd2d51fe2
