@@ -37,4 +37,4 @@
 // using Generator = splitmix64;
 // using Generator = pcg64;
 // using Generator = iu::xoroshiro4x128plusavx;
-using Generator = iu::xoroshiro128plus;
+using Generator = iu::xoroshiro128plus64;
