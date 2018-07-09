@@ -10,7 +10,7 @@
  * Copyright (c) 2018 degski
  *
  * degski: eliminated passing the multiplier as a template parameter to
- *         work ICE in clang.
+ *         work around an ICE in Clang/LLVM front-end.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
