@@ -7,6 +7,10 @@
  * The MIT License (MIT)
  *
  * Copyright (c) 2018 Melissa E. O'Neill
+ * Copyright (c) 2018 degski
+ *
+ * degski: eliminated passing the multiplier as a template parameter to
+ *         work ICE in clang.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -29,47 +33,42 @@
 
 #include <cstdint>
 
-namespace lehmer_detail {
+namespace detail {
 
-template <typename rtype, typename stype, auto multiplier>
-class mcg {
+template <typename rtype, typename stype>
+class mcg128 {
     stype state_;
     static constexpr __uint128_t MCG_MULT = ( __uint128_t { 5017888479014934897ULL } << 64 ) + 2747143273072462557ULL; // passing as a template parameter crashes clang frontend.
 
-    static constexpr unsigned int STYPE_BITS = 8*sizeof(stype);
-    static constexpr unsigned int RTYPE_BITS = 8*sizeof(rtype);
+    static constexpr unsigned int STYPE_BITS = 8 * sizeof ( stype );
+    static constexpr unsigned int RTYPE_BITS = 8 * sizeof ( rtype );
 
 
-public:
+    public:
     using result_type = rtype;
-    static constexpr result_type min() { return result_type(0);  }
-    static constexpr result_type max() { return ~result_type(0); }
+    static constexpr result_type min ( ) { return result_type ( 0 ); }
+    static constexpr result_type max ( ) { return ~result_type ( 0 ); }
 
-    mcg(stype state = stype(0x9f57c403d06c42fcUL))
-        : state_(state | 1)
-    {
+    mcg128 ( stype state = stype ( 0x9f57c403d06c42fcUL ) )
+        : state_ ( state | 1 ) {
         // Nothing (else) to do.
     }
 
-    void advance()
-    {
+    void advance ( ) {
         state_ *= MCG_MULT;
     }
 
-    result_type operator()()
-    {
-        advance();
-        return result_type(state_ >> (STYPE_BITS - RTYPE_BITS));
+    result_type operator()( ) {
+        advance ( );
+        return result_type ( state_ >> ( STYPE_BITS - RTYPE_BITS ) );
     }
 
-    bool operator==(const mcg& rhs)
-    {
-        return (state_ == rhs.state_);
+    bool operator==( const mcg128& rhs ) {
+        return ( state_ == rhs.state_ );
     }
 
-    bool operator!=(const mcg& rhs)
-    {
-        return !operator==(rhs);
+    bool operator!=( const mcg128& rhs ) {
+        return !operator==( rhs );
     }
 
     // Not (yet) implemented:
@@ -78,14 +77,51 @@ public:
     //   - Seeding from a seed_seq.
 };
 
-} // namespace lehmer_detail
 
-using mcg128 = lehmer_detail::mcg<uint64_t, __uint128_t, 0>;
-                                     // (__uint128_t(5017888479014934897ULL) << 64)
-                                     // + 2747143273072462557ULL>;
+template <typename rtype, typename stype>
+class mcg128_fast {
+    stype state_;
+    static constexpr uint64_t MCG_MULT = 0xda942042e4dd58b5ULL;
 
-using mcg128_fast = lehmer_detail::mcg<uint64_t,__uint128_t,
-                                       0xda942042e4dd58b5ULL>;
+    static constexpr unsigned int STYPE_BITS = 8 * sizeof ( stype );
+    static constexpr unsigned int RTYPE_BITS = 8 * sizeof ( rtype );
 
+
+    public:
+    using result_type = rtype;
+    static constexpr result_type min ( ) { return result_type ( 0 ); }
+    static constexpr result_type max ( ) { return ~result_type ( 0 ); }
+
+    mcg128_fast ( stype state = stype ( 0x9f57c403d06c42fcUL ) )
+        : state_ ( state | 1 ) {
+        // Nothing (else) to do.
+    }
+
+    void advance ( ) {
+        state_ *= MCG_MULT;
+    }
+
+    result_type operator()( ) {
+        advance ( );
+        return result_type ( state_ >> ( STYPE_BITS - RTYPE_BITS ) );
+    }
+
+    bool operator==( const mcg128_fast& rhs ) {
+        return ( state_ == rhs.state_ );
+    }
+
+    bool operator!=( const mcg128_fast& rhs ) {
+        return !operator==( rhs );
+    }
+
+    // Not (yet) implemented:
+    //   - arbitrary jumpahead (see PCG code for an implementation)
+    //   - I/O
+    //   - Seeding from a seed_seq.
+};
+}
+
+using mcg128 = detail::mcg128<uint64_t, __uint128_t>;
+using mcg128_fast = detail::mcg128_fast<uint64_t, __uint128_t>;
 
 #endif // LEHMER_HPP_INCLUDED

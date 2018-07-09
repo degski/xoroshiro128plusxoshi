@@ -38,6 +38,7 @@
 // using Generator = v2::xoroshiro128plus64;
 // using Generator = splitmix64;
 // using Generator = sfc64;
+// using Generator = mcg128_fast;
 using Generator = mcg128;
 // using Generator = pcg64;
 // using Generator = iu::xoroshiro4x128plusavx;
