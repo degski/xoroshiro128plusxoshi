@@ -5,7 +5,7 @@ Improved xoroshiro generator, better at **zero cost** (Intel Ci3-5005U (Broadwel
 
 Included a modified xoroshiro implementation by Melissa E. O'Neill, the author of the excelent [pcg](http://www.pcg-random.org/) familiy of prng's. Don't miss her [blog](http://www.pcg-random.org/blog/), which is a gold-mine of information (and code) and is updated regulary.
 
-TL:DR: the output functions has been modified as below:
+TL:DR: the output function of `xoroshiro128` has been modified as per below:
 
     rtype operator()()
         {
