@@ -26,7 +26,7 @@
 #include <cstddef>
 
 
-template<typename Generator, typename DataTypeSize = typename Generator::result_type, std::size_t CacheLineSize = 64>
+template<typename Generator, typename DataType = typename Generator::result_type, std::size_t CacheLineSize = 64>
 struct generator_cache : private Generator {
 
     using result_type = typename Generator::result_type;
@@ -41,20 +41,20 @@ struct generator_cache : private Generator {
 
     result_type operator ( ) ( ) noexcept {
         if ( m_index ) {
-            return m_data [ m_index-- ]; // makes the order of the decrement free to schedule for the compiler.
+            return m_data [ m_index-- ] >> ( 8 * ( sizeof ( DataType ) - sizeof ( typename Generator::result_type ) ) ); // makes the order of the decrement free to schedule for the compiler.
         }
         else {
             Generator::generate ( std::begin ( m_data ), std::end ( m_data ) );
             m_index = data_size ( ) - 2;
-            return m_data [ data_size ( ) - 1 ];
+            return m_data [ data_size ( ) - 1 ] >> ( 8 * ( sizeof ( DataType ) - sizeof ( typename Generator::result_type ) ) );
         }
 
     }
 
     static inline constexpr result_type min ( ) noexcept { return Generator::min ( ); }
     static inline constexpr result_type max ( ) noexcept { return Generator::max ( ); }
-    static inline constexpr std::size_t const data_size ( ) noexcept { return CacheLineSize / sizeof ( DataTypeSize ); }
+    static inline constexpr std::size_t const data_size ( ) noexcept { return CacheLineSize / sizeof ( DataType ); }
 
-    DataTypeSize m_data [ data_size ( ) ];
+    DataType m_data [ data_size ( ) ];
     size_type m_index = data_size ( );
 };

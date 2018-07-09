@@ -278,6 +278,12 @@ The above modification of `Xoroshiro128plus64-v1` is designated `Xoroshiro128plu
     length= 512 gigabytes (2^39 bytes), time= 9422 seconds
       no anomalies in 276 test result(s)
 
+    rng=RNG_stdin64, seed=0xcc38b1b4
+    length= 1 terabyte (2^40 bytes), time= 18865 seconds
+      Test Name                         Raw       Processed     Evaluation
+      DC6-9x1Bytes-1                    R=  -4.7  p =1-6.8e-3   unusual
+      ...and 286 test result(s) without anomalies
+
     results so far.
 
 
