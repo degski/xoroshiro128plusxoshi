@@ -41,14 +41,15 @@ tl;dr: the output function of `xoroshiro128plus` has been modified as per below:
 
     * pcg64                         372            373
     * sfc (Chris Doty-Humphrey)     357            365 *)
+    * mcg128 (Lehmer (meo))         308            313 *)
     * splitmix64                    305            309
-    * lehmer_fast (meo)             303            308 *)
+    * mcg128_fast (Lehmer (meo))    303            308 *)
     * xoroshiro128plus64-v1         300            314
     * shift 48                      300            316
     * shift 32                      300            317
     * shift 16                      300            313
 
-*) not yet tested with `Clang/LLVM thin-lto` and in `diagnostic mode`, will shave of some ms.
+*) not yet tested in `diagnostic mode`, will shave of some ms.
 
 
 ### Practrand results

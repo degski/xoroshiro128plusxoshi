@@ -34,7 +34,7 @@ namespace lehmer_detail {
 template <typename rtype, typename stype, auto multiplier>
 class mcg {
     stype state_;
-    static constexpr auto MCG_MULT = multiplier;
+    static constexpr __uint128_t MCG_MULT = ( __uint128_t { 5017888479014934897ULL } << 64 ) + 2747143273072462557ULL; // passing as a template parameter crashes clang frontend.
 
     static constexpr unsigned int STYPE_BITS = 8*sizeof(stype);
     static constexpr unsigned int RTYPE_BITS = 8*sizeof(rtype);
@@ -80,9 +80,9 @@ public:
 
 } // namespace lehmer_detail
 
-using mcg128      = lehmer_detail::mcg<uint64_t,__uint128_t,
-                                      (__uint128_t(5017888479014934897ULL) << 64)
-                                      + 2747143273072462557ULL>;
+using mcg128 = lehmer_detail::mcg<uint64_t, __uint128_t, 0>;
+                                     // (__uint128_t(5017888479014934897ULL) << 64)
+                                     // + 2747143273072462557ULL>;
 
 using mcg128_fast = lehmer_detail::mcg<uint64_t,__uint128_t,
                                        0xda942042e4dd58b5ULL>;
