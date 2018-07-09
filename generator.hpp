@@ -33,8 +33,8 @@
 
 
 // using Generator = meo::xoroshiro128plus64;
-// using Generator = v2::xoroshiro128plus64;
+using Generator = v2::xoroshiro128plus64;
 // using Generator = splitmix64;
 // using Generator = pcg64;
 // using Generator = iu::xoroshiro4x128plusavx;
-using Generator = iu::xoroshiro128plus64;
+// using Generator = iu::xoroshiro128plus64;
