@@ -94,6 +94,7 @@
     <ClCompile Include="statistics.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="generator_cache.hpp" />
     <ClInclude Include="plf_nanotimer.h" />
     <ClInclude Include="statistics.hpp" />
     <ClInclude Include="generator.hpp" />

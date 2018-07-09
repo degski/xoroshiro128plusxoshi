@@ -38,6 +38,9 @@
     <ClInclude Include="generator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="generator_cache.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="LICENCE.md" />
