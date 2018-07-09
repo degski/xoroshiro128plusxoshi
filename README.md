@@ -41,7 +41,7 @@ tl;dr: the output function of `xoroshiro128plus` has been modified as per below:
 
     * splitmix64                    305            309
     * pcg64                         372            373
-    * meo-v1                        300            314
+    * xoroshiro128plus64-v1         300            314
     * shift 48                      300            316
     * shift 32                      300            317
     * shift 16                      300            313
@@ -319,7 +319,7 @@ tl;dr: the output function of `xoroshiro128plus` has been modified as per below:
       ...and 243 test result(s) without anomalies
 
 
-#### Shift 21
+#### Shift 21 (I tested some other 'odd' values, with similar results)
 
     RNG_test using PractRand version 0.93
     RNG = RNG_stdin64, seed = 0x3b9d8777
