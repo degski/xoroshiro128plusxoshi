@@ -27,7 +27,7 @@ The above modification of `Xoroshiro128plus64-v1` is designated `Xoroshiro128plu
 
 I've "designed" another variant:
 
-   std::uint64_t operator()( )
+    std::uint64_t operator()( )
     {
             std::uint64_t r = _s [ 0 ] + _s [ 1 ];
             advance ( );
