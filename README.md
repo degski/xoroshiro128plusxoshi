@@ -16,7 +16,7 @@ TL:DR: the output functions has been modified as below:
             // Melissa E. O'Neill:
             // return result >> ( base::ITYPE_BITS - base::RTYPE_BITS );
             // degski:
-            return ( ( result >> 24 ) ^ result ) >> ( base::ITYPE_BITS - base::RTYPE_BITS );
+            return ( ( result >> 16 ) ^ result ) >> ( base::ITYPE_BITS - base::RTYPE_BITS );
     }
 
 
