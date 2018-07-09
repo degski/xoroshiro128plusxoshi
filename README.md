@@ -19,6 +19,8 @@ tl;dr: the output function of `xoroshiro128plus` has been modified as per below:
             return ( ( result >> 16 ) ^ result ) >> ( base::ITYPE_BITS - base::RTYPE_BITS );
     }
 
+The above modification of `Xoroshiro128plus64-v1` is designated `Xoroshiro128plus64-v1 + shift 16 xor`, the others are analoguosly named.
+
 
 ## Results
 
