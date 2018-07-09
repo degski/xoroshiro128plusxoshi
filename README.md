@@ -24,6 +24,7 @@ The above modification of `Xoroshiro128plus64-v1` is designated `Xoroshiro128plu
 
 ### ToDo:
 
+
 I've "designed" another variant:
 
    std::uint64_t operator()( )
