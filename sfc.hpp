@@ -61,7 +61,7 @@ public:
     {
         // Nothing (else) to do
     }
-    
+
     sfc(itype seed1, itype seed2, itype seed3)
         : a_(seed3), b_(seed2), c_(seed1), d_(itype(1))
     {
@@ -85,7 +85,7 @@ public:
 
     bool operator==(const sfc& rhs)
     {
-        return (a_ == rhs.a_) && (b_ == rhs.b_) 
+        return (a_ == rhs.a_) && (b_ == rhs.b_)
             && (c_ == rhs.c_) && (d_ == rhs.d_);
     }
 

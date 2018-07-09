@@ -211,6 +211,74 @@ tl;dr: the output function of `xoroshiro128plus` has been modified as per below:
       ...and 225 test result(s) without anomalies
 
 
+#### Mcg128
+
+    RNG_test using PractRand version 0.93
+    RNG = RNG_stdin64, seed = 0xcc38b1b4
+    test set = normal, folding = standard (64 bit)
+
+    rng=RNG_stdin64, seed=0xcc38b1b4
+    length= 128 megabytes (2^27 bytes), time= 2.4 seconds
+      Test Name                         Raw       Processed     Evaluation
+      [Low16/64]DC6-9x1Bytes-1          R=  +5.8  p =  4.3e-3   unusual
+      [Low16/64]FPF-14+6/16:cross       R=  -2.2  p =1-9.1e-4   unusual
+      ...and 146 test result(s) without anomalies
+
+    rng=RNG_stdin64, seed=0xcc38b1b4
+    length= 256 megabytes (2^28 bytes), time= 5.5 seconds
+      no anomalies in 159 test result(s)
+
+    rng=RNG_stdin64, seed=0xcc38b1b4
+    length= 512 megabytes (2^29 bytes), time= 10.9 seconds
+      no anomalies in 169 test result(s)
+
+    rng=RNG_stdin64, seed=0xcc38b1b4
+    length= 1 gigabyte (2^30 bytes), time= 20.9 seconds
+      no anomalies in 180 test result(s)
+
+    rng=RNG_stdin64, seed=0xcc38b1b4
+    length= 2 gigabytes (2^31 bytes), time= 39.6 seconds
+      no anomalies in 191 test result(s)
+
+    rng=RNG_stdin64, seed=0xcc38b1b4
+    length= 4 gigabytes (2^32 bytes), time= 75.3 seconds
+      Test Name                         Raw       Processed     Evaluation
+      [Low1/64]Gap-16:A                 R=  -3.5  p =1-2.2e-3   unusual
+      ...and 200 test result(s) without anomalies
+
+    rng=RNG_stdin64, seed=0xcc38b1b4
+    length= 8 gigabytes (2^33 bytes), time= 148 seconds
+      no anomalies in 212 test result(s)
+
+    rng=RNG_stdin64, seed=0xcc38b1b4
+    length= 16 gigabytes (2^34 bytes), time= 298 seconds
+      no anomalies in 223 test result(s)
+
+    rng=RNG_stdin64, seed=0xcc38b1b4
+    length= 32 gigabytes (2^35 bytes), time= 583 seconds
+      Test Name                         Raw       Processed     Evaluation
+      Gap-16:B                          R=  -4.2  p =1-1.7e-3   unusual
+      ...and 232 test result(s) without anomalies
+
+    rng=RNG_stdin64, seed=0xcc38b1b4
+    length= 64 gigabytes (2^36 bytes), time= 1184 seconds
+      no anomalies in 244 test result(s)
+
+    rng=RNG_stdin64, seed=0xcc38b1b4
+    length= 128 gigabytes (2^37 bytes), time= 2349 seconds
+      no anomalies in 255 test result(s)
+
+    rng=RNG_stdin64, seed=0xcc38b1b4
+    length= 256 gigabytes (2^38 bytes), time= 4608 seconds
+      no anomalies in 265 test result(s)
+
+    rng=RNG_stdin64, seed=0xcc38b1b4
+    length= 512 gigabytes (2^39 bytes), time= 9422 seconds
+      no anomalies in 276 test result(s)
+
+    results so far.
+
+
 #### Splitmix64
 
     RNG_test using PractRand version 0.93
