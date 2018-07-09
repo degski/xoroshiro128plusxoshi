@@ -26,7 +26,7 @@
 #define __AVX2__ 1
 
 #include "xoroshiro-meo.hpp"
-#include "xoroshiro2.hpp"
+#include "xoroshiro.hpp"
 #include "splitmix.hpp"
 #include "sfc.hpp"
 #include "lehmer.hpp"

@@ -32,9 +32,6 @@
     <ClInclude Include="statistics.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="xoroshiro2.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="generator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -42,6 +39,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="splitmix.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="xoroshiro.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

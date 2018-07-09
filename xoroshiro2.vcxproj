@@ -99,7 +99,7 @@
     <ClInclude Include="splitmix.hpp" />
     <ClInclude Include="statistics.hpp" />
     <ClInclude Include="generator.hpp" />
-    <ClInclude Include="xoroshiro2.hpp" />
+    <ClInclude Include="xoroshiro.hpp" />
     <ClInclude Include="xoroshiro_meo.hpp" />
   </ItemGroup>
   <ItemGroup>
