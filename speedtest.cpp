@@ -26,6 +26,7 @@
 #include <limits>
 #include <cmath>
 #include <vector>
+#include <utility>
 
 #include "plf_nanotimer.h"
 #include "statistics.hpp"
@@ -33,7 +34,7 @@
 #include "generator.hpp"
 
 
-double test ( ) noexcept {
+std::pair<double, std::uint64_t> test ( ) noexcept {
 
     plf::nanotimer timer;
     double result = 0.0;
@@ -52,7 +53,7 @@ double test ( ) noexcept {
     while ( cnt-- ) acc += gen ( );
     result = timer.get_elapsed_ms ( ); // std::cout << "Timing: " << ( std::uint64_t ) result << " milliseconds." << std::endl;
 
-    return result;
+    return { result, acc };
 }
 
 
@@ -63,11 +64,16 @@ int main ( ) {
     std::vector<double> results;
     results.reserve ( n );
 
+    std::uint64_t acc = 0;
+
     for  ( std::size_t i = 0; i < n; ++i ) {
-        results.push_back ( test ( ) );
+        auto [ result, a ] = test ( );
+        acc += a;
+        results.push_back ( result );
     }
 
     std::cout << "Lowest : " << ( std::uint64_t ) stats::ddmin ( results.data ( ), results.size ( ) ) << " milliseconds." << std::endl;
     std::cout << "Average: " << ( std::uint64_t ) stats::ddmean ( results.data ( ), results.size ( ) ) << " milliseconds." << std::endl;
     // std::cout << "St Dev.: " << ( std::uint64_t ) std::sqrt ( stats::ddvariance ( results.data ( ), results.size ( ) ) / results.size ( ) ) << " milliseconds." << std::endl;
+    std::cout << std::boolalpha << ( acc != 0 ) << std::endl;
 }
