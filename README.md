@@ -1,5 +1,5 @@
 
-# xoroshiro2
+# xoroshiro128plusxoshi
 
 Improved xoroshiro generator, better at **zero cost** (Intel Ci3-5005U (Broadwell) CPU), compiler [`LLVM-7.0.0-r336178-win64`](https://llvm.org/builds/).
 
@@ -19,18 +19,18 @@ tl;dr: the output function of `xoroshiro128plus` has been modified as per below:
         return ( ( result >> 16 ) ^ result ) >> ( base::ITYPE_BITS - base::RTYPE_BITS );
     }
 
-The above modification of `Xoroshiro128plus64-v1` is designated `Xoroshiro128plus64-v1 + shift 16 xor`, the others are analoguosly named.
+The above modification of `Xoroshiro128plus64-v1` is designated `Xoroshiro128plusxoshi16`, the others are analoguosly named.
 
 
 ### TODO:
 
-I've "designed" another variant (wutshamacallit: `xoroshiro128plusxoshistarxoshi` maybe :-) ):
+I've "designed" another variant (wutshamacallit: `Xoroshiro128plusxoshi32starxoshi16` maybe :-) ):
 
     rtype operator()()
     {
         itype result = base::s0_ + base::s1_;
 
-        base::advance ( );
+        base::advance();
 
         // Melissa E. O'Neill:
         // return result >> ( base::ITYPE_BITS - base::RTYPE_BITS );
@@ -67,9 +67,9 @@ I'll post results.
     * splitmix64                               305            309
     * mcg128_fast (Lehmer)                     303            308 *)
     * xoroshiro128plus64-v1                    300            314
-    * xoroshiro128plus64-v1 + shift 48 xor     300            316
-    * xoroshiro128plus64-v1 + shift 32 xor     300            317
-    * xoroshiro128plus64-v1 + shift 16 xor     300            313
+    * xoroshiro128plusxoshi48                  300            316
+    * xoroshiro128plusxoshi32                  300            317
+    * xoroshiro128plusxoshi16                  300            313
 
 *) not yet tested in `diagnostic mode`, will shave of some ms.
 
@@ -369,7 +369,7 @@ I'll post results.
     pcg64 was not tested. I don't have enough time to wait for it to fail.
 
 
-#### Xoroshiro128plus64-v1 + shift 16 xor
+#### Xoroshiro128plusxoshi16
 
     RNG_test using PractRand version 0.93
     RNG = RNG_stdin64, seed = 0xdb4dda77
@@ -420,7 +420,7 @@ I'll post results.
       ...and 243 test result(s) without anomalies
 
 
-#### Xoroshiro128plus64-v1 + shift 21 xor (I tested some other 'odd' values, with similar results)
+#### Xoroshiro128plusxoshi21 (I tested some other 'odd' values, with similar results)
 
     RNG_test using PractRand version 0.93
     RNG = RNG_stdin64, seed = 0x3b9d8777
@@ -472,7 +472,7 @@ I'll post results.
       ...and 243 test result(s) without anomalies
 
 
-#### Xoroshiro128plus64-v1 + shift 32 xor
+#### Xoroshiro128plusxoshi32
 
     RNG_test using PractRand version 0.93
     RNG = RNG_stdin64, seed = 0x47700e2c
@@ -526,7 +526,7 @@ I'll post results.
       ...and 243 test result(s) without anomalies
 
 
-#### Xoroshiro128plus64-v1 + shift 48 xor
+#### Xoroshiro128plusxoshi48
 
     RNG_test using PractRand version 0.93
     RNG = RNG_stdin64, seed = 0xd2d51fe2
