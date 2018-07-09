@@ -35,7 +35,7 @@ I've "designed" another variant (wutshamacallit: `xoroshiro128plusxoshistarxoshi
         // Melissa E. O'Neill:
         // return result >> ( base::ITYPE_BITS - base::RTYPE_BITS );
         // degski:
-        result = ( ( result >> 32 ) ^ result ) * rtype { 0x1AEC805299990163 };
+        result = ( ( result >> 32 ) ^ result ) * itype { 0x1AEC805299990163 };
         return ( ( result >> 16 ) ^ result ) >> ( base::ITYPE_BITS - base::RTYPE_BITS );
     }
 
