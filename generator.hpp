@@ -29,6 +29,7 @@
 #include "xoroshiro2.hpp"
 #include "splitmix.hpp"
 #include "sfc.hpp"
+#include "lehmer.hpp"
 #include <Z:/VC/x64/include/pcg/pcg_random.hpp>
 #include <Z:/VC/x64/include/integer_utils.hpp>
 
@@ -36,7 +37,8 @@
 // using Generator = meo::xoroshiro128plus64;
 // using Generator = v2::xoroshiro128plus64;
 // using Generator = splitmix64;
-using Generator = sfc64;
+// using Generator = sfc64;
+using Generator = mcg128_fast;
 // using Generator = pcg64;
 // using Generator = iu::xoroshiro4x128plusavx;
 // using Generator = iu::xoroshiro128plus64;
