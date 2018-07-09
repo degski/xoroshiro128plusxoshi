@@ -26,7 +26,7 @@
 #include <cstddef>
 
 
-template<typename Generator, std::size_t CacheLineSize = 64>
+template<typename Generator, typename DataTypeSize = typename Generator::result_type, std::size_t CacheLineSize = 64>
 struct generator_cache : private Generator {
 
     using result_type = typename Generator::result_type;
@@ -53,8 +53,8 @@ struct generator_cache : private Generator {
 
     static inline constexpr result_type min ( ) noexcept { return Generator::min ( ); }
     static inline constexpr result_type max ( ) noexcept { return Generator::max ( ); }
-    static inline constexpr std::size_t const data_size ( ) noexcept { return CacheLineSize / sizeof ( result_type ); }
+    static inline constexpr std::size_t const data_size ( ) noexcept { return CacheLineSize / sizeof ( DataTypeSize ); }
 
-    result_type m_data [ data_size ( ) ]; // result_type should be data_type (itype in meo's terminology).
+    DataTypeSize m_data [ data_size ( ) ];
     size_type m_index = data_size ( );
 };
