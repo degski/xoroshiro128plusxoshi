@@ -116,7 +116,7 @@ protected:
         return (n < 24) ? x ^ 0xaaaaaaaaaaaaaaaa : x;
     }
 
-    static inline constexpr uint64_t mix64(uint64_t x) {
+    static inline constexpr result_type mix64(uint64_t x) { // degski: changed return type to result_type.
         x ^= x >> s;
         x *= m3;
         x ^= x >> t;
@@ -143,13 +143,12 @@ public:
         // Nothing (else) to do.
     }
 
-    uint64_t operator()() {
+    result_type operator()() { // degski: changed return type to result_type.
         return mix64(next_seed());
     }
 
-    // degski:
     template<typename It>
-    void generate (It it, const It end) {
+    void generate (It it, const It end) { // degski: added this function.
         while (it != end) {
             *it++ = mix64(next_seed());
         }

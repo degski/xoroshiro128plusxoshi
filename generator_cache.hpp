@@ -23,10 +23,10 @@
 
 #pragma once
 
-#include <cstdint>
+#include <cstddef>
 
 
-template<typename Generator, std::size_t CacheLineSize = 64>  // assumes a 64 byte cache-line-size.
+template<typename Generator, std::size_t CacheLineSize = 64>
 struct generator_cache : private Generator {
 
     using result_type = typename Generator::result_type;
@@ -40,18 +40,21 @@ struct generator_cache : private Generator {
     generator_cache ( It & first_, It last ) : Generator ( first_, last ) { }
 
     result_type operator ( ) ( ) noexcept {
-        if ( data_size ( ) == m_index ) {
-            Generator::generate ( std::begin ( m_data ), std::end ( m_data ) );
-            m_index = 1;
-            return m_data [ 0 ];
+        if ( m_index ) {
+            return m_data [ --m_index ];
         }
-        return m_data [ m_index++ ];
+        else {
+            Generator::generate ( std::begin ( m_data ), std::end ( m_data ) );
+            m_index = data_size ( ) - 2;
+            return m_data [ data_size ( ) - 1 ];
+        }
+
     }
 
     static inline constexpr result_type min ( ) noexcept { return Generator::min ( ); }
     static inline constexpr result_type max ( ) noexcept { return Generator::max ( ); }
     static inline constexpr std::size_t const data_size ( ) noexcept { return CacheLineSize / sizeof ( result_type ); }
 
-    result_type m_data [ data_size ( ) ];
+    result_type m_data [ data_size ( ) ]; // result_type should be data_type (itype in meo's terminology).
     size_type m_index = data_size ( );
 };
