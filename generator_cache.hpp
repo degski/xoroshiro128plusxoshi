@@ -42,7 +42,6 @@ struct generator_cache : private Generator {
     result_type operator ( ) ( ) noexcept {
         if ( data_size ( ) == m_index ) {
             Generator::generate ( std::begin ( m_data ), std::end ( m_data ) );
-            // std::generate ( std::begin ( m_data ), std::end ( m_data ), [ this ] ( ) { return Generator::operator ( ) ( ); } );
             m_index = 1;
             return m_data [ 0 ];
         }
