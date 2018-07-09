@@ -29,7 +29,9 @@ I've "designed" another variant (wutshamacallit: `xoroshiro128plusxoshistarxoshi
     rtype operator()()
     {
         itype result = base::s0_ + base::s1_;
+
         base::advance ( );
+
         // Melissa E. O'Neill:
         // return result >> ( base::ITYPE_BITS - base::RTYPE_BITS );
         // degski:
