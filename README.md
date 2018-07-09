@@ -48,7 +48,7 @@ tl;dr: the output function of `xoroshiro128plus` has been modified as per below:
     * shift 32                      300            317
     * shift 16                      300            313
 
-*) not yet tested with thin-lto and in diagnostic mode, well shave of some ms.
+*) not yet tested with `Clang/LLVM thin-lto` and in `diagnostic mode`, will shave of some ms.
 
 
 ### Practrand results
