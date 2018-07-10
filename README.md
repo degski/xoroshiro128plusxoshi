@@ -50,6 +50,17 @@ The implementation deviates slightly as compared to the above (order of operatio
 * Generator tested: the improved 2018  `xoroshiro128plus64 v1`
 * 10'000'000 numbers generated, 1'000 runs
 
+#### Method
+
+The core of speed testing is implemented as follows:
+
+    volatile std::uint64_t acc = 0;
+
+    timer.start ( );
+    while ( cnt-- ) acc += gen ( );
+    result = timer.get_elapsed_ms ( );
+
+The volatile acc mimics a situation where all cache accesses are misses and/or every branch prediction is wrong. I have reason to believe that changing acc to a normal variable will improve performance of the generators with a high sd in the below table will benefit the most of this improvement. This reflects a situation where the generator performs ideally, no cache-misses and perfect branch prediction. I will put some numbers up in the near future.
 
 #### Results
 
