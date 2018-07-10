@@ -62,7 +62,7 @@ protected:
 
     static constexpr unsigned int ITYPE_BITS = 8*sizeof(itype);
     static constexpr unsigned int RTYPE_BITS = 8*sizeof(rtype);
-    
+
     static inline itype rotl(const itype x, int k) {
         return (x << k) | (x >> (ITYPE_BITS - k));
     }
@@ -81,7 +81,7 @@ public:
     {
             // Nothing (else) to do.
     }
-              
+
     void advance()
     {
         s1_ ^= s0_;
@@ -161,7 +161,7 @@ public:
 };
 
 } // namespace xoroshiro_detail
-    
+
 // 128 //
 
 // This is the generator recommended by Vigna and Blackman.  It fails
@@ -218,7 +218,7 @@ public:
 //
 // TestU01 Crush Results:
 //| ========= Summary results of Crush =========
-//| 
+//|
 //|  Version:          TestU01 1.2.3
 //|  Generator:        Xoroshiro128+ (Vigna's Code) [Low bits] [Reversed]
 //|  Number of statistics:  144
@@ -226,7 +226,7 @@ public:
 //|  The following tests gave p-values outside [0.001, 0.9990]:
 //|  (eps  means a value < 1.0e-300):
 //|  (eps1 means a value < 1.0e-15):
-//| 
+//|
 //|        Test                          p-value
 //|  ----------------------------------------------
 //|  71  LinearComp, r = 0              1 - eps1
@@ -236,7 +236,7 @@ public:
 // TestU01 BigCrush Results:
 //
 //| ========= Summary results of BigCrush =========
-//| 
+//|
 //|  Version:          TestU01 1.2.3
 //|  Generator:        Xoroshiro128+ (Vigna's Code) [Low bits] [Reversed]
 //|  Number of statistics:  160
@@ -244,11 +244,11 @@ public:
 //|  The following tests gave p-values outside [0.001, 0.9990]:
 //|  (eps  means a value < 1.0e-300):
 //|  (eps1 means a value < 1.0e-15):
-//| 
+//|
 //|        Test                          p-value
 //|  ----------------------------------------------
-//|  68  MatrixRank, L=1000, r=0          eps  
-//|  71  MatrixRank, L=5000               eps  
+//|  68  MatrixRank, L=1000, r=0          eps
+//|  71  MatrixRank, L=5000               eps
 //|  80  LinearComp, r = 0              1 - eps1
 //|  ----------------------------------------------
 //|  All other tests were passed
@@ -258,25 +258,25 @@ public:
 //| RNG_test using PractRand version 0.93
 //| RNG = RNG_stdin64, seed = 0x7ddef6ce
 //| test set = normal, folding = standard (64 bit)
-//| 
+//|
 //| rng=RNG_stdin64, seed=0x7ddef6ce
 //| length= 8 megabytes (2^23 bytes), time= 0.2 seconds
 //|   no anomalies in 106 test result(s)
-//| 
+//|
 //| rng=RNG_stdin64, seed=0x7ddef6ce
 //| length= 16 megabytes (2^24 bytes), time= 1.2 seconds
 //|   no anomalies in 116 test result(s)
-//| 
+//|
 //| rng=RNG_stdin64, seed=0x7ddef6ce
 //| length= 32 megabytes (2^25 bytes), time= 2.3 seconds
 //|   Test Name                         Raw       Processed     Evaluation
-//|   [Low1/64]BRank(12):256(1)         R= +2650  p~=  9.8e-799   FAIL !!!!!!!   
+//|   [Low1/64]BRank(12):256(1)         R= +2650  p~=  9.8e-799   FAIL !!!!!!!
 //|   ...and 126 test result(s) without anomalies
 //
 // PractRand (extended: RNG_test stdin64 -tlmaxonly -te 1 -tf 2)
 //| RNG = RNG_stdin64, seed = 0x88ab2def
 //| test set = expanded, folding = extra
-//| 
+//|
 //| rng=RNG_stdin64, seed=0x88ab2def
 //| length= 32 megabytes (2^25 bytes), time= 2.3 seconds
 //|   Test Name                         Raw       Processed     Evaluation
@@ -411,7 +411,7 @@ public:
 //|   [Low8/64]BRank(18):48K(1)         R=+129402 p~= 0           FAIL !!!!!!!!
 //|   [Low8/64]BRank(18):64K(1)         R=+174868 p~= 0           FAIL !!!!!!!!
 //|   ...and 1698 test result(s) without anomalies
-//| 
+//|
 //| rng=RNG_stdin64, seed=0x88ab2def
 //| length= 16 terabytes (2^44 bytes), time= 1067251 seconds
 //|   Test Name                         Raw       Processed     Evaluation
@@ -567,7 +567,7 @@ using xoroshiro128starstar64 = xoroshiro128starstar64v1_0;
 //| RNG_test using PractRand version 0.93
 //| RNG = RNG_stdin32, seed = 0x79972d1f
 //| test set = expanded, folding = extra
-//| 
+//|
 //| rng=RNG_stdin32, seed=0x79972d1f
 //| length= 128 megabytes (2^27 bytes), time= 2.8 seconds
 //|   no anomalies in 891 test result(s)
@@ -576,7 +576,7 @@ using xoroshiro128starstar64 = xoroshiro128starstar64v1_0;
 //| rng=RNG_stdin32, seed=0x79972d1f
 //| length= 256 terabytes (2^48 bytes), time= 4445499 seconds
 //|   no anomalies in 2017 test result(s)
-//| 
+//|
 //| rng=RNG_stdin32, seed=0x79972d1f
 //| length= 512 terabytes (2^49 bytes), time= 8789501 seconds
 //|   Test Name                         Raw       Processed     Evaluation
@@ -591,7 +591,7 @@ using xoroshiro128plus32v1_0 =
     xoroshiro_detail::xoroshiro_plus<uint64_t, uint32_t, 24, 16, 37>;
 
 using xoroshiro128plus32 = xoroshiro128plus32v1_0;
-    
+
 //// Variations ////
 
 // These are variations on the above theme. The constants are
@@ -667,7 +667,7 @@ using xoroshiro16plus8 =
 
 using xoroshiro16star8 =
     xoroshiro_detail::xoroshiro_star<uint8_t, uint8_t, 4, 7, 3, 0xBB>;
-    
+
 }
 
 #endif // XOROSHIRO_HPP_INCLUDED
