@@ -304,6 +304,10 @@ I'll post results.
       DC6-9x1Bytes-1                    R=  -4.7  p =1-6.8e-3   unusual
       ...and 286 test result(s) without anomalies
 
+    rng=RNG_stdin64, seed=0xcc38b1b4
+    length= 2 terabytes (2^41 bytes), time= 36984 seconds
+      no anomalies in 297 test result(s)
+
     results so far.
 
 
