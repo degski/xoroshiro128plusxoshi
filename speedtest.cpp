@@ -81,7 +81,9 @@ bool test_runs ( ) {
 
 int main ( ) {
 
-    const bool b = test_runs<Generator> ( ) && test_runs<generator_cache<Generator>> ( );
-
+    std::cout << " speed test: " << generator_name ( ) << " started." << std::endl;
+    const bool b = test_runs<Generator> ( );
     std::cout << std::boolalpha << b << std::endl;
+
+    return 0;
 }

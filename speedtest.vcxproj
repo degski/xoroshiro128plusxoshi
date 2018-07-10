@@ -95,12 +95,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="generator_cache.hpp" />
+    <ClInclude Include="lehmer.hpp" />
+    <ClInclude Include="pcg_random.hpp" />
     <ClInclude Include="plf_nanotimer.h" />
+    <ClInclude Include="sfc.hpp" />
     <ClInclude Include="splitmix.hpp" />
     <ClInclude Include="statistics.hpp" />
     <ClInclude Include="generator.hpp" />
     <ClInclude Include="xoroshiro.hpp" />
-    <ClInclude Include="xoroshiro_meo.hpp" />
+    <ClInclude Include="xoroshiro128plusxoshi.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

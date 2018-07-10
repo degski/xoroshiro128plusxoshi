@@ -25,23 +25,55 @@
 
 #define __AVX2__ 1
 
-#include "xoroshiro-meo.hpp"
+#include <string>
+#include <type_traits>
+
+#include "pcg/pcg_random.hpp"
 #include "xoroshiro.hpp"
+#include "xoroshiro128plusxoshi.hpp"
 #include "splitmix.hpp"
 #include "sfc.hpp"
 #include "lehmer.hpp"
-#include <Z:/VC/x64/include/pcg/pcg_random.hpp>
-#include <Z:/VC/x64/include/integer_utils.hpp>
 
-#include "generator_cache.hpp"
 
 
 // using Generator = meo::xoroshiro128plus64;
-// using Generator = v2::xoroshiro128plus64;
-using Generator = splitmix64;
+using Generator = degski::xoroshiro128plus64xoshi16;
+// using Generator = splitmix64;
+
 // using Generator = sfc64;
 // using Generator = mcg128_fast;
-// using Generator = mcg128; testing at the moment
+// using Generator = mcg128;
 // using Generator = pcg64;
 // using Generator = iu::xoroshiro4x128plusavx;
 // using Generator = iu::xoroshiro128plus64;
+
+namespace detail {
+
+template<typename Gen>
+inline std::string generator_name_impl ( ) noexcept { // where's the introspection?
+
+    if constexpr ( std::is_same<Gen, splitmix64>::value ) {
+        return std::string ( "splitmix64" );
+    }
+    else if constexpr ( std::is_same<Gen, sfc64>::value ) {
+        return std::string ( "sfc64" );
+    }
+    else if constexpr ( std::is_same<Gen, mcg128_fast>::value ) {
+        return std::string ( "mcg128_fast" );
+    }
+    else if constexpr ( std::is_same<Gen, mcg128>::value ) {
+        return std::string ( "mcg128" );
+    }
+    else if constexpr ( std::is_same<Gen, meo::xoroshiro128plus64>::value ) {
+        return std::string ( "xoroshiro128plus64 v1" );
+    }
+    else {
+        return std::string ( "xoroshiro128plus64xoshi" ) + std::string ( std::to_string ( Gen::shift ( ) ) );
+    }
+}
+}
+
+inline std::string generator_name ( ) noexcept {
+    return detail::generator_name_impl<Generator> ( );
+}
