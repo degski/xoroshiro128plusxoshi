@@ -91,7 +91,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="speedtest.cpp" />
-    <ClCompile Include="statistics.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="generator_cache.hpp" />

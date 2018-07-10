@@ -30,7 +30,6 @@
 
 #include "plf_nanotimer.h"
 #include "statistics.hpp"
-
 #include "generator.hpp"
 
 template<typename Gen>
@@ -39,13 +38,13 @@ std::pair<double, std::uint64_t> test ( ) noexcept {
     plf::nanotimer timer;
     double result = 0.0;
 
-    std::int64_t cnt = 100'000'000;
+    std::int64_t cnt = 10'000'000;
 
     Gen gen ( 0xBE1C0467EBA5FAC1 );
 
     volatile std::uint64_t acc = 0;
 
-    for  ( std::size_t i = 0; i < 256; ++i ) { // some warmup
+    for  ( std::size_t i = 0; i < 1'000; ++i ) { // some warmup
         acc += gen ( );
     }
 
@@ -59,7 +58,7 @@ std::pair<double, std::uint64_t> test ( ) noexcept {
 template<typename Gen>
 bool test_runs ( ) {
 
-    const std::size_t n = 512;
+    const std::size_t n = 1'000;
 
     std::vector<double> results;
     results.reserve ( n );
@@ -72,18 +71,17 @@ bool test_runs ( ) {
         results.push_back ( result );
     }
 
-    std::cout << " lowest : " << ( std::uint64_t ) stats::ddmin ( results.data ( ), results.size ( ) ) << " milliseconds." << std::endl;
-    std::cout << " average: " << ( std::uint64_t ) stats::ddmean ( results.data ( ), results.size ( ) ) << " milliseconds." << std::endl;
-    std::printf ( " st.dev.: %.3f\n", std::sqrt ( stats::ddvariance ( results.data ( ), results.size ( ) ) / results.size ( ) ) );
+    auto [ low, high, mean, variance, sd_s, sd_p ] = sf::stats ( results.data ( ), results.size ( ) );
+    std::printf ( " %s: %.1f %.1f %.3f\n", generator_name ( ).c_str ( ), low, mean, sd_s );
     return acc != 0;
 }
 
 
 int main ( ) {
 
-    std::cout << " speed test: " << generator_name ( ) << " started." << std::endl;
     const bool b = test_runs<Generator> ( );
-    std::cout << ( b ? " succesfull runs" : " fail" ) << std::endl;
-
+    if ( !b ) {
+        std::cout << " fail" << std::endl;
+    }
     return 0;
 }

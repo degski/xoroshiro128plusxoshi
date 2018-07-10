@@ -25,27 +25,28 @@
 
 #define _USE_MATH_DEFINES
 #include <cmath>
-#include <cstdint>
+#include <cstddef>
 
-namespace stats {
+#include <limits>
+#include <tuple>
 
-float min ( float* data, std::size_t n ) noexcept;
-double ddmin ( double* data, std::size_t n ) noexcept;
-float max ( float* data, std::size_t n ) noexcept;
-double ddmax ( double* data, std::size_t n ) noexcept;
-float mean ( float* data, std::size_t n ) noexcept;
-double dmean ( float* data, std::size_t n ) noexcept;
-double ddmean ( double* data, std::size_t n ) noexcept;
-float variance ( float* data, std::size_t n ) noexcept;
-double dvariance ( float* data, std::size_t n ) noexcept;
-double ddvariance ( double* data, std::size_t n ) noexcept;
-float covariance ( float* data1, float* data2, std::size_t n ) noexcept;
-float covariance_5 ( float* data1, float* data2, std::size_t n, float fmean1_s, float fmean2_s ) noexcept;
-float sd ( float* data, std::size_t n ) noexcept;
-double sd_3 ( float* data, std::size_t n, double dmean_s ) noexcept;
-float skew ( float* data, std::size_t n ) noexcept;
-float kurtosis ( float* data, std::size_t n ) noexcept;
-float correlation ( float* data1, float* data2, std::size_t n ) noexcept;
-float absdev ( float* data, std::size_t n ) noexcept;
 
+namespace sf {
+
+// Wellford's method: https://www.johndcook.com/blog/standard_deviation/
+// returns min, mix, mean, variance, sample sd and population sd.
+template<typename T>
+std::tuple<T, T, T, T, T, T> stats ( T * data, std::size_t n ) noexcept {
+    long double min = ( long double ) std::numeric_limits<T>::max ( ), max = ( long double ) std::numeric_limits<T>::min ( );
+    long double avg = 0.0, var = 0.0;
+    for ( std::size_t i = 0; i < n; i++ ) {
+        const long double d = ( long double ) data [ i ];
+        if ( d < min ) min = d;
+        if ( d > max ) max = d;
+        const long double t = d - avg;
+        avg += t / ( i + 1 );
+        var += t * ( d - avg );
+    }
+    return { min, max, ( T ) avg, ( T ) var, ( T ) std::sqrt ( var / ( n - 1 ) ), ( T ) std::sqrt ( var / n ) };
+}
 }
