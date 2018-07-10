@@ -60,7 +60,7 @@ The core of speed testing is implemented as follows:
     while ( cnt-- ) acc += gen ( );
     result = timer.get_elapsed_ms ( );
 
-The `volatile acc` mimics a situation where all cache accesses are misses and/or every branch prediction is wrong. I have reason to believe that changing `acc` to a normal variable will particularly improve performance of the generators with a high `sd` (see below) and will benefit the most of this change. The latter testing reflects a situation in where the generator performs ideally, no cache-misses and perfect branch prediction. This in most cases will not be a realistic scenario in the-real-world I will put some numbers up in the near future.
+The `volatile acc` mimics a situation where all cache accesses are misses and/or every branch prediction is wrong. I have reason to believe that changing `acc` to a normal variable will particularly improve performance of the generators with a high `sd` (see below). The latter testing reflects a situation in where the generator performs ideally, no cache-misses and perfect branch prediction. This in most cases will not be a realistic scenario in the-real-world I will put some numbers up in the near future.
 
 #### Results
 
