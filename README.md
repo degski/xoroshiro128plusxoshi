@@ -13,8 +13,9 @@ tl;dr: the output function of `xoroshiro128plus` has been modified as per below:
 
         base::advance();
 
-        // Melissa E. O'Neill:
+        // Vigna & Blackman:
         // return result >> ( base::ITYPE_BITS - base::RTYPE_BITS );
+
         // degski:
         return ( ( result >> 16 ) ^ result ) >> ( base::ITYPE_BITS - base::RTYPE_BITS );
     }
