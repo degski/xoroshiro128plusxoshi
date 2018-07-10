@@ -102,10 +102,6 @@
     <ClInclude Include="xoroshiro.hpp" />
     <ClInclude Include="xoroshiro_meo.hpp" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="LICENCE.md" />
-    <None Include="README.md" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
