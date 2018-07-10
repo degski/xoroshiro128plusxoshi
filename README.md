@@ -459,7 +459,7 @@ interupted the test.
 
 #### pcg64
 
-    pcg64 [passes](http://www.pcg-random.org/posts/pcg-passes-practrand.html) the `practrand` test.
+pcg64 [passes](http://www.pcg-random.org/posts/pcg-passes-practrand.html) the `practrand` test.
 
 
 #### xoroshiro128plusxoshi16
