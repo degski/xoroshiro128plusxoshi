@@ -44,7 +44,7 @@ I'll post `practrand` results, speed looks good (low sd as well), see below.
 #### Context
 
 * Intel Ci3-5005U (Broadwell) CPU
-* Windows 10-1803-x64 in `safe mode` (core services only).
+* Windows 10-1803-x64 in `safe mode` (minimal).
 * Compiler: [`LLVM-7.0.0-r336178-win64`](http://prereleases.llvm.org/win-snapshots/LLVM-7.0.0-r336178-win64.exe)
 * Command-line: `clang-cl -fuse-ld=lld -flto=thin  /D "NDEBUG" /D "_CONSOLE" /D "NOMINMAX" /D "_UNICODE" /D "UNICODE" -Xclang -fcxx-exceptions /Ox /Oi /MT main.cpp statistics.cpp -Xclang -std=c++2a -Xclang -ffast-math -mmmx  -msse  -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mavx -mavx2`
 * Generator tested: the improved 2018  `xoroshiro128plus64 v1`

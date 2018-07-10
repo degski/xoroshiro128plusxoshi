@@ -266,3 +266,5 @@ __pycache__/
 /main.exe
 /speedtest.exe
 /practrand-tester-mcg128.exe
+/practrand-tester-xoroshiro128plusxoshi24.exe
+/practrand-tester-xoroshiro128plusxoshi32starxoshi32.exe
