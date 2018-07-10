@@ -228,7 +228,60 @@ I'll post `practrand` results, speed looks good (low sd as well), see below.
       ...and 225 test result(s) without anomalies
 
 
-#### Mcg128
+#### xoroshiro128plusxoshi32starxoshi32
+
+    RNG_test using PractRand version 0.93
+    RNG = RNG_stdin64, seed = 0x9b09af3
+    test set = normal, folding = standard (64 bit)
+
+    rng=RNG_stdin64, seed=0x9b09af3
+    length= 128 megabytes (2^27 bytes), time= 2.3 seconds
+      no anomalies in 148 test result(s)
+
+    rng=RNG_stdin64, seed=0x9b09af3
+    length= 256 megabytes (2^28 bytes), time= 5.5 seconds
+      no anomalies in 159 test result(s)
+
+    rng=RNG_stdin64, seed=0x9b09af3
+    length= 512 megabytes (2^29 bytes), time= 10.7 seconds
+      no anomalies in 169 test result(s)
+
+    rng=RNG_stdin64, seed=0x9b09af3
+    length= 1 gigabyte (2^30 bytes), time= 20.6 seconds
+      no anomalies in 180 test result(s)
+
+    rng=RNG_stdin64, seed=0x9b09af3
+    length= 2 gigabytes (2^31 bytes), time= 39.4 seconds
+      no anomalies in 191 test result(s)
+
+    rng=RNG_stdin64, seed=0x9b09af3
+    length= 4 gigabytes (2^32 bytes), time= 75.1 seconds
+      no anomalies in 201 test result(s)
+
+    rng=RNG_stdin64, seed=0x9b09af3
+    length= 8 gigabytes (2^33 bytes), time= 149 seconds
+      Test Name                         Raw       Processed     Evaluation
+      BCFN(2+7,13-2,T)                  R=  -8.3  p =1-1.3e-4   unusual
+      [Low4/64]Gap-16:B                 R=  +5.4  p =  1.3e-4   mildly suspicious
+      ...and 210 test result(s) without anomalies
+
+    rng=RNG_stdin64, seed=0x9b09af3
+    length= 16 gigabytes (2^34 bytes), time= 294 seconds
+      no anomalies in 223 test result(s)
+
+    rng=RNG_stdin64, seed=0x9b09af3
+    length= 32 gigabytes (2^35 bytes), time= 581 seconds
+      no anomalies in 233 test result(s)
+
+    rng=RNG_stdin64, seed=0x9b09af3
+    length= 64 gigabytes (2^36 bytes), time= 1159 seconds
+      no anomalies in 244 test result(s)
+    
+    the 64 gigabytes barrier broken! testing ... 
+
+
+
+#### mcg128
 
     RNG_test using PractRand version 0.93
     RNG = RNG_stdin64, seed = 0xcc38b1b4
@@ -306,7 +359,7 @@ I'll post `practrand` results, speed looks good (low sd as well), see below.
 interupted the test.
 
 
-#### Splitmix64
+#### splitmix64
 
     RNG_test using PractRand version 0.93
     RNG = RNG_stdin64, seed = 0x842e3c04
@@ -363,7 +416,7 @@ interupted the test.
     I'll test some more.
 
 
-#### Pcg64
+#### pcg64
 
     pcg64 was not tested. I don't have enough time to wait for it to fail.
 
