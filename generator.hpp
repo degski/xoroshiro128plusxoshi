@@ -38,7 +38,7 @@
 
 // using Generator = meo::xoroshiro128plus64;
 // using Generator = v2::xoroshiro128plus64;
-using Generator = generator_cache<splitmix64>;
+using Generator = splitmix64;
 // using Generator = sfc64;
 // using Generator = mcg128_fast;
 // using Generator = mcg128; testing at the moment

@@ -33,7 +33,7 @@
 
 #include "generator.hpp"
 
-
+template<typename Gen>
 std::pair<double, std::uint64_t> test ( ) noexcept {
 
     plf::nanotimer timer;
@@ -41,7 +41,7 @@ std::pair<double, std::uint64_t> test ( ) noexcept {
 
     std::int64_t cnt = 100'000'000;
 
-    Generator gen ( 0xBE1C0467EBA5FAC1 );
+    Gen gen ( 0xBE1C0467EBA5FAC1 );
 
     volatile std::uint64_t acc = 0;
 
@@ -56,8 +56,8 @@ std::pair<double, std::uint64_t> test ( ) noexcept {
     return { result, acc };
 }
 
-
-int main ( ) {
+template<typename Gen>
+bool test_runs ( ) {
 
     const std::size_t n = 512;
 
@@ -66,8 +66,8 @@ int main ( ) {
 
     std::uint64_t acc = 0;
 
-    for  ( std::size_t i = 0; i < n; ++i ) {
-        auto [ result, a ] = test ( );
+    for ( std::size_t i = 0; i < n; ++i ) {
+        auto [ result, a ] = test<Gen> ( );
         acc += a;
         results.push_back ( result );
     }
@@ -75,5 +75,13 @@ int main ( ) {
     std::cout << "Lowest : " << ( std::uint64_t ) stats::ddmin ( results.data ( ), results.size ( ) ) << " milliseconds." << std::endl;
     std::cout << "Average: " << ( std::uint64_t ) stats::ddmean ( results.data ( ), results.size ( ) ) << " milliseconds." << std::endl;
     // std::cout << "St Dev.: " << ( std::uint64_t ) std::sqrt ( stats::ddvariance ( results.data ( ), results.size ( ) ) / results.size ( ) ) << " milliseconds." << std::endl;
-    std::cout << std::boolalpha << ( acc != 0 ) << std::endl;
+    return acc != 0;
+}
+
+
+int main ( ) {
+
+    const bool b = test_runs<Generator> ( ) && test_runs<generator_cache<Generator>> ( );
+
+    std::cout << std::boolalpha << b << std::endl;
 }
