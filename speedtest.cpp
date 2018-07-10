@@ -72,9 +72,9 @@ bool test_runs ( ) {
         results.push_back ( result );
     }
 
-    std::cout << "Lowest : " << ( std::uint64_t ) stats::ddmin ( results.data ( ), results.size ( ) ) << " milliseconds." << std::endl;
-    std::cout << "Average: " << ( std::uint64_t ) stats::ddmean ( results.data ( ), results.size ( ) ) << " milliseconds." << std::endl;
-    // std::cout << "St Dev.: " << ( std::uint64_t ) std::sqrt ( stats::ddvariance ( results.data ( ), results.size ( ) ) / results.size ( ) ) << " milliseconds." << std::endl;
+    std::cout << " lowest : " << ( std::uint64_t ) stats::ddmin ( results.data ( ), results.size ( ) ) << " milliseconds." << std::endl;
+    std::cout << " average: " << ( std::uint64_t ) stats::ddmean ( results.data ( ), results.size ( ) ) << " milliseconds." << std::endl;
+    std::printf ( " st.dev.: %.3f\n", std::sqrt ( stats::ddvariance ( results.data ( ), results.size ( ) ) / results.size ( ) ) );
     return acc != 0;
 }
 
@@ -83,7 +83,7 @@ int main ( ) {
 
     std::cout << " speed test: " << generator_name ( ) << " started." << std::endl;
     const bool b = test_runs<Generator> ( );
-    std::cout << std::boolalpha << b << std::endl;
+    std::cout << ( b ? " succesfull runs" : " fail" ) << std::endl;
 
     return 0;
 }
