@@ -19,12 +19,12 @@ tl;dr: the output function of `xoroshiro128plus` has been modified as per below:
         return ( ( result >> 16 ) ^ result ) >> ( base::ITYPE_BITS - base::RTYPE_BITS );
     }
 
-The above modification of `Xoroshiro128plus64-v1` is designated `Xoroshiro128plusxoshi16`, the others are analoguosly named.
+The above modification of `xoroshiro128plus64-v1` is designated `xoroshiro128plusxoshi16`, the others are analoguosly named.
 
 
 ### TODO:
 
-I've "designed" another variant (wutshamacallit: `Xoroshiro128plusxoshi32starxoshi16` maybe :-) ):
+I've "designed" another variant (wutshamacallit: `xoroshiro128plusxoshi32starxoshi16` maybe :-) ):
 
     rtype operator()()
     {
@@ -76,7 +76,7 @@ I'll post results.
 
 ### Practrand results
 
-#### Xoroshiro128plus64-v1
+#### xoroshiro128plus64-v1
 
     RNG_test using PractRand version 0.93
     RNG = RNG_stdin64, seed = 0x6259a10f
@@ -373,7 +373,7 @@ I'll post results.
     pcg64 was not tested. I don't have enough time to wait for it to fail.
 
 
-#### Xoroshiro128plusxoshi16
+#### xoroshiro128plusxoshi16
 
     RNG_test using PractRand version 0.93
     RNG = RNG_stdin64, seed = 0xdb4dda77
@@ -424,7 +424,7 @@ I'll post results.
       ...and 243 test result(s) without anomalies
 
 
-#### Xoroshiro128plusxoshi21 (I tested some other 'odd' values, with similar results)
+#### xoroshiro128plusxoshi21 (I tested some other 'odd' values, with similar results)
 
     RNG_test using PractRand version 0.93
     RNG = RNG_stdin64, seed = 0x3b9d8777
@@ -476,7 +476,7 @@ I'll post results.
       ...and 243 test result(s) without anomalies
 
 
-#### Xoroshiro128plusxoshi32
+#### xoroshiro128plusxoshi32
 
     RNG_test using PractRand version 0.93
     RNG = RNG_stdin64, seed = 0x47700e2c
@@ -530,7 +530,7 @@ I'll post results.
       ...and 243 test result(s) without anomalies
 
 
-#### Xoroshiro128plusxoshi48
+#### xoroshiro128plusxoshi48
 
     RNG_test using PractRand version 0.93
     RNG = RNG_stdin64, seed = 0xd2d51fe2
