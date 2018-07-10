@@ -33,7 +33,7 @@ I've "designed" another variant `xoroshiro128plusxoshi32starxoshi32`:
         return ( ( result >> 32 ) ^ result ) >> ( base::ITYPE_BITS - base::RTYPE_BITS );
     }
 
-The implementation deviates slightly as compared to the above (order of operations), but my guess is that it all don't matter.
+The implementation deviates slightly as compared to the above (order of operations), but my guess is that it all don't matter. Without knowing the final results of testing, I suspect that failre can be postponed by repeating (as many times a reuired) the `result = ( ( result >> 32 ) ^ result ) * itype { 0x1AEC805299990163 };` line. More searching has to also go into finding a better `magic constant` (which I know exists).
 
 
 ## Results
