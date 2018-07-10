@@ -36,17 +36,17 @@
 #include "lehmer.hpp"
 
 
-
 // using Generator = meo::xoroshiro128plus64;
-using Generator = degski::xoroshiro128plus64xoshi16;
+// using Generator = degski::xoroshiro128plus64xoshi16;
+// using Generator = degski::xoroshiro128plus64xoshi21;
+// using Generator = degski::xoroshiro128plus64xoshi24;
+using Generator = degski::xoroshiro128plus64xoshi32;
+// using Generator = degski::xoroshiro128plus64xoshi48;
 // using Generator = splitmix64;
-
 // using Generator = sfc64;
 // using Generator = mcg128_fast;
 // using Generator = mcg128;
 // using Generator = pcg64;
-// using Generator = iu::xoroshiro4x128plusavx;
-// using Generator = iu::xoroshiro128plus64;
 
 namespace detail {
 
@@ -67,6 +67,9 @@ inline std::string generator_name_impl ( ) noexcept { // where's the introspecti
     }
     else if constexpr ( std::is_same<Gen, meo::xoroshiro128plus64>::value ) {
         return std::string ( "xoroshiro128plus64 v1" );
+    }
+    else if constexpr ( std::is_same<Gen, pcg64>::value ) {
+            return std::string ( "pcg64" );
     }
     else {
         return std::string ( "xoroshiro128plus64xoshi" ) + std::string ( std::to_string ( Gen::shift ( ) ) );

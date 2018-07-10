@@ -115,16 +115,31 @@ public:
     using base::base;
 
     static constexpr unsigned int shift ( ) noexcept { return shi; }
-
+    /*
+    // Vigna & Blackman:
     rtype operator()()
     {
         const itype result = base::s0_ + base::s1_;
-
         base::advance();
-
-        // Melissa E. O'Neill:
-        // return result >> ( base::ITYPE_BITS - base::RTYPE_BITS );
-        // degski:
+        return result >> ( base::ITYPE_BITS - base::RTYPE_BITS );
+    }
+    // xoroshiro128plusxoshi:
+    rtype operator()()
+    {
+        const itype result = base::s0_ + base::s1_;
+        base::advance();
+        return ( ( result >> shi ) ^ result ) >> ( base::ITYPE_BITS - base::RTYPE_BITS );
+    }
+    */
+    // xoroshiro128plusxoshistarxoshi
+    rtype operator()()
+    {
+        itype result = base::s0_ + base::s1_;      
+        base::s1_ ^= base::s0_;
+        base::s0_ = base::rotl(base::s0_, a) ^ base::s1_ ^ (base::s1_ << b);
+        result ^= result >> 32;
+        base::s1_ = base::rotl(base::s1_, c);
+        result *= itype { 0x1AEC805299990163 };
         return ( ( result >> shi ) ^ result ) >> ( base::ITYPE_BITS - base::RTYPE_BITS );
     }
 };

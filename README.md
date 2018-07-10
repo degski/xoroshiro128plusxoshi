@@ -21,10 +21,7 @@ tl;dr: the output function of `xoroshiro128plus` has been modified as per below:
 
 The above modification of `xoroshiro128plus64-v1` is designated `xoroshiro128plusxoshi16`, the others are analoguosly named.
 
-
-### TODO:
-
-I've "designed" another variant (wutshamacallit: `xoroshiro128plusxoshi32starxoshi16` maybe :-) ):
+I've "designed" another variant `xoroshiro128plusxoshi32starxoshi32`:
 
     rtype operator()()
     {
@@ -32,14 +29,11 @@ I've "designed" another variant (wutshamacallit: `xoroshiro128plusxoshi32starxos
 
         base::advance();
 
-        // Melissa E. O'Neill:
-        // return result >> ( base::ITYPE_BITS - base::RTYPE_BITS );
-        // degski:
         result = ( ( result >> 32 ) ^ result ) * itype { 0x1AEC805299990163 };
-        return ( ( result >> 16 ) ^ result ) >> ( base::ITYPE_BITS - base::RTYPE_BITS );
+        return ( ( result >> 32 ) ^ result ) >> ( base::ITYPE_BITS - base::RTYPE_BITS );
     }
 
-I'll post results.
+I'll post `practrand` results, speed looks good (low sd as well), see below.
 
 
 ## Results
@@ -50,28 +44,29 @@ I'll post results.
 #### Context
 
 * Intel Ci3-5005U (Broadwell) CPU
-* Windows 10-1803-x64 in `diagnostics mode` (core services only), and Windows Defender off (I could run the tests on a system even more lean with a recovery thumb drive install)
+* Windows 10-1803-x64 in `safe mode` (core services only).
 * Compiler: [`LLVM-7.0.0-r336178-win64`](http://prereleases.llvm.org/win-snapshots/LLVM-7.0.0-r336178-win64.exe)
 * Command-line: `clang-cl -fuse-ld=lld -flto=thin  /D "NDEBUG" /D "_CONSOLE" /D "NOMINMAX" /D "_UNICODE" /D "UNICODE" -Xclang -fcxx-exceptions /Ox /Oi /MT main.cpp statistics.cpp -Xclang -std=c++2a -Xclang -ffast-math -mmmx  -msse  -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mavx -mavx2`
 * Generator tested: the improved 2018  `xoroshiro128plus64 v1`
-* 100'000'000 numbers generated, 512 runs
+* 10'000'000 numbers generated, 1'000 runs
 
 
 #### Results
 
-     generator                             fastest (ms)    mean (ms)
+    generator                                min (ms)    mean (ms)   sd (sample) 
 
-    * pcg64                                    372            373
-    * sfc (Chris Doty-Humphrey)                357            365 *)
-    * mcg128 (Lehmer)                          308            313 *)
-    * splitmix64                               305            309
-    * mcg128_fast (Lehmer)                     303            308 *)
-    * xoroshiro128plus64-v1                    300            314
-    * xoroshiro128plusxoshi48                  300            316
-    * xoroshiro128plusxoshi32                  300            317
-    * xoroshiro128plusxoshi16                  300            313
-
-*) not yet tested in `diagnostic mode`, will shave of some ms.
+    pcg64:                                     39.2         39.3        0.241
+    sfc64:                                     36.9         38.1        0.915
+    mcg128:                                    32.2         32.5        0.211
+    splitmix64:                                32.0         32.1        0.211
+    xoroshiro128plus64xoshi32starxoshi32:      31.8         32.2        0.351
+    xoroshiro128plus64 v1:                     31.7         35.9        2.731
+    xoroshiro128plus64xoshi24:                 31.7         34.7        2.505
+    xoroshiro128plus64xoshi48:                 31.7         34.7        2.557
+    xoroshiro128plus64xoshi16:                 31.7         34.6        2.429
+    xoroshiro128plus64xoshi21:                 31.7         34.5        2.497
+    xoroshiro128plus64xoshi32:                 31.7         34.3        2.453
+    mcg128_fast:                               31.7         32.2        0.256
 
 
 ### Practrand results
