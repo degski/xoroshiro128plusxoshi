@@ -33,7 +33,7 @@ I've "designed" another variant `xoroshiro128plusxoshi32starxoshi32`:
         return ( ( result >> 32 ) ^ result ) >> ( base::ITYPE_BITS - base::RTYPE_BITS );
     }
 
-The actual implementation tested deviates slightly (see [code](https://github.com/degski/xoroshiro128plusxoshi/blob/master/xoroshiro128plusxoshi.hpp)) as compared to the above (order of operations), but my guess is that it all don't matter. Without knowing the final results of testing, I suspect that failure can be postponed by repeating (as many times a required) the `result = ( ( result >> 32 ) ^ result ) * itype { 0x1AEC805299990163 };` line. This addition will affect the speed (but how much?). More searching also has to go into [finding](https://github.com/degski/inthashing) a better `magic constant` (which I know exists), the improvement will come at **zero cost** as compared to the current version.
+The actual implementation tested deviates slightly (see [code](https://github.com/degski/xoroshiro128plusxoshi/blob/master/xoroshiro128plusxoshi.hpp)) from the above (order of operations), but my guess is that it all don't matter after optimization. Without knowing the final results of testing, I suspect that failure can be postponed by repeating (as many times a required) the `result = ( ( result >> 32 ) ^ result ) * itype { 0x1AEC805299990163 };` line. This addition will affect the speed (but how much?). More searching also has to go into [finding](https://github.com/degski/inthashing) a better `magic constant` (which I know exists), the improvement will come at **zero cost** as compared to the current version.
 
 
 ## Results
@@ -47,8 +47,6 @@ The actual implementation tested deviates slightly (see [code](https://github.co
 * Windows 10-1803-x64 in `safe mode` (minimal).
 * Compiler: [`LLVM-7.0.0-r336178-win64`](http://prereleases.llvm.org/win-snapshots/LLVM-7.0.0-r336178-win64.exe)
 * Command-line: `clang-cl -fuse-ld=lld -flto=thin  /D "NDEBUG" /D "_CONSOLE" /D "NOMINMAX" /D "_UNICODE" /D "UNICODE" -Xclang -fcxx-exceptions /Ox /Oi /MT main.cpp statistics.cpp -Xclang -std=c++2a -Xclang -ffast-math -mmmx  -msse  -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mavx -mavx2`
-* Generator tested: the improved 2018  `xoroshiro128plus64 v1`
-* 10'000'000 numbers generated, 1'000 runs
 
 #### Method
 
@@ -59,6 +57,9 @@ The core of speed testing is implemented as follows:
     timer.start ( );
     while ( cnt-- ) acc += gen ( );
     result = timer.get_elapsed_ms ( );
+
+* 10'000'000 numbers generated per run, 1'000 runs
+* Every run is seeded with the same seed for all tests listed
 
 The `volatile acc` mimics a situation where all cache accesses are misses and/or every branch prediction is wrong. I have reason to believe that changing `acc` to a normal variable will particularly improve performance of the generators with a high `sd` (see below). The latter testing reflects a situation in where the generator performs ideally, no cache-misses and perfect branch prediction. This, in most use-cases - in-the-real-world, will not be a realistic scenario. I will put some numbers up in the near future.
 
@@ -95,6 +96,7 @@ The `volatile acc` mimics a situation where all cache accesses are misses and/or
     xoroshiro128plus64xoshi32starxoshi32:      31.8         32.2        0.351
     mcg128_fast:                               31.7         32.2        0.256
     splitmix64:                                32.0         32.1        0.211
+
 
 ### Practrand results
 
