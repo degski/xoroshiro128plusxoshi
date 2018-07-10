@@ -308,7 +308,7 @@ I'll post results.
     length= 2 terabytes (2^41 bytes), time= 36984 seconds
       no anomalies in 297 test result(s)
 
-    results so far.
+interupted the test.
 
 
 #### Splitmix64
