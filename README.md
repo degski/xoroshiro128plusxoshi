@@ -33,7 +33,7 @@ I've "designed" another variant `xoroshiro128plusxoshi32starxoshi32`:
         return ( ( result >> 32 ) ^ result ) >> ( base::ITYPE_BITS - base::RTYPE_BITS );
     }
 
-I'll post `practrand` results, speed looks good (low sd as well), see below.
+The implementation deviates slightly as compared to the above (order of operations), but my guess is that it all don't matter.
 
 
 ## Results
