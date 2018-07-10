@@ -303,8 +303,12 @@ The `volatile acc` mimics a situation where all cache accesses are misses and/or
     rng=RNG_stdin64, seed=0x9b09af3
     length= 64 gigabytes (2^36 bytes), time= 1159 seconds
       no anomalies in 244 test result(s)
+
+    rng=RNG_stdin64, seed=0x9b09af3
+    length= 128 gigabytes (2^37 bytes), time= 2328 seconds
+      no anomalies in 255 test result(s)
     
-    the 64 gigabytes barrier broken! testing ... 
+    the 128 gigabytes barrier broken! testing ... 
 
 
 
