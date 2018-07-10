@@ -3,7 +3,7 @@
 
 Improved xoroshiro generator, better at **zero cost** (Intel Ci3-5005U (Broadwell) CPU), compiler [`LLVM-7.0.0-r336178-win64`](https://llvm.org/builds/).
 
-Included a modified xoroshiro implementation by Melissa E. O'Neill, the author of the excellent [pcg](http://www.pcg-random.org/) familiy of prng's. Don't miss her [blog](http://www.pcg-random.org/blog/), which is a gold-mine of information (and code) and is updated regulary.
+Included a modified `xoroshiro128plus` implementation by Melissa E. O'Neill. The author of the [pcg](http://www.pcg-random.org/) familiy of prng's. Don't miss her [blog](http://www.pcg-random.org/blog/), which is a throve of information (and the code, of most this project is written by her and did away with worrying about DIY-implementations) and is updated regulary.
 
 tl;dr: the output function of `xoroshiro128plus` has been modified as per below:
 
@@ -50,7 +50,7 @@ I'll post results.
 #### Context
 
 * Intel Ci3-5005U (Broadwell) CPU
-* Windows 10-1803-x64 in `diagnostics mode` (core services only), and Windows Defender off
+* Windows 10-1803-x64 in `diagnostics mode` (core services only), and Windows Defender off (I could run the tests on a system even more lean with a recovery thumb drive install)
 * Compiler: [`LLVM-7.0.0-r336178-win64`](http://prereleases.llvm.org/win-snapshots/LLVM-7.0.0-r336178-win64.exe)
 * Command-line: `clang-cl -fuse-ld=lld -flto=thin  /D "NDEBUG" /D "_CONSOLE" /D "NOMINMAX" /D "_UNICODE" /D "UNICODE" -Xclang -fcxx-exceptions /Ox /Oi /MT main.cpp statistics.cpp -Xclang -std=c++2a -Xclang -ffast-math -mmmx  -msse  -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mavx -mavx2`
 * Generator tested: the improved 2018  `xoroshiro128plus64 v1`
