@@ -415,75 +415,7 @@ interupted the test.
 
 #### splitmix64
 
-    RNG_test using PractRand version 0.93
-    RNG = RNG_stdin64, seed = 0x7c5c6b6d
-    test set = normal, folding = standard (64 bit)
-
-    rng=RNG_stdin64, seed=0x7c5c6b6d
-    length= 128 megabytes (2^27 bytes), time= 2.8 seconds
-      Test Name                         Raw       Processed     Evaluation
-      [Low16/64]Gap-16:B                R=  -4.1  p =1-1.7e-3   unusual
-      ...and 147 test result(s) without anomalies
-
-    rng=RNG_stdin64, seed=0x7c5c6b6d
-    length= 256 megabytes (2^28 bytes), time= 6.3 seconds
-      no anomalies in 159 test result(s)
-
-    rng=RNG_stdin64, seed=0x7c5c6b6d
-    length= 512 megabytes (2^29 bytes), time= 12.9 seconds
-      Test Name                         Raw       Processed     Evaluation
-      [Low4/64]DC6-9x1Bytes-1           R=  -3.9  p =1-7.4e-3   unusual
-      ...and 168 test result(s) without anomalies
-
-    rng=RNG_stdin64, seed=0x7c5c6b6d
-    length= 1 gigabyte (2^30 bytes), time= 25.6 seconds
-      no anomalies in 180 test result(s)
-
-    rng=RNG_stdin64, seed=0x7c5c6b6d
-    length= 2 gigabytes (2^31 bytes), time= 49.2 seconds
-      no anomalies in 191 test result(s)
-
-    rng=RNG_stdin64, seed=0x7c5c6b6d
-    length= 4 gigabytes (2^32 bytes), time= 92.7 seconds
-      no anomalies in 201 test result(s)
-
-    rng=RNG_stdin64, seed=0x7c5c6b6d
-    length= 8 gigabytes (2^33 bytes), time= 185 seconds
-      no anomalies in 212 test result(s)
-
-    rng=RNG_stdin64, seed=0x7c5c6b6d
-    length= 16 gigabytes (2^34 bytes), time= 363 seconds
-      no anomalies in 223 test result(s)
-
-    rng=RNG_stdin64, seed=0x7c5c6b6d
-    length= 32 gigabytes (2^35 bytes), time= 706 seconds
-      no anomalies in 233 test result(s)
-
-    rng=RNG_stdin64, seed=0x7c5c6b6d
-    length= 64 gigabytes (2^36 bytes), time= 1438 seconds
-      no anomalies in 244 test result(s)
-
-    rng=RNG_stdin64, seed=0x7c5c6b6d
-    length= 128 gigabytes (2^37 bytes), time= 2871 seconds
-      no anomalies in 255 test result(s)
-
-    rng=RNG_stdin64, seed=0x7c5c6b6d
-    length= 256 gigabytes (2^38 bytes), time= 5548 seconds
-      no anomalies in 265 test result(s)
-
-    rng=RNG_stdin64, seed=0x7c5c6b6d
-    length= 512 gigabytes (2^39 bytes), time= 10984 seconds
-      no anomalies in 276 test result(s)
-
-    rng=RNG_stdin64, seed=0x7c5c6b6d
-    length= 1 terabyte (2^40 bytes), time= 20369 seconds
-      no anomalies in 287 test result(s)
-    
-    rng=RNG_stdin64, seed=0x7c5c6b6d
-    length= 2 terabytes (2^41 bytes), time= 38575 seconds
-      no anomalies in 297 test result(s)
-
-testing ...
+    splitmix64 [passes (link and work by meo)](https://pastebin.com/ut80JMMz) `bigcrush`, I assume it means it passes `practrand` as well.
 
 
 #### pcg64
