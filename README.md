@@ -489,6 +489,10 @@ splitmix64 [passes (link and work by meo)](https://pastebin.com/ut80JMMz) `bigcr
     length= 2 terabytes (2^41 bytes), time= 38575 seconds
       no anomalies in 297 test result(s)
 
+    rng=RNG_stdin64, seed=0x7c5c6b6d
+    length= 4 terabytes (2^42 bytes), time= 84321 seconds
+      no anomalies in 308 test result(s)
+
     testing ...
 
 
