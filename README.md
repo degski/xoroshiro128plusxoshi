@@ -326,7 +326,12 @@ The `volatile acc` mimics a situation where all cache accesses are misses and/or
     length= 1 terabyte (2^40 bytes), time= 20022 seconds
       no anomalies in 287 test result(s)
 
-    1TB barrier broken, time to randomize my hard-disk! testing ... 
+    rng=RNG_stdin64, seed=0x9b09af3
+    length= 2 terabytes (2^41 bytes), time= 39005 seconds
+      no anomalies in 297 test result(s)
+
+
+2TB barrier broken! testing 11hrs till 4TB ... 
 
 
 
@@ -466,7 +471,19 @@ interupted the test.
     length= 256 gigabytes (2^38 bytes), time= 5548 seconds
       no anomalies in 265 test result(s)
 
-    testing ...
+    rng=RNG_stdin64, seed=0x7c5c6b6d
+    length= 512 gigabytes (2^39 bytes), time= 10984 seconds
+      no anomalies in 276 test result(s)
+
+    rng=RNG_stdin64, seed=0x7c5c6b6d
+    length= 1 terabyte (2^40 bytes), time= 20369 seconds
+      no anomalies in 287 test result(s)
+    
+    rng=RNG_stdin64, seed=0x7c5c6b6d
+    length= 2 terabytes (2^41 bytes), time= 38575 seconds
+      no anomalies in 297 test result(s)
+
+testing ...
 
 
 #### pcg64
