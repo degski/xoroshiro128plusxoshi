@@ -415,7 +415,7 @@ interupted the test.
 
 #### splitmix64
 
-    splitmix64 [passes (link and work by meo)](https://pastebin.com/ut80JMMz) `bigcrush`. With `practrand` [`splitmix64` passes at least 64TB (in the comments)](https://lemire.me/blog/2017/08/22/testing-non-cryptographic-random-number-generators-my-results/).
+splitmix64 [passes (link and work by meo)](https://pastebin.com/ut80JMMz) `bigcrush`. With `practrand` [`splitmix64` passes at least 64TB (in the comments)](https://lemire.me/blog/2017/08/22/testing-non-cryptographic-random-number-generators-my-results/).
 
     RNG_test using PractRand version 0.93
     RNG = RNG_stdin64, seed = 0x7c5c6b6d
