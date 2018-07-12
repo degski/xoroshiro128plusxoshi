@@ -1,7 +1,7 @@
 
 # xoroshiro128plusxoshi
 
-Improved xoroshiro generator, better at **zero cost** (Intel Ci3-5005U (Broadwell) CPU), compiler [`LLVM-7.0.0-r336178-win64`](https://llvm.org/builds/).
+xoroshiro128plus + xoshi(N)-back-end, better at **zero cost** (Intel Ci3-5005U (Broadwell) CPU), compiler [`LLVM-7.0.0-r336178-win64`](https://llvm.org/builds/).
 
 Included a modified `xoroshiro128plus` implementation by Melissa E. O'Neill. The author of the [pcg](http://www.pcg-random.org/) familiy of prng's. Don't miss her [blog](http://www.pcg-random.org/blog/), which is a throve of information (and the code, of most this project is written by her and did away with worrying about DIY-implementations) and is updated regulary.
 
@@ -22,7 +22,12 @@ tl;dr: the output function of `xoroshiro128plus` has been modified as per below 
 
 The above modification of `xoroshiro128plus64-v1` is designated `xoroshiro128plusxoshi16`, the others are analoguosly named.
 
-I've "designed" another variant `xoroshiro128plusxoshi32starxoshi32` (xoroshiro128plus + back-end):
+This generator fails `practrand` systematically at 64 gigabytes [BRank(12)], a significant improvement over vanilla `xoroshiro128plus64-v1`, at zero cost, see below.
+
+
+## Ongoing
+
+I'am testing another variant `xoroshiro128plusxoshi32starxoshi32` (xoroshiro128plus + back-end):
 
     rtype operator()()
     {
