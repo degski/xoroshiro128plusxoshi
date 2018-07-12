@@ -5,7 +5,10 @@ xoroshiro128plus + xoshi(N)-back-end, better at **zero cost** (Intel Ci3-5005U (
 
 Included a modified `xoroshiro128plus` implementation by Melissa E. O'Neill. The author of the [pcg](http://www.pcg-random.org/) familiy of prng's. Don't miss her [blog](http://www.pcg-random.org/blog/), which is a throve of information (and the code, of most this project is written by her and did away with worrying about DIY-implementations) and is updated regulary.
 
-tl;dr: the output function of `xoroshiro128plus` has been modified as per below (xoroshiro128plus + back-end):
+
+## TL;DR
+
+The output function of `xoroshiro128plus` has been modified as per below (xoroshiro128plus + back-end):
 
     rtype operator()()
     {
