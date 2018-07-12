@@ -345,7 +345,7 @@ The `volatile acc` mimics a situation where all cache accesses are misses and/or
     length= 8 terabytes (2^43 bytes), time= 177391 seconds
       no anomalies in 319 test result(s)
 
-    8TB barrier broken! testing (50hrs till 16TB) ... 
+    8TB barrier broken! testing (25hrs till 16TB) ... 
 
 
 
@@ -502,6 +502,10 @@ splitmix64 [passes (link and work by meo)](https://pastebin.com/ut80JMMz) `bigcr
     rng=RNG_stdin64, seed=0x7c5c6b6d
     length= 4 terabytes (2^42 bytes), time= 84321 seconds
       no anomalies in 308 test result(s)
+
+    rng=RNG_stdin64, seed=0x7c5c6b6d
+    length= 8 terabytes (2^43 bytes), time= 179099 seconds
+      no anomalies in 319 test result(s)
 
     testing ...
 
