@@ -5,7 +5,7 @@ Improved xoroshiro generator, better at **zero cost** (Intel Ci3-5005U (Broadwel
 
 Included a modified `xoroshiro128plus` implementation by Melissa E. O'Neill. The author of the [pcg](http://www.pcg-random.org/) familiy of prng's. Don't miss her [blog](http://www.pcg-random.org/blog/), which is a throve of information (and the code, of most this project is written by her and did away with worrying about DIY-implementations) and is updated regulary.
 
-tl;dr: the output function of `xoroshiro128plus` has been modified as per below:
+tl;dr: the output function of `xoroshiro128plus` has been modified as per below (xoroshiro128plus + back-end):
 
     rtype operator()()
     {
@@ -22,7 +22,7 @@ tl;dr: the output function of `xoroshiro128plus` has been modified as per below:
 
 The above modification of `xoroshiro128plus64-v1` is designated `xoroshiro128plusxoshi16`, the others are analoguosly named.
 
-I've "designed" another variant `xoroshiro128plusxoshi32starxoshi32`:
+I've "designed" another variant `xoroshiro128plusxoshi32starxoshi32` (xoroshiro128plus + back-end):
 
     rtype operator()()
     {
