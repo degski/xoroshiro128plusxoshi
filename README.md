@@ -522,7 +522,7 @@ splitmix64 [passes (link and work by meo)](https://pastebin.com/ut80JMMz) `bigcr
     length= 32 terabytes (2^45 bytes), time= 715044 seconds
       no anomalies in 339 test result(s)
 
-    testing stopped (I declare it good for pong).
+    testing stopped (I declare it good for pong, maybe packman).
 
 
 #### pcg64
