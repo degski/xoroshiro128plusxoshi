@@ -349,8 +349,11 @@ The `volatile acc` mimics a situation where all cache accesses are misses and/or
     length= 16 terabytes (2^44 bytes), time= 355419 seconds
       no anomalies in 329 test result(s)
 
-    16TB barrier broken! testing ... 
+    rng=RNG_stdin64, seed=0x9b09af3
+    length= 32 terabytes (2^45 bytes), time= 727512 seconds
+      no anomalies in 339 test result(s)
 
+    32TB barrier broken! giving up ...
 
 
 #### mcg128
@@ -514,8 +517,12 @@ splitmix64 [passes (link and work by meo)](https://pastebin.com/ut80JMMz) `bigcr
     rng=RNG_stdin64, seed=0x7c5c6b6d
     length= 16 terabytes (2^44 bytes), time= 354333 seconds
       no anomalies in 329 test result(s)
+    
+    rng=RNG_stdin64, seed=0x7c5c6b6d
+    length= 32 terabytes (2^45 bytes), time= 715044 seconds
+      no anomalies in 339 test result(s)
 
-    testing ...
+    testing stopped (I declare it good for pong).
 
 
 #### pcg64
