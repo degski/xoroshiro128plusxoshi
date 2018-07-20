@@ -48,9 +48,9 @@ void bm_generator_clobber ( benchmark::State & state ) noexcept {
     seed *= 0x1AEC805299990163;
     seed ^= ( seed >> 32 );
     Gen gen ( seed );
-    static typename Gen::result_type a = 0;
+    typename Gen::result_type a = 0;
+    benchmark::DoNotOptimize ( &a );
     for ( auto _ : state ) {
-        benchmark::DoNotOptimize ( &a );
         for ( int i = 0; i < 128; ++i ) {
             a += gen ( );
             benchmark::ClobberMemory ( );
@@ -64,9 +64,9 @@ void bm_generator_no_clobber ( benchmark::State & state ) noexcept {
     seed *= 0x1AEC805299990163;
     seed ^= ( seed >> 32 );
     Gen gen ( seed );
-    static typename Gen::result_type a = 0;
+    typename Gen::result_type a = 0;
+    benchmark::DoNotOptimize ( &a );
     for ( auto _ : state ) {
-        benchmark::DoNotOptimize ( &a );
         for ( int i = 0; i < 128; ++i ) {
             a += gen ( );
         }
@@ -76,6 +76,9 @@ void bm_generator_no_clobber ( benchmark::State & state ) noexcept {
 
 constexpr int repeats = 16;
 
+BENCHMARK_TEMPLATE ( bm_generator_clobber, std::mt19937_64 )
+->Repetitions ( repeats )
+->ReportAggregatesOnly ( true );
 
 BENCHMARK_TEMPLATE ( bm_generator_clobber, pcg64 )
 ->Repetitions ( repeats )
@@ -109,6 +112,10 @@ BENCHMARK_TEMPLATE ( bm_generator_clobber, splitmix64 )
 ->Repetitions ( repeats )
 ->ReportAggregatesOnly ( true );
 
+
+BENCHMARK_TEMPLATE ( bm_generator_no_clobber, std::mt19937_64 )
+->Repetitions ( repeats )
+->ReportAggregatesOnly ( true );
 
 BENCHMARK_TEMPLATE ( bm_generator_no_clobber, pcg64 )
 ->Repetitions ( repeats )
