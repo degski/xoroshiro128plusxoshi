@@ -22,17 +22,10 @@
 // SOFTWARE.
 
 #include <ciso646>
+#include <cstddef>
 
-#include <array>
-#include <fstream>
 #include "iostream.hpp" // <iostream> + nl, sp etc. defined...
-#include <iterator>
-#include <list>
-#include <map>
 #include <random>
-#include <string>
-#include <type_traits>
-#include <vector>
 
 
 #include <benchmark/benchmark.h>
@@ -41,91 +34,104 @@
 #pragma comment ( lib, "Shlwapi.lib" )
 #endif
 
+#include "../pcg/pcg_random.hpp"
+#include "../xoroshiro.hpp"
+#include "../xoroshiro128plusxoshi.hpp"
 #include "../splitmix.hpp"
+#include "../sfc.hpp"
+#include "../lehmer.hpp"
 
 
-template<class Container>
-void benchmark_emplace_back_random ( benchmark::State & state ) noexcept {
-    using value_type = typename Container::value_type;
-    Container data;
-    splitmix64 gen;
+template<class Gen>
+void benchmark_generator_clobber ( benchmark::State & state ) noexcept {
+    typename Gen::result_type a = 0;
+    Gen gen ( 0xBE1C0467EBA5FAC );
     for ( auto _ : state ) {
-        state.PauseTiming ( );
-        benchmark::DoNotOptimize ( data.data ( ) );
-        data = Container ( std::uniform_int_distribution<std::size_t> ( 0, 8 ) ( gen ), value_type { 1 } );
-        benchmark::ClobberMemory ( );
-        const std::size_t l = std::uniform_int_distribution<std::size_t> ( 1, 256 ) ( gen );
-        state.ResumeTiming ( );
-        for ( std::int64_t i = 0; i < l; ++i ) {
-            benchmark::DoNotOptimize ( data.data ( ) );
-            data.emplace_back ( ( value_type ) i );
+        benchmark::DoNotOptimize ( &a );
+        for ( int i = 0; i < 100; ++i ) {
+            a += gen ( );
             benchmark::ClobberMemory ( );
         }
     }
 }
 
+template<class Gen>
+void benchmark_generator_no_clobber ( benchmark::State & state ) noexcept {
+    typename Gen::result_type a = 0;
+    Gen gen ( 0xBE1C0467EBA5FAC );
+    for ( auto _ : state ) {
+        benchmark::DoNotOptimize ( &a );
+        for ( int i = 0; i < 100; ++i ) {
+            a += gen ( );
+        }
+    }
+}
 
-using tested_value_type = std::uint8_t;
 
-BENCHMARK_TEMPLATE ( benchmark_emplace_back_random, std::vector<tested_value_type> )
+constexpr int repeats = 8;
 
-->Args ( { 1, 1 } )
-->Args ( { 1, 4 } )
-->Args ( { 1, 8 } )
-->Args ( { 1, 16 } )
-->Args ( { 1, 32 } )
-->Args ( { 1, 64 } )
-->Args ( { 4, 1 } )
-->Args ( { 4, 4 } )
-->Args ( { 4, 8 } )
-->Args ( { 4, 16 } )
-->Args ( { 4, 32 } )
-->Args ( { 4, 64 } )
-->Args ( { 8, 1 } )
-->Args ( { 8, 4 } )
-->Args ( { 8, 8 } )
-->Args ( { 8, 16 } )
-->Args ( { 8, 32 } )
-->Args ( { 8, 64 } )
-->Args ( { 16, 1 } )
-->Args ( { 16, 4 } )
-->Args ( { 16, 8 } )
-->Args ( { 16, 16 } )
-->Args ( { 16, 32 } )
-->Args ( { 16, 64 } )
 
-->Repetitions ( 16 )
-->ReportAggregatesOnly ( true )
-;
-/*
-BENCHMARK_TEMPLATE ( benchmark_emplace_back_random, podder<tested_value_type> )
+BENCHMARK_TEMPLATE ( benchmark_generator_clobber, pcg64 )
+->Repetitions ( repeats )
+->ReportAggregatesOnly ( true );
 
-->Args ( { 1, 1 } )
-->Args ( { 1, 4 } )
-->Args ( { 1, 8 } )
-->Args ( { 1, 16 } )
-->Args ( { 1, 32 } )
-->Args ( { 1, 64 } )
-->Args ( { 4, 1 } )
-->Args ( { 4, 4 } )
-->Args ( { 4, 8 } )
-->Args ( { 4, 16 } )
-->Args ( { 4, 32 } )
-->Args ( { 4, 64 } )
-->Args ( { 8, 1 } )
-->Args ( { 8, 4 } )
-->Args ( { 8, 8 } )
-->Args ( { 8, 16 } )
-->Args ( { 8, 32 } )
-->Args ( { 8, 64 } )
-->Args ( { 16, 1 } )
-->Args ( { 16, 4 } )
-->Args ( { 16, 8 } )
-->Args ( { 16, 16 } )
-->Args ( { 16, 32 } )
-->Args ( { 16, 64 } )
+BENCHMARK_TEMPLATE ( benchmark_generator_clobber, sfc64 )
+->Repetitions ( repeats )
+->ReportAggregatesOnly ( true );
 
-->Repetitions ( 16 )
-->ReportAggregatesOnly ( true )
-;
-*/
+BENCHMARK_TEMPLATE ( benchmark_generator_clobber, meo::xoroshiro128plus64 )
+->Repetitions ( repeats )
+->ReportAggregatesOnly ( true );
+
+BENCHMARK_TEMPLATE ( benchmark_generator_clobber, degski::xoroshiro128plus64xoshi32 )
+->Repetitions ( repeats )
+->ReportAggregatesOnly ( true );
+
+BENCHMARK_TEMPLATE ( benchmark_generator_clobber, degski::xoroshiro128plus64xoshi32starxoshi32 )
+->Repetitions ( repeats )
+->ReportAggregatesOnly ( true );
+
+BENCHMARK_TEMPLATE ( benchmark_generator_clobber, mcg128 )
+->Repetitions ( repeats )
+->ReportAggregatesOnly ( true );
+
+BENCHMARK_TEMPLATE ( benchmark_generator_clobber, mcg128_fast )
+->Repetitions ( repeats )
+->ReportAggregatesOnly ( true );
+
+BENCHMARK_TEMPLATE ( benchmark_generator_clobber, splitmix64 )
+->Repetitions ( repeats )
+->ReportAggregatesOnly ( true );
+
+
+BENCHMARK_TEMPLATE ( benchmark_generator_no_clobber, pcg64 )
+->Repetitions ( repeats )
+->ReportAggregatesOnly ( true );
+
+BENCHMARK_TEMPLATE ( benchmark_generator_no_clobber, sfc64 )
+->Repetitions ( repeats )
+->ReportAggregatesOnly ( true );
+
+BENCHMARK_TEMPLATE ( benchmark_generator_no_clobber, meo::xoroshiro128plus64 )
+->Repetitions ( repeats )
+->ReportAggregatesOnly ( true );
+
+BENCHMARK_TEMPLATE ( benchmark_generator_no_clobber, degski::xoroshiro128plus64xoshi32 )
+->Repetitions ( repeats )
+->ReportAggregatesOnly ( true );
+
+BENCHMARK_TEMPLATE ( benchmark_generator_no_clobber, degski::xoroshiro128plus64xoshi32starxoshi32 )
+->Repetitions ( repeats )
+->ReportAggregatesOnly ( true );
+
+BENCHMARK_TEMPLATE ( benchmark_generator_no_clobber, mcg128 )
+->Repetitions ( repeats )
+->ReportAggregatesOnly ( true );
+
+BENCHMARK_TEMPLATE ( benchmark_generator_no_clobber, mcg128_fast )
+->Repetitions ( repeats )
+->ReportAggregatesOnly ( true );
+
+BENCHMARK_TEMPLATE ( benchmark_generator_no_clobber, splitmix64 )
+->Repetitions ( repeats )
+->ReportAggregatesOnly ( true );

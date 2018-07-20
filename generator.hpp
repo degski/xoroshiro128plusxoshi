@@ -42,6 +42,11 @@
 // using Generator = degski::xoroshiro128plus64xoshi24;
 // using Generator = degski::xoroshiro128plus64xoshi32;
 // using Generator = degski::xoroshiro128plus64xoshi48;
+
+// using Generator = degski::xoroshiro128plus64xoshi16starxoshi16;
+// using Generator = degski::xoroshiro128plus64xoshi32starxoshi16;
+// using Generator = degski::xoroshiro128plus64xoshi32starxoshi32;
+
 // using Generator = splitmix64;
 // using Generator = sfc64;
 // using Generator = mcg128_fast;
