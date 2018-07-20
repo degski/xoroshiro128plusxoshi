@@ -5,7 +5,7 @@
 
 `xoroshiro128plus + xoshi32xoshi(N)-back-end`, does not fail 'practrand' at 32 terabytes, while in one way of testing is 15% faster, while in another 30% slower. A real world situation is probably somewhere in between the 2 testing methods.
 
-Included in this project are back-ended `xoroshiro128plus` implementations of the vanilla implmentation by Melissa E. O'Neill, which I use as a reference. The author of the [pcg](http://www.pcg-random.org/) familiy of prng's. Don't miss her [blog](http://www.pcg-random.org/blog/), which is a throve of information (and the code, of most this project is written by her and did away with worrying about DIY-implementations) and is updated regulary.
+Included in this project are back-ended `xoroshiro128plus` implementations of the vanilla (my reference) implmentation by Melissa E. O'Neill, the author of the [pcg](http://www.pcg-random.org/) familiy of prng's. Don't miss her [blog](http://www.pcg-random.org/blog/), which is a throve of information (and the code, of most this project is written by her and did away with worrying about DIY-implementations) and is updated regulary.
 
 
 ## TL;DR
@@ -24,10 +24,10 @@ The output function of `xoroshiro128plus` has been modified as per below (xorosh
         // return result >> ( base::ITYPE_BITS - base::RTYPE_BITS );
 
         // degski:
-        return ( ( result >> 16 ) ^ result ) >> ( base::ITYPE_BITS - base::RTYPE_BITS );
+        return ( ( result >> 32 ) ^ result ) >> ( base::ITYPE_BITS - base::RTYPE_BITS );
     }
 
-The above modification of `xoroshiro128plus64-v1` is designated `xoroshiro128plusxoshi16`, the others are analoguosly named.
+The above modification of `xoroshiro128plus64-v1` is designated `xoroshiro128plusxoshi32`.
 
 This generator fails `practrand` systematically at 64 gigabytes [BRank(12)].
 
@@ -138,6 +138,7 @@ This generator does not fail the `practrand` test up til and including 32TB, aft
     bm_generator_clobber<splitmix64>/repeats:16_mean                                               401 ns        401 ns    1792000
     bm_generator_clobber<splitmix64>/repeats:16_median                                             396 ns        392 ns    1792000
     bm_generator_clobber<splitmix64>/repeats:16_stddev                                              13 ns         14 ns    1792000
+    
     bm_generator_no_clobber<std::mt19937_64>/repeats:16_mean                                       925 ns        926 ns     746667
     bm_generator_no_clobber<std::mt19937_64>/repeats:16_median                                     925 ns        921 ns     746667
     bm_generator_no_clobber<std::mt19937_64>/repeats:16_stddev                                       8 ns         14 ns     746667
