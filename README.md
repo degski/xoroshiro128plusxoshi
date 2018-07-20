@@ -29,11 +29,11 @@ The output function of `xoroshiro128plus` has been modified as per below (xorosh
 
 The above modification of `xoroshiro128plus64-v1` is designated `xoroshiro128plusxoshi32`.
 
-This generator fails `practrand` systematically at 64 gigabytes [BRank(12)].
+This generator fails `practrand` systematically at 64 gigabytes [BRank(12)], also with different shift (above 32) values.
 
 ### xoroshiro128plusxoshi32starxoshi32
 
-I have "designed" and tested another variant of the `xoroshiro128plus` generator, `xoroshiro128plusxoshi32starxoshi32` (xoroshiro128plus + back-end):
+I have "designed" (based on the idea of [invertible integer hash functions](https://gist.github.com/degski/6e2069d6035ae04d5d6f64981c995ec2)) and tested another variant of the `xoroshiro128plus` generator, `xoroshiro128plusxoshi32starxoshi32` (xoroshiro128plus + back-end):
 
     rtype operator ( ) ( )
     {
