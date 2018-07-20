@@ -64,6 +64,41 @@ This generator does not fail the `practrand` test up til and including 32TB, aft
 
 #### Speed-test `google benchmark` results
 
+    **Test functions:**
+
+    template<class Gen>
+    void bm_generator_clobber ( benchmark::State & state ) noexcept {
+        static std::uint64_t seed = 0xBE1C0467EBA5FAC;
+        seed *= 0x1AEC805299990163;
+        seed ^= ( seed >> 32 );
+        Gen gen ( seed );
+        static typename Gen::result_type a = 0;
+        for ( auto _ : state ) {
+            benchmark::DoNotOptimize ( &a );
+            for ( int i = 0; i < 128; ++i ) {
+                a += gen ( );
+                benchmark::ClobberMemory ( );
+            }
+        }
+    }
+
+    template<class Gen>
+    void bm_generator_no_clobber ( benchmark::State & state ) noexcept {
+        static std::uint64_t seed = 0xBE1C0467EBA5FAC;
+        seed *= 0x1AEC805299990163;
+        seed ^= ( seed >> 32 );
+        Gen gen ( seed );
+        static typename Gen::result_type a = 0;
+        for ( auto _ : state ) {
+            benchmark::DoNotOptimize ( &a );
+            for ( int i = 0; i < 128; ++i ) {
+                a += gen ( );
+            }
+        }
+    }
+
+    **The numbers:**
+
     07/20/18 13:29:32
     Running benchmark.exe
     Run on (4 X 1995 MHz CPU s)
