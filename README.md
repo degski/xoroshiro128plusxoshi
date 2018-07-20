@@ -56,20 +56,6 @@ The actual implementation tested deviates slightly (see [code](https://github.co
 * Compiler: [`LLVM-7.0.0-r336178-win64`](http://prereleases.llvm.org/win-snapshots/LLVM-7.0.0-r336178-win64.exe)
 * Command-line: `clang-cl -fuse-ld=lld -flto=thin  /D "NDEBUG" /D "_CONSOLE" /D "NOMINMAX" /D "_UNICODE" /D "UNICODE" -Xclang -fcxx-exceptions /Ox /Oi /MT main.cpp statistics.cpp -Xclang -std=c++2a -Xclang -ffast-math -mmmx  -msse  -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mavx -mavx2`
 
-#### Method
-
-The core of speed testing is implemented as follows:
-
-    volatile std::uint64_t acc = 0;
-
-    timer.start ( );
-    while ( cnt-- ) acc += gen ( );
-    result = timer.get_elapsed_ms ( );
-
-* 10'000'000 numbers generated per run, 1'000 runs
-* Every run is seeded with the same seed for all tests listed
-
-The `volatile acc` mimics a situation where all cache accesses are misses and/or every branch prediction is wrong. I have reason to believe that changing `acc` to a normal variable will particularly improve performance of the generators with a high `sd` (see below). The latter testing reflects a situation in where the generator performs ideally, no cache-misses and perfect branch prediction. This, in most use-cases - in-the-real-world, will not be a realistic scenario. I will put some numbers up in the near future.
 
 #### Speed-test results
 
@@ -105,6 +91,39 @@ The `volatile acc` mimics a situation where all cache accesses are misses and/or
     mcg128_fast:                               31.7         32.2        0.256
     splitmix64:                                32.0         32.1        0.211
 
+
+#### Method
+
+The core of speed testing is implemented as follows:
+
+    volatile std::uint64_t acc = 0;
+
+    timer.start ( );
+    while ( cnt-- ) acc += gen ( );
+    result = timer.get_elapsed_ms ( );
+
+* 10'000'000 numbers generated per run, 1'000 runs
+* Every run is seeded with the same seed for all tests listed
+
+The `volatile acc` mimics a situation where all cache accesses are misses and/or every branch prediction is wrong. I have reason to believe that changing `acc` to a normal variable will particularly improve performance of the generators with a high `sd` (see below). The latter testing reflects a situation in where the generator performs ideally, no cache-misses and perfect branch prediction. ~~This, in most use-cases - in-the-real-world, will not be a realistic scenario. I will put some numbers up in the near future.~~ I have tested the previous assertion and give the numbers below. The non-volatile test has been run on a fully live machine, i.e. the numbers are understated (as compapred to the base-case).
+
+    generator                                min (ms)    mean (ms)   sd (sample) 
+
+    ordered by min
+
+    xoroshiro128plus64 v1: (v)                 31.7         35.9        2.731
+    xoroshiro128plus64 v1: (nv)                21.1         21.3        0.210
+    
+    splitmix64: (v)                            32.0         32.1        0.211
+    splitmix64: (nv)                           19.2         19.3        0.171
+
+    pcg64: (v)                                 39.2         39.3        0.241
+    pcg64: (nv)                                37.7         38.1        0.728
+
+    xoroshiro128plus64xoshi32starxoshi32: (v)  31.8         32.2        0.351
+    xoroshiro128plus64xoshi32starxoshi32: (nv) 26.4         26.9        1.371
+
+The above results for `splitmix64` is not what I expected (the rest I did expect) and highlights the overall good performance of `splitmix64` both in terms of speed and `practrand` results (32TB tested, no failure). Different speed-testing will need to be conducted, I'll be using [`Google Benchmark']().
 
 
 ### Practrand results

@@ -40,13 +40,13 @@
 // using Generator = degski::xoroshiro128plus64xoshi16;
 // using Generator = degski::xoroshiro128plus64xoshi21;
 // using Generator = degski::xoroshiro128plus64xoshi24;
-using Generator = degski::xoroshiro128plus64xoshi32;
+// using Generator = degski::xoroshiro128plus64xoshi32;
 // using Generator = degski::xoroshiro128plus64xoshi48;
 // using Generator = splitmix64;
 // using Generator = sfc64;
 // using Generator = mcg128_fast;
 // using Generator = mcg128;
-// using Generator = pcg64;
+using Generator = pcg64;
 
 namespace detail {
 

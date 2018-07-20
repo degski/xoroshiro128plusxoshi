@@ -42,7 +42,8 @@ std::pair<double, std::uint64_t> test ( ) noexcept {
 
     Gen gen ( 0xBE1C0467EBA5FAC1 );
 
-    volatile std::uint64_t acc = 0;
+    // volatile
+    std::uint64_t acc = 0;
 
     for  ( std::size_t i = 0; i < 1'000; ++i ) { // some warmup
         acc += gen ( );

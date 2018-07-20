@@ -269,3 +269,7 @@ __pycache__/
 /practrand-tester-xoroshiro128plusxoshi24.exe
 /practrand-tester-xoroshiro128plusxoshi32starxoshi32.exe
 /practrand.exe
+/speedtest-pcg64-no-volatile.exe
+/speedtest-splitmix-no-volatile.exe
+/speedtest-xoroshiro128plus64v1-no-volatile.exe
+/speedtest-xoroshiro128plus64xoshi32starxoshi32-no-volatile.exe
