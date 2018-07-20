@@ -105,7 +105,7 @@ The core of speed testing is implemented as follows:
 * 10'000'000 numbers generated per run, 1'000 runs
 * Every run is seeded with the same seed for all tests listed
 
-The `volatile acc` mimics a situation where all cache accesses are misses and/or every branch prediction is wrong. I have reason to believe that changing `acc` to a normal variable will particularly improve performance of the generators with a high `sd` (see below). The latter testing reflects a situation in where the generator performs ideally, no cache-misses and perfect branch prediction. ~~This, in most use-cases - in-the-real-world, will not be a realistic scenario. I will put some numbers up in the near future.~~ I have tested the previous assertion and give the numbers below. The non-volatile test has been run on a fully live machine, i.e. the numbers are understated (as compapred to the base-case).
+The `volatile acc` mimics a situation where all cache accesses are misses and/or every branch prediction is wrong. I have reason to believe that changing `acc` to a normal variable will particularly improve performance of the generators with a high `sd` (see below). The latter testing reflects a situation in where the generator performs ideally, no cache-misses and perfect branch prediction. ~~This, in most use-cases - in-the-real-world, will not be a realistic scenario. I will put some numbers up in the near future.~~ I have tested the previous assertion and give the numbers below. The non-volatile test has been run on a fully live machine, i.e. the numbers are understated (as compared to the base-case).
 
     generator                                min (ms)    mean (ms)   sd (sample) 
 
