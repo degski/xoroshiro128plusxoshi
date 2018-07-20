@@ -1,9 +1,9 @@
 
 # xoroshiro128plusxoshi and xoroshiro128plusxoshi32starxoshi32
 
-`xoroshiro128plus + xoshi(N)-back-end`, better (fails `practrand` at 64 gigabytes) and slightly faster (2%) (Intel Ci3-5005U (Broadwell) CPU), compiler [`LLVM-7.0.0-r336178-win64`](https://llvm.org/builds/).
+`xoroshiro128plus (as per Vigna & Blackman 2018) + xoshi(N)-back-end`, better (fails `practrand` at 64 gigabytes) and slightly faster (2%) (Intel Ci3-5005U (Broadwell) CPU), compiler [`LLVM-7.0.0-r336178-win64`](https://llvm.org/builds/).
 
-`xoroshiro128plus + xoshi32xoshi(N)-back-end`, does not fail 'practrand' up til 32 terabytes, while testing in one way results in that this generator is 8% faster, while being, tested differently 31% slower, as compared to `xoroshiro128plus`. A real world situation is probably somewhere in between the 2 testing methods.
+`xoroshiro128plus (as per Vigna & Blackman 2018) + xoshi32xoshi(N)-back-end`, does not fail 'practrand' up til 32 terabytes, while testing in one way results in that this generator is 8% faster, while being, tested differently 31% slower, as compared to `xoroshiro128plus`. A real world situation is probably somewhere in between the 2 testing methods.
 
 Included in this project are 2 back-ended `xoroshiro128plus` implementations of the vanilla (my reference) implmentation by Melissa E. O'Neill, the author of the [pcg](http://www.pcg-random.org/) familiy of prng's. Don't miss her [blog](http://www.pcg-random.org/blog/), which is a throve of information (and the code, of most this project is written by her and did away with worrying about DIY-implementations) and is updated regulary.
 
@@ -33,7 +33,7 @@ This generator fails `practrand` systematically at 64 gigabytes [BRank(12)].
 
 ### xoroshiro128plusxoshi32starxoshi32
 
-I have "designed" and tested another variant od `xoroshiro128plus`, `xoroshiro128plusxoshi32starxoshi32` (xoroshiro128plus + back-end):
+I have "designed" and tested another variant of the `xoroshiro128plus` generator, `xoroshiro128plusxoshi32starxoshi32` (xoroshiro128plus + back-end):
 
     rtype operator ( ) ( )
     {
