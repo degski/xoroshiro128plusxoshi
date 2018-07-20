@@ -1,11 +1,11 @@
 
 # xoroshiro128plusxoshi and xoroshiro128plusxoshi32starxoshi32
 
-`xoroshiro128plus + xoshi(N)-back-end`, better (fails `practrand` at 64 gigabytes) and slightly faster (2-3%) (Intel Ci3-5005U (Broadwell) CPU), compiler [`LLVM-7.0.0-r336178-win64`](https://llvm.org/builds/).
+`xoroshiro128plus + xoshi(N)-back-end`, better (fails `practrand` at 64 gigabytes) and slightly faster (2%) (Intel Ci3-5005U (Broadwell) CPU), compiler [`LLVM-7.0.0-r336178-win64`](https://llvm.org/builds/).
 
-`xoroshiro128plus + xoshi32xoshi(N)-back-end`, does not fail 'practrand' at 32 terabytes, while in one way of testing is 15% faster, while in another 30% slower. A real world situation is probably somewhere in between the 2 testing methods.
+`xoroshiro128plus + xoshi32xoshi(N)-back-end`, does not fail 'practrand' up til 32 terabytes, while testing in one way results in that this generator is 8% faster, while being, tested differently 31% slower, as compared to `xoroshiro128plus`. A real world situation is probably somewhere in between the 2 testing methods.
 
-Included in this project are back-ended `xoroshiro128plus` implementations of the vanilla (my reference) implmentation by Melissa E. O'Neill, the author of the [pcg](http://www.pcg-random.org/) familiy of prng's. Don't miss her [blog](http://www.pcg-random.org/blog/), which is a throve of information (and the code, of most this project is written by her and did away with worrying about DIY-implementations) and is updated regulary.
+Included in this project are 2 back-ended `xoroshiro128plus` implementations of the vanilla (my reference) implmentation by Melissa E. O'Neill, the author of the [pcg](http://www.pcg-random.org/) familiy of prng's. Don't miss her [blog](http://www.pcg-random.org/blog/), which is a throve of information (and the code, of most this project is written by her and did away with worrying about DIY-implementations) and is updated regulary.
 
 
 ## TL;DR
@@ -33,9 +33,9 @@ This generator fails `practrand` systematically at 64 gigabytes [BRank(12)].
 
 ### xoroshiro128plusxoshi32starxoshi32
 
-I have tested another variant `xoroshiro128plusxoshi32starxoshi32` (xoroshiro128plus + back-end):
+I have "designed" and tested another variant od `xoroshiro128plus`, `xoroshiro128plusxoshi32starxoshi32` (xoroshiro128plus + back-end):
 
-    rtype operator()()
+    rtype operator ( ) ( )
     {
         itype result = base::s0_ + base::s1_;
 
@@ -50,7 +50,7 @@ I have tested another variant `xoroshiro128plusxoshi32starxoshi32` (xoroshiro128
     }
 
 The actual implementation tested deviates slightly (see [code](https://github.com/degski/xoroshiro128plusxoshi/blob/master/xoroshiro128plusxoshi.hpp)) from the above (order of operations), but my guess is that it all don't matter after optimization.
-This generator does not fail the `practrand` test up til and including 32TB, after which I have stopped the test.
+This generator does not fail the `practrand` test up til and including 32 terabytes, after which (8.4 days of testing) I have stopped the test.
 
 
 ## Results
@@ -62,7 +62,7 @@ This generator does not fail the `practrand` test up til and including 32TB, aft
 * Intel Ci3-5005U (Broadwell) CPU
 * Windows 10-1803-x64 in `safe mode` (minimal).
 * Compiler: [`LLVM-7.0.0-r336178-win64`](http://prereleases.llvm.org/win-snapshots/LLVM-7.0.0-r336178-win64.exe)
-* Command-line: `clang-cl -fuse-ld=lld -flto=thin  /D "NDEBUG" /D "_CONSOLE" /D "NOMINMAX" /D "_UNICODE" /D "UNICODE" -Xclang -fcxx-exceptions /Ox /Oi /MT main.cpp statistics.cpp -Xclang -std=c++2a -Xclang -ffast-math -mmmx  -msse  -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mavx -mavx2`
+* Command-line: `clang-cl.exe -fuse-ld=lld -flto=thin  /D "NDEBUG" /D "_CONSOLE" /D "NOMINMAX" /D "_UNICODE" /D "UNICODE" -Xclang -fcxx-exceptions /Ox /Oi /MT benchmark.cpp -Xclang -std=c++2a -Xclang -ffast-math -mmmx  -msse  -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mavx -mavx2`
 
 #### Speed-test `google benchmark` results
 
@@ -98,9 +98,9 @@ This generator does not fail the `practrand` test up til and including 32TB, aft
         }
     }
 
-**The numbers:**
+**The numbers:** (ordered by descending `Time`)
 
-    07/20/18 14:44:38
+    07/20/18 15:31:50
     Running benchmark.exe
     Run on (4 X 1995 MHz CPU s)
     CPU Caches:
@@ -111,62 +111,61 @@ This generator does not fail the `practrand` test up til and including 32TB, aft
     -------------------------------------------------------------------------------------------------------------------------------
     Benchmark                                                                                        Time           CPU Iterations
     -------------------------------------------------------------------------------------------------------------------------------
-    bm_generator_clobber<std::mt19937_64>/repeats:16_mean                                          933 ns        930 ns     746667
-    bm_generator_clobber<std::mt19937_64>/repeats:16_median                                        933 ns        921 ns     746667
-    bm_generator_clobber<std::mt19937_64>/repeats:16_stddev                                          5 ns         11 ns     746667
-    bm_generator_clobber<pcg64>/repeats:16_mean                                                    491 ns        490 ns    1493333
-    bm_generator_clobber<pcg64>/repeats:16_median                                                  490 ns        492 ns    1493333
-    bm_generator_clobber<pcg64>/repeats:16_stddev                                                    6 ns          9 ns    1493333
-    bm_generator_clobber<sfc64>/repeats:16_mean                                                    538 ns        539 ns    1000000
-    bm_generator_clobber<sfc64>/repeats:16_median                                                  538 ns        539 ns    1000000
-    bm_generator_clobber<sfc64>/repeats:16_stddev                                                    3 ns          8 ns    1000000
-    bm_generator_clobber<meo::xoroshiro128plus64>/repeats:16_mean                                  465 ns        464 ns    1493333
-    bm_generator_clobber<meo::xoroshiro128plus64>/repeats:16_median                                464 ns        460 ns    1493333
-    bm_generator_clobber<meo::xoroshiro128plus64>/repeats:16_stddev                                  4 ns          5 ns    1493333
-    bm_generator_clobber<degski::xoroshiro128plus64xoshi32>/repeats:16_mean                        449 ns        447 ns    1600000
-    bm_generator_clobber<degski::xoroshiro128plus64xoshi32>/repeats:16_median                      447 ns        449 ns    1600000
-    bm_generator_clobber<degski::xoroshiro128plus64xoshi32>/repeats:16_stddev                        6 ns          9 ns    1600000
-    bm_generator_clobber<degski::xoroshiro128plus64xoshi32starxoshi32>/repeats:16_mean             395 ns        394 ns    1792000
-    bm_generator_clobber<degski::xoroshiro128plus64xoshi32starxoshi32>/repeats:16_median           395 ns        392 ns    1792000
-    bm_generator_clobber<degski::xoroshiro128plus64xoshi32starxoshi32>/repeats:16_stddev             2 ns          5 ns    1792000
-    bm_generator_clobber<mcg128>/repeats:16_mean                                                   397 ns        397 ns    1723077
-    bm_generator_clobber<mcg128>/repeats:16_median                                                 397 ns        399 ns    1723077
-    bm_generator_clobber<mcg128>/repeats:16_stddev                                                   2 ns          4 ns    1723077
-    bm_generator_clobber<mcg128_fast>/repeats:16_mean                                              393 ns        392 ns    1792000
-    bm_generator_clobber<mcg128_fast>/repeats:16_median                                            393 ns        392 ns    1792000
-    bm_generator_clobber<mcg128_fast>/repeats:16_stddev                                              2 ns          3 ns    1792000
-    bm_generator_clobber<splitmix64>/repeats:16_mean                                               401 ns        401 ns    1792000
-    bm_generator_clobber<splitmix64>/repeats:16_median                                             396 ns        392 ns    1792000
-    bm_generator_clobber<splitmix64>/repeats:16_stddev                                              13 ns         14 ns    1792000
+    bm_generator_clobber<std::mt19937_64>/repeats:16_mean                                          966 ns        967 ns     746667
+    bm_generator_clobber<std::mt19937_64>/repeats:16_median                                        966 ns        963 ns     746667
+    bm_generator_clobber<std::mt19937_64>/repeats:16_stddev                                          1 ns          8 ns     746667
+    bm_generator_clobber<sfc64>/repeats:16_mean                                                    562 ns        561 ns    1120000
+    bm_generator_clobber<sfc64>/repeats:16_median                                                  561 ns        558 ns    1120000
+    bm_generator_clobber<sfc64>/repeats:16_stddev                                                    1 ns          8 ns    1120000
+    bm_generator_clobber<pcg64>/repeats:16_mean                                                    506 ns        507 ns    1000000
+    bm_generator_clobber<pcg64>/repeats:16_median                                                  506 ns        500 ns    1000000
+    bm_generator_clobber<pcg64>/repeats:16_stddev                                                    0 ns          8 ns    1000000
+    bm_generator_clobber<meo::xoroshiro128plus64>/repeats:16_mean                                  448 ns        448 ns    1544828
+    bm_generator_clobber<meo::xoroshiro128plus64>/repeats:16_median                                447 ns        445 ns    1544828
+    bm_generator_clobber<meo::xoroshiro128plus64>/repeats:16_stddev                                  5 ns          8 ns    1544828
+    bm_generator_clobber<degski::xoroshiro128plus64xoshi32>/repeats:16_mean                        442 ns        443 ns    1659259
+    bm_generator_clobber<degski::xoroshiro128plus64xoshi32>/repeats:16_median                      443 ns        443 ns    1659259
+    bm_generator_clobber<degski::xoroshiro128plus64xoshi32>/repeats:16_stddev                        5 ns          7 ns    1659259
+    bm_generator_clobber<mcg128>/repeats:16_mean                                                   414 ns        413 ns    1659259
+    bm_generator_clobber<mcg128>/repeats:16_median                                                 414 ns        414 ns    1659259
+    bm_generator_clobber<mcg128>/repeats:16_stddev                                                   0 ns          3 ns    1659259
+    bm_generator_clobber<splitmix64>/repeats:16_mean                                               412 ns        412 ns    1723077
+    bm_generator_clobber<splitmix64>/repeats:16_median                                             412 ns        408 ns    1723077
+    bm_generator_clobber<splitmix64>/repeats:16_stddev                                               0 ns          5 ns    1723077
+    bm_generator_clobber<degski::xoroshiro128plus64xoshi32starxoshi32>/repeats:16_mean             410 ns        410 ns    1723077
+    bm_generator_clobber<degski::xoroshiro128plus64xoshi32starxoshi32>/repeats:16_median           410 ns        408 ns    1723077
+    bm_generator_clobber<degski::xoroshiro128plus64xoshi32starxoshi32>/repeats:16_stddev             0 ns          4 ns    1723077
+    bm_generator_clobber<mcg128_fast>/repeats:16_mean                                              410 ns        409 ns    1723077
+    bm_generator_clobber<mcg128_fast>/repeats:16_median                                            410 ns        408 ns    1723077
+    bm_generator_clobber<mcg128_fast>/repeats:16_stddev                                              0 ns          5 ns    1723077
     
-    bm_generator_no_clobber<std::mt19937_64>/repeats:16_mean                                       925 ns        926 ns     746667
-    bm_generator_no_clobber<std::mt19937_64>/repeats:16_median                                     925 ns        921 ns     746667
-    bm_generator_no_clobber<std::mt19937_64>/repeats:16_stddev                                       8 ns         14 ns     746667
-    bm_generator_no_clobber<pcg64>/repeats:16_mean                                                 496 ns        495 ns    1000000
-    bm_generator_no_clobber<pcg64>/repeats:16_median                                               496 ns        500 ns    1000000
-    bm_generator_no_clobber<pcg64>/repeats:16_stddev                                                 3 ns          9 ns    1000000
-    bm_generator_no_clobber<sfc64>/repeats:16_mean                                                 276 ns        275 ns    2488889
-    bm_generator_no_clobber<sfc64>/repeats:16_median                                               276 ns        276 ns    2488889
-    bm_generator_no_clobber<sfc64>/repeats:16_stddev                                                 1 ns          3 ns    2488889
-    bm_generator_no_clobber<meo::xoroshiro128plus64>/repeats:16_mean                               276 ns        276 ns    2488889
-    bm_generator_no_clobber<meo::xoroshiro128plus64>/repeats:16_median                             276 ns        276 ns    2488889
-    bm_generator_no_clobber<meo::xoroshiro128plus64>/repeats:16_stddev                               1 ns          2 ns    2488889
-    bm_generator_no_clobber<degski::xoroshiro128plus64xoshi32>/repeats:16_mean                     271 ns        271 ns    2635294
-    bm_generator_no_clobber<degski::xoroshiro128plus64xoshi32>/repeats:16_median                   271 ns        273 ns    2635294
-    bm_generator_no_clobber<degski::xoroshiro128plus64xoshi32>/repeats:16_stddev                     2 ns          3 ns    2635294
-    bm_generator_no_clobber<degski::xoroshiro128plus64xoshi32starxoshi32>/repeats:16_mean          363 ns        361 ns    1947826
-    bm_generator_no_clobber<degski::xoroshiro128plus64xoshi32starxoshi32>/repeats:16_median        362 ns        361 ns    1947826
-    bm_generator_no_clobber<degski::xoroshiro128plus64xoshi32starxoshi32>/repeats:16_stddev          2 ns          3 ns    1947826
-    bm_generator_no_clobber<mcg128>/repeats:16_mean                                                253 ns        252 ns    2800000
-    bm_generator_no_clobber<mcg128>/repeats:16_median                                              253 ns        251 ns    2800000
-    bm_generator_no_clobber<mcg128>/repeats:16_stddev                                                3 ns          5 ns    2800000
-    bm_generator_no_clobber<mcg128_fast>/repeats:16_mean                                           207 ns        207 ns    3446154
-    bm_generator_no_clobber<mcg128_fast>/repeats:16_median                                         206 ns        206 ns    3446154
-    bm_generator_no_clobber<mcg128_fast>/repeats:16_stddev                                           3 ns          4 ns    3446154
-    bm_generator_no_clobber<splitmix64>/repeats:16_mean                                            258 ns        258 ns    2635294
-    bm_generator_no_clobber<splitmix64>/repeats:16_median                                          258 ns        261 ns    2635294
-    bm_generator_no_clobber<splitmix64>/repeats:16_stddev                                            1 ns          3 ns    2635294
-
+    bm_generator_no_clobber<std::mt19937_64>/repeats:16_mean                                       957 ns        957 ns     746667
+    bm_generator_no_clobber<std::mt19937_64>/repeats:16_median                                     957 ns        963 ns     746667
+    bm_generator_no_clobber<std::mt19937_64>/repeats:16_stddev                                       1 ns          9 ns     746667
+    bm_generator_no_clobber<pcg64>/repeats:16_mean                                                 515 ns        515 ns    1120000
+    bm_generator_no_clobber<pcg64>/repeats:16_median                                               515 ns        516 ns    1120000
+    bm_generator_no_clobber<pcg64>/repeats:16_stddev                                                 1 ns          3 ns    1120000
+    bm_generator_no_clobber<degski::xoroshiro128plus64xoshi32starxoshi32>/repeats:16_mean          377 ns        378 ns    1866667
+    bm_generator_no_clobber<degski::xoroshiro128plus64xoshi32starxoshi32>/repeats:16_median        377 ns        377 ns    1866667
+    bm_generator_no_clobber<degski::xoroshiro128plus64xoshi32starxoshi32>/repeats:16_stddev          0 ns          3 ns    1866667
+    bm_generator_no_clobber<meo::xoroshiro128plus64>/repeats:16_mean                               288 ns        287 ns    2357895
+    bm_generator_no_clobber<meo::xoroshiro128plus64>/repeats:16_median                             287 ns        285 ns    2357895
+    bm_generator_no_clobber<meo::xoroshiro128plus64>/repeats:16_stddev                               0 ns          4 ns    2357895
+    bm_generator_no_clobber<sfc64>/repeats:16_mean                                                 287 ns        287 ns    2488889
+    bm_generator_no_clobber<sfc64>/repeats:16_median                                               287 ns        289 ns    2488889
+    bm_generator_no_clobber<sfc64>/repeats:16_stddev                                                 0 ns          3 ns    2488889
+    bm_generator_no_clobber<degski::xoroshiro128plus64xoshi32>/repeats:16_mean                     281 ns        281 ns    2488889
+    bm_generator_no_clobber<degski::xoroshiro128plus64xoshi32>/repeats:16_median                   280 ns        283 ns    2488889
+    bm_generator_no_clobber<degski::xoroshiro128plus64xoshi32>/repeats:16_stddev                     0 ns          3 ns    2488889
+    bm_generator_no_clobber<splitmix64>/repeats:16_mean                                            270 ns        270 ns    2635294
+    bm_generator_no_clobber<splitmix64>/repeats:16_median                                          270 ns        270 ns    2635294
+    bm_generator_no_clobber<splitmix64>/repeats:16_stddev                                            0 ns          3 ns    2635294
+    bm_generator_no_clobber<mcg128>/repeats:16_mean                                                262 ns        261 ns    2635294
+    bm_generator_no_clobber<mcg128>/repeats:16_median                                              262 ns        261 ns    2635294
+    bm_generator_no_clobber<mcg128>/repeats:16_stddev                                                0 ns          2 ns    2635294
+    bm_generator_no_clobber<mcg128_fast>/repeats:16_mean                                           219 ns        219 ns    3200000
+    bm_generator_no_clobber<mcg128_fast>/repeats:16_median                                         214 ns        212 ns    3200000
+    bm_generator_no_clobber<mcg128_fast>/repeats:16_stddev                                          12 ns         11 ns    3200000
 
 
 ### Practrand results

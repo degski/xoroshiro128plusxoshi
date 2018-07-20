@@ -274,3 +274,4 @@ __pycache__/
 /speedtest-xoroshiro128plus64v1-no-volatile.exe
 /speedtest-xoroshiro128plus64xoshi32starxoshi32-no-volatile.exe
 /benchmark/benchmark.exe
+/benchmark/results.txt
