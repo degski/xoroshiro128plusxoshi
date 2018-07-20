@@ -64,7 +64,7 @@ This generator does not fail the `practrand` test up til and including 32TB, aft
 
 #### Speed-test `google benchmark` results
 
-    **Test functions:**
+**Test functions:**
 
     template<class Gen>
     void bm_generator_clobber ( benchmark::State & state ) noexcept {
@@ -97,7 +97,7 @@ This generator does not fail the `practrand` test up til and including 32TB, aft
         }
     }
 
-    **The numbers:**
+**The numbers:**
 
     07/20/18 13:29:32
     Running benchmark.exe
