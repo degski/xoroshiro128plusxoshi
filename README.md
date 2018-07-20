@@ -168,6 +168,7 @@ This generator does not fail the `practrand` test up til and including 32TB, aft
     bm_generator_no_clobber<splitmix64>/repeats:16_stddev                                            1 ns          3 ns    2635294
 
 
+
 ### Practrand results
 
 #### pcg64
@@ -478,7 +479,7 @@ Not tested.
     length= 32 terabytes (2^45 bytes), time= 727512 seconds
       no anomalies in 339 test result(s)
 
-32TB barrier broken! giving up ...
+32 terabytes barrier broken! giving up ...
 
 
 #### mcg128
