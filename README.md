@@ -123,7 +123,7 @@ The `volatile acc` mimics a situation where all cache accesses are misses and/or
     xoroshiro128plus64xoshi32starxoshi32: (v)  31.8         32.2        0.351
     xoroshiro128plus64xoshi32starxoshi32: (nv) 26.4         26.9        1.371
 
-The above results for `splitmix64` is not what I expected (the rest I did expect) and highlights the overall good performance of `splitmix64` both in terms of speed and `practrand` results (32TB tested, no failure). Different speed-testing will need to be conducted, I'll be using [`Google Benchmark']().
+The above results for `splitmix64` are not what I expected (the rest I did expect) and highlights the overall good performance of `splitmix64` both in terms of speed and `practrand` results (32TB tested, no failure). Different speed-testing will need to be conducted, I'll be using [`google benchmark'](https://github.com/google/benchmark).
 
 
 ### Practrand results
