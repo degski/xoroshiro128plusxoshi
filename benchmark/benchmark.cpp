@@ -44,11 +44,14 @@
 
 template<class Gen>
 void benchmark_generator_clobber ( benchmark::State & state ) noexcept {
-    typename Gen::result_type a = 0;
-    Gen gen ( 0xBE1C0467EBA5FAC );
+    static std::uint64_t seed = 0xBE1C0467EBA5FAC;
+    seed *= 0x1AEC805299990163;
+    seed ^= ( seed >> 32 );
+    Gen gen ( seed );
+    static typename Gen::result_type a = 0;
     for ( auto _ : state ) {
         benchmark::DoNotOptimize ( &a );
-        for ( int i = 0; i < 100; ++i ) {
+        for ( int i = 0; i < 128; ++i ) {
             a += gen ( );
             benchmark::ClobberMemory ( );
         }
@@ -57,18 +60,21 @@ void benchmark_generator_clobber ( benchmark::State & state ) noexcept {
 
 template<class Gen>
 void benchmark_generator_no_clobber ( benchmark::State & state ) noexcept {
-    typename Gen::result_type a = 0;
-    Gen gen ( 0xBE1C0467EBA5FAC );
+    static std::uint64_t seed = 0xBE1C0467EBA5FAC;
+    seed *= 0x1AEC805299990163;
+    seed ^= ( seed >> 32 );
+    Gen gen ( seed );
+    static typename Gen::result_type a = 0;
     for ( auto _ : state ) {
         benchmark::DoNotOptimize ( &a );
-        for ( int i = 0; i < 100; ++i ) {
+        for ( int i = 0; i < 128; ++i ) {
             a += gen ( );
         }
     }
 }
 
 
-constexpr int repeats = 8;
+constexpr int repeats = 16;
 
 
 BENCHMARK_TEMPLATE ( benchmark_generator_clobber, pcg64 )

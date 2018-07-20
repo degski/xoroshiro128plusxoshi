@@ -123,7 +123,72 @@ The `volatile acc` mimics a situation where all cache accesses are misses and/or
     xoroshiro128plus64xoshi32starxoshi32: (v)  31.8         32.2        0.351
     xoroshiro128plus64xoshi32starxoshi32: (nv) 26.4         26.9        1.371
 
+
 The above results for `splitmix64` are not what I expected (the rest I did expect) and highlights the overall good performance of `splitmix64` both in terms of speed and `practrand` results (32TB tested, no failure). Different speed-testing will need to be conducted, I'll be using [`google benchmark'](https://github.com/google/benchmark).
+
+#### `google benchmark` results
+
+    07/20/18 12:25:50
+    Running benchmark.exe
+    Run on (4 X 1995 MHz CPU s)
+    CPU Caches:
+      L1 Data 32K (x2)
+      L1 Instruction 32K (x2)
+      L2 Unified 262K (x2)
+      L3 Unified 3145K (x1)
+    --------------------------------------------------------------------------------------------------------------------------------------
+    Benchmark                                                                                               Time           CPU Iterations
+    --------------------------------------------------------------------------------------------------------------------------------------
+    benchmark_generator_clobber<pcg64>/repeats:16_mean                                                    663 ns        662 ns     896000
+    benchmark_generator_clobber<pcg64>/repeats:16_median                                                  663 ns        663 ns     896000
+    benchmark_generator_clobber<pcg64>/repeats:16_stddev                                                    4 ns         13 ns     896000
+    benchmark_generator_clobber<sfc64>/repeats:16_mean                                                    545 ns        542 ns    1120000
+    benchmark_generator_clobber<sfc64>/repeats:16_median                                                  542 ns        544 ns    1120000
+    benchmark_generator_clobber<sfc64>/repeats:16_stddev                                                   10 ns         12 ns    1120000
+    benchmark_generator_clobber<meo::xoroshiro128plus64>/repeats:16_mean                                  459 ns        460 ns    1544828
+    benchmark_generator_clobber<meo::xoroshiro128plus64>/repeats:16_median                                459 ns        455 ns    1544828
+    benchmark_generator_clobber<meo::xoroshiro128plus64>/repeats:16_stddev                                  4 ns          7 ns    1544828
+    benchmark_generator_clobber<degski::xoroshiro128plus64xoshi32>/repeats:16_mean                        435 ns        434 ns    1600000
+    benchmark_generator_clobber<degski::xoroshiro128plus64xoshi32>/repeats:16_median                      435 ns        435 ns    1600000
+    benchmark_generator_clobber<degski::xoroshiro128plus64xoshi32>/repeats:16_stddev                        5 ns          8 ns    1600000
+    benchmark_generator_clobber<degski::xoroshiro128plus64xoshi32starxoshi32>/repeats:16_mean             394 ns        395 ns    1792000
+    benchmark_generator_clobber<degski::xoroshiro128plus64xoshi32starxoshi32>/repeats:16_median           394 ns        392 ns    1792000
+    benchmark_generator_clobber<degski::xoroshiro128plus64xoshi32starxoshi32>/repeats:16_stddev             2 ns          4 ns    1792000
+    benchmark_generator_clobber<mcg128>/repeats:16_mean                                                   396 ns        395 ns    1723077
+    benchmark_generator_clobber<mcg128>/repeats:16_median                                                 396 ns        399 ns    1723077
+    benchmark_generator_clobber<mcg128>/repeats:16_stddev                                                   1 ns          6 ns    1723077
+    benchmark_generator_clobber<mcg128_fast>/repeats:16_mean                                              391 ns        392 ns    1792000
+    benchmark_generator_clobber<mcg128_fast>/repeats:16_median                                            391 ns        392 ns    1792000
+    benchmark_generator_clobber<mcg128_fast>/repeats:16_stddev                                              1 ns          2 ns    1792000
+    benchmark_generator_clobber<splitmix64>/repeats:16_mean                                               394 ns        394 ns    1792000
+    benchmark_generator_clobber<splitmix64>/repeats:16_median                                             394 ns        392 ns    1792000
+    benchmark_generator_clobber<splitmix64>/repeats:16_stddev                                               1 ns          4 ns    1792000
+    
+    benchmark_generator_no_clobber<pcg64>/repeats:16_mean                                                 496 ns        495 ns    1445161
+    benchmark_generator_no_clobber<pcg64>/repeats:16_median                                               495 ns        497 ns    1445161
+    benchmark_generator_no_clobber<pcg64>/repeats:16_stddev                                                 4 ns          7 ns    1445161
+    benchmark_generator_no_clobber<sfc64>/repeats:16_mean                                                 243 ns        243 ns    2986667
+    benchmark_generator_no_clobber<sfc64>/repeats:16_median                                               242 ns        241 ns    2986667
+    benchmark_generator_no_clobber<sfc64>/repeats:16_stddev                                                 2 ns          3 ns    2986667
+    benchmark_generator_no_clobber<meo::xoroshiro128plus64>/repeats:16_mean                               277 ns        277 ns    2488889
+    benchmark_generator_no_clobber<meo::xoroshiro128plus64>/repeats:16_median                             277 ns        276 ns    2488889
+    benchmark_generator_no_clobber<meo::xoroshiro128plus64>/repeats:16_stddev                               1 ns          3 ns    2488889
+    benchmark_generator_no_clobber<degski::xoroshiro128plus64xoshi32>/repeats:16_mean                     271 ns        271 ns    2488889
+    benchmark_generator_no_clobber<degski::xoroshiro128plus64xoshi32>/repeats:16_median                   271 ns        270 ns    2488889
+    benchmark_generator_no_clobber<degski::xoroshiro128plus64xoshi32>/repeats:16_stddev                     2 ns          3 ns    2488889
+    benchmark_generator_no_clobber<degski::xoroshiro128plus64xoshi32starxoshi32>/repeats:16_mean          350 ns        349 ns    1947826
+    benchmark_generator_no_clobber<degski::xoroshiro128plus64xoshi32starxoshi32>/repeats:16_median        349 ns        345 ns    1947826
+    benchmark_generator_no_clobber<degski::xoroshiro128plus64xoshi32starxoshi32>/repeats:16_stddev          3 ns          5 ns    1947826
+    benchmark_generator_no_clobber<mcg128>/repeats:16_mean                                                251 ns        250 ns    2800000
+    benchmark_generator_no_clobber<mcg128>/repeats:16_median                                              251 ns        251 ns    2800000
+    benchmark_generator_no_clobber<mcg128>/repeats:16_stddev                                                1 ns          2 ns    2800000
+    benchmark_generator_no_clobber<mcg128_fast>/repeats:16_mean                                           199 ns        198 ns    3446154
+    benchmark_generator_no_clobber<mcg128_fast>/repeats:16_median                                         199 ns        199 ns    3446154
+    benchmark_generator_no_clobber<mcg128_fast>/repeats:16_stddev                                           1 ns          2 ns    3446154
+    benchmark_generator_no_clobber<splitmix64>/repeats:16_mean                                            257 ns        257 ns    2800000
+    benchmark_generator_no_clobber<splitmix64>/repeats:16_median                                          257 ns        257 ns    2800000
+    benchmark_generator_no_clobber<splitmix64>/repeats:16_stddev                                            1 ns          2 ns    2800000
+
 
 
 ### Practrand results
