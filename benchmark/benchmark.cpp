@@ -43,7 +43,7 @@
 
 
 template<class Gen>
-void benchmark_generator_clobber ( benchmark::State & state ) noexcept {
+void bm_generator_clobber ( benchmark::State & state ) noexcept {
     static std::uint64_t seed = 0xBE1C0467EBA5FAC;
     seed *= 0x1AEC805299990163;
     seed ^= ( seed >> 32 );
@@ -59,7 +59,7 @@ void benchmark_generator_clobber ( benchmark::State & state ) noexcept {
 }
 
 template<class Gen>
-void benchmark_generator_no_clobber ( benchmark::State & state ) noexcept {
+void bm_generator_no_clobber ( benchmark::State & state ) noexcept {
     static std::uint64_t seed = 0xBE1C0467EBA5FAC;
     seed *= 0x1AEC805299990163;
     seed ^= ( seed >> 32 );
@@ -77,67 +77,67 @@ void benchmark_generator_no_clobber ( benchmark::State & state ) noexcept {
 constexpr int repeats = 16;
 
 
-BENCHMARK_TEMPLATE ( benchmark_generator_clobber, pcg64 )
+BENCHMARK_TEMPLATE ( bm_generator_clobber, pcg64 )
 ->Repetitions ( repeats )
 ->ReportAggregatesOnly ( true );
 
-BENCHMARK_TEMPLATE ( benchmark_generator_clobber, sfc64 )
+BENCHMARK_TEMPLATE ( bm_generator_clobber, sfc64 )
 ->Repetitions ( repeats )
 ->ReportAggregatesOnly ( true );
 
-BENCHMARK_TEMPLATE ( benchmark_generator_clobber, meo::xoroshiro128plus64 )
+BENCHMARK_TEMPLATE ( bm_generator_clobber, meo::xoroshiro128plus64 )
 ->Repetitions ( repeats )
 ->ReportAggregatesOnly ( true );
 
-BENCHMARK_TEMPLATE ( benchmark_generator_clobber, degski::xoroshiro128plus64xoshi32 )
+BENCHMARK_TEMPLATE ( bm_generator_clobber, degski::xoroshiro128plus64xoshi32 )
 ->Repetitions ( repeats )
 ->ReportAggregatesOnly ( true );
 
-BENCHMARK_TEMPLATE ( benchmark_generator_clobber, degski::xoroshiro128plus64xoshi32starxoshi32 )
+BENCHMARK_TEMPLATE ( bm_generator_clobber, degski::xoroshiro128plus64xoshi32starxoshi32 )
 ->Repetitions ( repeats )
 ->ReportAggregatesOnly ( true );
 
-BENCHMARK_TEMPLATE ( benchmark_generator_clobber, mcg128 )
+BENCHMARK_TEMPLATE ( bm_generator_clobber, mcg128 )
 ->Repetitions ( repeats )
 ->ReportAggregatesOnly ( true );
 
-BENCHMARK_TEMPLATE ( benchmark_generator_clobber, mcg128_fast )
+BENCHMARK_TEMPLATE ( bm_generator_clobber, mcg128_fast )
 ->Repetitions ( repeats )
 ->ReportAggregatesOnly ( true );
 
-BENCHMARK_TEMPLATE ( benchmark_generator_clobber, splitmix64 )
+BENCHMARK_TEMPLATE ( bm_generator_clobber, splitmix64 )
 ->Repetitions ( repeats )
 ->ReportAggregatesOnly ( true );
 
 
-BENCHMARK_TEMPLATE ( benchmark_generator_no_clobber, pcg64 )
+BENCHMARK_TEMPLATE ( bm_generator_no_clobber, pcg64 )
 ->Repetitions ( repeats )
 ->ReportAggregatesOnly ( true );
 
-BENCHMARK_TEMPLATE ( benchmark_generator_no_clobber, sfc64 )
+BENCHMARK_TEMPLATE ( bm_generator_no_clobber, sfc64 )
 ->Repetitions ( repeats )
 ->ReportAggregatesOnly ( true );
 
-BENCHMARK_TEMPLATE ( benchmark_generator_no_clobber, meo::xoroshiro128plus64 )
+BENCHMARK_TEMPLATE ( bm_generator_no_clobber, meo::xoroshiro128plus64 )
 ->Repetitions ( repeats )
 ->ReportAggregatesOnly ( true );
 
-BENCHMARK_TEMPLATE ( benchmark_generator_no_clobber, degski::xoroshiro128plus64xoshi32 )
+BENCHMARK_TEMPLATE ( bm_generator_no_clobber, degski::xoroshiro128plus64xoshi32 )
 ->Repetitions ( repeats )
 ->ReportAggregatesOnly ( true );
 
-BENCHMARK_TEMPLATE ( benchmark_generator_no_clobber, degski::xoroshiro128plus64xoshi32starxoshi32 )
+BENCHMARK_TEMPLATE ( bm_generator_no_clobber, degski::xoroshiro128plus64xoshi32starxoshi32 )
 ->Repetitions ( repeats )
 ->ReportAggregatesOnly ( true );
 
-BENCHMARK_TEMPLATE ( benchmark_generator_no_clobber, mcg128 )
+BENCHMARK_TEMPLATE ( bm_generator_no_clobber, mcg128 )
 ->Repetitions ( repeats )
 ->ReportAggregatesOnly ( true );
 
-BENCHMARK_TEMPLATE ( benchmark_generator_no_clobber, mcg128_fast )
+BENCHMARK_TEMPLATE ( bm_generator_no_clobber, mcg128_fast )
 ->Repetitions ( repeats )
 ->ReportAggregatesOnly ( true );
 
-BENCHMARK_TEMPLATE ( benchmark_generator_no_clobber, splitmix64 )
+BENCHMARK_TEMPLATE ( bm_generator_no_clobber, splitmix64 )
 ->Repetitions ( repeats )
 ->ReportAggregatesOnly ( true );

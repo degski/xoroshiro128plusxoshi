@@ -158,10 +158,10 @@ template <typename itype, typename rtype,
         rtype operator()( ) {
             itype result = base::s0_ + base::s1_;
             base::s1_ ^= base::s0_;
-            base::s0_ = base::rotl ( base::s0_, a ) ^ base::s1_ ^ ( base::s1_ << b );
             result ^= result >> shi1;
-            base::s1_ = base::rotl ( base::s1_, c );
+            base::s0_ = base::rotl ( base::s0_, a ) ^ base::s1_ ^ ( base::s1_ << b );
             result *= itype { 0x1AEC805299990163 };
+            base::s1_ = base::rotl ( base::s1_, c );
             return ( ( result >> shi2 ) ^ result ) >> ( base::ITYPE_BITS - base::RTYPE_BITS );
         }
 };

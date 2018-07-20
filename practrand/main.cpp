@@ -29,7 +29,7 @@
 #include <cstdint>
 #include <iostream>
 
-#include "../generator.hpp" // in this order.
+#include "generator.hpp" // in this order.
 
 
 auto main ( ) -> int {

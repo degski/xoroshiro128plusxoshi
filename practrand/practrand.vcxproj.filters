@@ -20,7 +20,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\generator.hpp">
+    <ClInclude Include="generator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
