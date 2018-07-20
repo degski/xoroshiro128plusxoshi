@@ -143,7 +143,7 @@ template <typename itype, typename rtype,
         public:
         using base::base;
 
-        static constexpr unsigned int shift ( ) noexcept { return shi; }
+        // static constexpr unsigned int shift ( ) noexcept { return shi1; }
 
         /*
         // Vigna & Blackman:
