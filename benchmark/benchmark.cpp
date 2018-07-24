@@ -34,12 +34,13 @@
 #pragma comment ( lib, "Shlwapi.lib" )
 #endif
 
-#include "../pcg/pcg_random.hpp"
+// #include "../pcg/pcg_random.hpp"
 #include "../xoroshiro.hpp"
 #include "../xoroshiro128plusxoshi.hpp"
 #include "../splitmix.hpp"
 #include "../sfc.hpp"
 #include "../lehmer.hpp"
+#include "../uniform_int_distribution_fast.hpp"
 
 
 template<class Gen>
@@ -73,6 +74,7 @@ void bm_generator_no_clobber ( benchmark::State & state ) noexcept {
     }
 }
 
+/*
 
 constexpr int repeats = 16;
 
@@ -148,3 +150,18 @@ BENCHMARK_TEMPLATE ( bm_generator_no_clobber, mcg128_fast )
 BENCHMARK_TEMPLATE ( bm_generator_no_clobber, splitmix64 )
 ->Repetitions ( repeats )
 ->ReportAggregatesOnly ( true );
+
+*/
+
+
+int main ( ) {
+
+    splitmix64 g ( 1234 );
+    uniform_int_distribution_fast<std::int16_t> d ( -100, 100 );
+
+    std::cout << d ( g ) << nl;
+    std::cout << d ( g ) << nl;
+    std::cout << d ( g ) << nl;
+
+    return EXIT_SUCCESS;
+}
