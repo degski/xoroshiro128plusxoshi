@@ -129,9 +129,10 @@ struct uniform_int_distribution_fast : public detail::param_type<uniform_int_dis
     [[ nodiscard ]] result_type operator ( ) ( Gen & rng ) const noexcept {
         unsigned_result_type x = rng ( );
         if ( range >= range_max ( ) ) {
-            while ( x >= range ) {
+            do {
                 x = rng ( );
-            }
+            } while ( x >= range );
+            assert ( ( static_cast<result_type> ( x ) + param_type::min ) <= param_type::max );
             return static_cast<result_type> ( x ) + param_type::min;
         }
         double_width_unsigned_result_type m = x;
