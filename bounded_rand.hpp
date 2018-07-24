@@ -38,10 +38,12 @@
 #include <cstdint>
 
 
+// requires clang/gcc.
+
 template<typename Gen>
-std::uint32_t bounded_rand ( Gen & rng, std::uint32_t i, std::uint32_t j ) noexcept {
-    const std::uint32_t range = j - i;
-    assert ( ( std::int32_t ( j ) - std::int32_t ( i ) ) > 0 );
+std::uint32_t bounded_rand ( Gen & rng, const std::uint32_t i, std::uint32_t range ) noexcept {
+    assert ( ( std::int32_t ( range ) - std::int32_t ( i ) ) > 0 );
+    range -= i;
     std::uint32_t x = rng ( );
     std::uint64_t m = std::uint64_t ( x ) * std::uint64_t ( range );
     std::uint32_t l = std::uint32_t ( m );
@@ -63,9 +65,9 @@ std::uint32_t bounded_rand ( Gen & rng, std::uint32_t i, std::uint32_t j ) noexc
 }
 
 template<typename Gen>
-std::uint64_t bounded_rand ( Gen & rng, std::uint64_t i, std::uint64_t j ) {
-    const std::uint64_t range = j - i;
-    assert ( ( std::int64_t ( j ) - std::int64_t ( i ) ) > 0 );
+std::uint64_t bounded_rand ( Gen & rng, const std::uint64_t i, std::uint64_t range ) noexcept {
+    assert ( ( std::int64_t ( range ) - std::int64_t ( i ) ) > 0 );
+    range -= i;
     std::uint64_t x = rng ( );
     __uint128_t m = __uint128_t ( x ) * __uint128_t ( range );
     std::uint64_t l = std::uint64_t ( m );
