@@ -126,7 +126,13 @@ struct uniform_int_distribution_fast : public detail::param_type<uniform_int_dis
 
     template<typename Gen>
     [[ nodiscard ]] result_type operator ( ) ( Gen & rng ) const noexcept {
-        unsigned_result_type x = rng ( );
+        unsigned_result_type x;
+        if constexpr ( sizeof ( unsigned_result_type ) == sizeof ( typename Gen::result_type ) ) {
+            x = rng ( );
+        }
+        else {
+            x = ( static_cast<unsigned_result_type> ( rng ( ) ) << 32 ) | ( static_cast<unsigned_result_type> ( rng ( ) ) );
+        }
         if ( range >= range_max ( ) ) {
             do {
                 x = rng ( );
@@ -146,7 +152,12 @@ struct uniform_int_distribution_fast : public detail::param_type<uniform_int_dis
                 }
             }
             while ( l < t ) {
-                m = rng ( );
+                if constexpr ( sizeof ( unsigned_result_type ) == sizeof ( typename Gen::result_type ) ) {
+                    m = rng ( );
+                }
+                else {
+                    m = ( static_cast<unsigned_result_type> ( rng ( ) ) << 32 ) | ( static_cast<unsigned_result_type> ( rng ( ) ) );
+                }
                 m *= range;
                 l = m;
             }
