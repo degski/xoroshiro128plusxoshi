@@ -100,7 +100,7 @@ struct uniform_int_distribution_fast : public detail::param_type<uniform_int_dis
     using unsigned_result_type = typename unsign<result_type>::type;
     using double_width_unsigned_result_type = typename double_width<unsigned_result_type>::type;
 
-    constexpr unsigned_result_type range_max ( ) const noexcept {
+    [[ nodiscard ]] constexpr unsigned_result_type range_max ( ) const noexcept {
         return unsigned_result_type { 1 } << ( sizeof ( unsigned_result_type ) * 8 - 1 );
     }
 
@@ -125,14 +125,14 @@ struct uniform_int_distribution_fast : public detail::param_type<uniform_int_dis
     void reset ( ) const noexcept { }
 
     template<typename Gen>
-    [ [ nodiscard ] ] result_type operator ( ) ( Gen & rng ) const noexcept {
+    [[ nodiscard ]] result_type operator ( ) ( Gen & rng ) const noexcept {
         unsigned_result_type x = rng ( );
         if ( range >= range_max ( ) ) {
             do {
                 x = rng ( );
             } while ( x >= range );
-            assert ( ( static_cast< result_type > ( x ) + param_type::min ) <= param_type::max );
-            return static_cast< result_type > ( x ) + param_type::min;
+            assert ( ( static_cast<result_type> ( x ) + param_type::min ) <= param_type::max );
+            return static_cast<result_type> ( x ) + param_type::min;
         }
         double_width_unsigned_result_type m = x;
         m *= range;
@@ -156,7 +156,7 @@ struct uniform_int_distribution_fast : public detail::param_type<uniform_int_dis
         return m;
     }
 
-    param_type param ( ) const noexcept {
+    [[ nodiscard ]] param_type param ( ) const noexcept {
         return *this;
     }
 
