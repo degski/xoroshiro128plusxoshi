@@ -41,7 +41,6 @@
 // requires clang/gcc for the moment (24.07.2018).
 
 namespace ext {
-
 namespace detail {
 
 template<typename Distribution, typename IntType>
