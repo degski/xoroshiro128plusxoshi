@@ -40,6 +40,8 @@
 
 // requires clang/gcc for the moment (24.07.2018).
 
+namespace ext {
+
 namespace detail {
 
 template<typename Distribution, typename IntType>
@@ -62,7 +64,7 @@ struct param_type {
         return not ( *this == rhs );
     }
 
-    [[ nodiscard ]] constexpr result_type a ( ) const noexcept  {
+    [[ nodiscard ]] constexpr result_type a ( ) const noexcept {
         return min;
     }
 
@@ -109,10 +111,9 @@ struct uniform_int_distribution_fast : public detail::param_type<uniform_int_dis
 
     explicit uniform_int_distribution_fast ( ) noexcept :
         param_type ( 0, std::numeric_limits<unsigned_result_type>::max ( ) ),
-        range ( param_type::max ) {
-    }
+        range ( param_type::max ) { }
     explicit uniform_int_distribution_fast ( result_type a, result_type b = std::numeric_limits<result_type>::max ( ) ) noexcept :
-        param_type ( a,  b ),
+        param_type ( a, b ),
         range ( b - a ) {
         assert ( b > a );
     }
@@ -122,18 +123,17 @@ struct uniform_int_distribution_fast : public detail::param_type<uniform_int_dis
         assert ( param_type::max > param_type::min );
     }
 
-    void reset ( ) const noexcept {
-    }
+    void reset ( ) const noexcept { }
 
     template<typename Gen>
-    [[ nodiscard ]] result_type operator ( ) ( Gen & rng ) const noexcept {
+    [ [ nodiscard ] ] result_type operator ( ) ( Gen & rng ) const noexcept {
         unsigned_result_type x = rng ( );
         if ( range >= range_max ( ) ) {
             do {
                 x = rng ( );
             } while ( x >= range );
-            assert ( ( static_cast<result_type> ( x ) + param_type::min ) <= param_type::max );
-            return static_cast<result_type> ( x ) + param_type::min;
+            assert ( ( static_cast< result_type > ( x ) + param_type::min ) <= param_type::max );
+            return static_cast< result_type > ( x ) + param_type::min;
         }
         double_width_unsigned_result_type m = x;
         m *= range;
@@ -169,3 +169,4 @@ struct uniform_int_distribution_fast : public detail::param_type<uniform_int_dis
 
     unsigned_result_type range;
 };
+}

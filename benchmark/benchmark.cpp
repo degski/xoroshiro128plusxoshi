@@ -157,7 +157,7 @@ BENCHMARK_TEMPLATE ( bm_generator_no_clobber, splitmix64 )
 int main ( ) {
 
     splitmix64 g ( [ ] ( ) { std::random_device rdev; return ( static_cast<std::uint64_t> ( rdev ( ) ) << 32 ) | rdev ( ); } ( ) );
-    uniform_int_distribution_fast<std::int64_t> d ( -100, 100 );
+    ext::uniform_int_distribution_fast<std::int64_t> d ( -100, 100 );
 
     std::cout << d ( g ) << nl;
     std::cout << d ( g ) << nl;
@@ -167,15 +167,9 @@ int main ( ) {
 
     auto par = d.param ( );
 
-    uniform_int_distribution_fast<std::int64_t> e ( -100, 100 );
+    ext::uniform_int_distribution_fast<std::int64_t> e ( -101, 100 );
 
     std::cout << std::boolalpha << ( d == e ) << nl;
-    std::cout << e.a ( ) << nl;
-
-    std::uint64_t f = 123;
-    std::int64_t h = 5;
-
-    auto j = f + h;
 
     return EXIT_SUCCESS;
 }
