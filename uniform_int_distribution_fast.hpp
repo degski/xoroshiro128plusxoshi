@@ -41,6 +41,10 @@
 // requires clang/gcc for the moment (24.07.2018).
 
 namespace ext {
+
+template<typename IntType = int>
+class uniform_int_distribution_fast;
+
 namespace detail {
 
 template<typename Distribution, typename IntType>
@@ -49,14 +53,16 @@ struct param_type {
     using distribution_type = Distribution;
     using result_type = IntType;
 
+    friend class ::ext::uniform_int_distribution_fast<IntType>;
+
     explicit param_type ( result_type min_, result_type max_ ) noexcept :
         min ( min_ ),
-        max ( max_ ) {
+        range ( max_ - min_ ) {
         assert ( min_ <= max_ );
     }
 
     [[ nodiscard ]] constexpr bool operator == ( const param_type & rhs ) const noexcept {
-        return min == rhs.min and max == rhs.max;
+        return min == rhs.min and range == rhs.range;
     }
 
     [[ nodiscard ]] constexpr bool operator != ( const param_type & rhs ) const noexcept {
@@ -68,17 +74,21 @@ struct param_type {
     }
 
     [[ nodiscard ]] constexpr result_type b ( ) const noexcept {
-        return max;
+        return range + min;
     }
 
-    result_type min, max;
+    private:
+
+    result_type min, range;
 };
 }
 
-template<typename IntType = int>
-struct uniform_int_distribution_fast : public detail::param_type<uniform_int_distribution_fast<IntType>, IntType> {
+template<typename IntType>
+class uniform_int_distribution_fast : public detail::param_type<uniform_int_distribution_fast<IntType>, IntType> {
 
     static_assert ( ( ( sizeof ( IntType ) > 1 ) and ( sizeof ( IntType ) <= 8 ) ), "char (8-bit) not supported." );
+
+    public:
 
     using result_type = IntType;
 
@@ -109,62 +119,42 @@ struct uniform_int_distribution_fast : public detail::param_type<uniform_int_dis
     using param_type = detail::param_type<uniform_int_distribution_fast, uniform_int_distribution_fast::result_type>;
 
     explicit uniform_int_distribution_fast ( ) noexcept :
-        param_type ( 0, std::numeric_limits<unsigned_result_type>::max ( ) ),
-        range ( param_type::max ) { }
+        param_type ( 0, std::numeric_limits<unsigned_result_type>::max ( ) ) {
+    }
     explicit uniform_int_distribution_fast ( result_type a, result_type b = std::numeric_limits<result_type>::max ( ) ) noexcept :
-        param_type ( a, b ),
-        range ( b - a ) {
+        param_type ( a, b ) {
         assert ( b > a );
     }
     explicit uniform_int_distribution_fast ( const param_type & params_ ) noexcept :
-        param_type ( params_ ),
-        range ( param_type::max - param_type::min ) {
-        assert ( param_type::max > param_type::min );
+        param_type ( params_ ) {
     }
 
     void reset ( ) const noexcept { }
 
     template<typename Gen>
     [[ nodiscard ]] result_type operator ( ) ( Gen & rng ) const noexcept {
-        unsigned_result_type x;
-        if constexpr ( sizeof ( unsigned_result_type ) == sizeof ( typename Gen::result_type ) ) {
-            x = rng ( );
-        }
-        else {
-            x = ( static_cast<unsigned_result_type> ( rng ( ) ) << 32 ) | ( static_cast<unsigned_result_type> ( rng ( ) ) );
-        }
-        if ( range >= range_max ( ) ) {
-            do {
+        unsigned_result_type x = rng ( );
+        if ( param_type::range >= range_max ( ) ) {
+            while ( x >= param_type::range ) {
                 x = rng ( );
-            } while ( x >= range );
-            assert ( ( static_cast<result_type> ( x ) + param_type::min ) <= param_type::max );
-            return static_cast<result_type> ( x ) + param_type::min;
+            }
+            return result_type ( x ); // +param_type::min;
         }
-        double_width_unsigned_result_type m = x;
-        m *= range;
-        unsigned_result_type l = m;
-        if ( l < range ) {
-            unsigned_result_type t = -range;
-            if ( t >= range ) {
-                t -= range;
-                if ( t >= range ) {
-                    t %= range;
-                }
+        double_width_unsigned_result_type m = double_width_unsigned_result_type ( x ) * double_width_unsigned_result_type ( param_type::range );
+        unsigned_result_type l = unsigned_result_type ( m );
+        if ( l < param_type::range ) {
+            unsigned_result_type t = -param_type::range;
+            t -= param_type::range;
+            if ( t >= param_type::range ) {
+                t %= param_type::range;
             }
             while ( l < t ) {
-                if constexpr ( sizeof ( unsigned_result_type ) == sizeof ( typename Gen::result_type ) ) {
-                    m = rng ( );
-                }
-                else {
-                    m = ( static_cast<unsigned_result_type> ( rng ( ) ) << 32 ) | ( static_cast<unsigned_result_type> ( rng ( ) ) );
-                }
-                m *= range;
-                l = m;
+                x = rng ( );
+                m = double_width_unsigned_result_type ( x ) * double_width_unsigned_result_type ( param_type::range );
+                l = unsigned_result_type ( m );
             }
         }
-        m >>= ( sizeof ( unsigned_result_type ) * 8 );
-        m += param_type::min;
-        return m;
+        return result_type ( m >> 64 ); // +param_type::min;
     }
 
     [[ nodiscard ]] param_type param ( ) const noexcept {
@@ -174,9 +164,5 @@ struct uniform_int_distribution_fast : public detail::param_type<uniform_int_dis
     void param ( const param_type & params ) noexcept {
         *this = params;
     }
-
-    private:
-
-    unsigned_result_type range;
 };
 }

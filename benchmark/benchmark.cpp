@@ -154,7 +154,7 @@ BENCHMARK_TEMPLATE ( bm_generator_no_clobber, splitmix64 )
 */
 
 
-int main ( ) {
+int main435345 ( ) {
 
     splitmix64 g ( [ ] ( ) { std::random_device rdev; return ( static_cast<std::uint64_t> ( rdev ( ) ) << 32 ) | rdev ( ); } ( ) );
     ext::uniform_int_distribution_fast<std::int64_t> d ( -100, 100 );
@@ -172,4 +172,79 @@ int main ( ) {
     std::cout << std::boolalpha << ( d == e ) << nl;
 
     return EXIT_SUCCESS;
+}
+
+
+int main ( ) {
+
+    splitmix64 rng;
+    ext::uniform_int_distribution_fast<std::uint64_t> dis ( -100, 100 );
+
+    for ( int k = 0; k < 10; k++ ) {
+        std::cout << dis ( rng ) << std::endl;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+template<typename Rng>
+uint64_t bounded_rand3 ( Rng & rng, uint64_t range ) {
+    uint64_t x = rng ( );
+    if ( range >= 1ull << 63 ) {
+        while ( x >= range )
+            x = rng ( );
+        return x;
+    }
+    __uint128_t m = __uint128_t ( x ) * __uint128_t ( range );
+    uint64_t l = uint64_t ( m );
+    if ( l < range ) {
+        uint64_t t = -range;
+        t -= range;
+        if ( t >= range )
+            t %= range;
+        while ( l < t ) {
+            x = rng ( );
+            m = __uint128_t ( x ) * __uint128_t ( range );
+            l = uint64_t ( m );
+        }
+    }
+    return m >> 64;
+}
+
+
+template<typename Rng>
+uint64_t bounded_rand1 ( Rng & rng, uint64_t range ) {
+    __uint128_t m = rng ( );
+    m *= range;
+    return m >> 64;
+}
+template<typename Rng>
+uint64_t bounded_rand2 ( Rng & rng, uint64_t range ) {
+    uint64_t x = rng ( );
+    __uint128_t m = __uint128_t ( x ) * __uint128_t ( range );
+    return m >> 64;
 }
