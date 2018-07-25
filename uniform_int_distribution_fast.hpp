@@ -34,6 +34,7 @@
 #include <cstdint>
 #include <cstdlib>
 
+#include <functional>
 #include <limits>
 #include <random>
 #include <type_traits>
@@ -47,18 +48,49 @@ class uniform_int_distribution_fast;
 
 namespace detail {
 
-template<typename Distribution, typename IntType>
+template<typename IT> struct unsign_integer { };
+template<> struct unsign_integer<std::uint16_t> { using type = std::uint16_t; };
+template<> struct unsign_integer<std::uint32_t> { using type = std::uint32_t; };
+template<> struct unsign_integer<std::uint64_t> { using type = std::uint64_t; };
+template<> struct unsign_integer<std::int16_t > { using type = std::uint16_t; };
+template<> struct unsign_integer<std::int32_t > { using type = std::uint32_t; };
+template<> struct unsign_integer<std::int64_t > { using type = std::uint64_t; };
+
+template<typename IT> struct double_width_integer { };
+template<> struct double_width_integer<std::uint16_t> { using type = std::uint32_t; };
+template<> struct double_width_integer<std::uint32_t> { using type = std::uint64_t; };
+template<> struct double_width_integer<std::uint64_t> { using type = __uint128_t; };
+
+template<typename Gen>
+struct generator_reference : public std::reference_wrapper<Gen> {
+
+    using std::reference_wrapper<Gen>::reference_wrapper;
+
+    using result_type = typename Gen::result_type;
+
+    [[ nodiscard ]] static constexpr result_type min ( ) noexcept { return Gen::min ( ); }
+    [[ nodiscard ]] static constexpr result_type max ( ) noexcept { return Gen::max ( ); }
+};
+
+template<typename Gen, typename UnsignedResultType>
+struct bits_engine : public std::independent_bits_engine<generator_reference<Gen>, std::numeric_limits<UnsignedResultType>::digits, UnsignedResultType> {
+    explicit bits_engine ( Gen & gen ) : std::independent_bits_engine<generator_reference<Gen>, std::numeric_limits<UnsignedResultType>::digits, UnsignedResultType> ( gen ) { }
+};
+
+template<typename IntType, typename Distribution>
 struct param_type {
 
-    using distribution_type = Distribution;
     using result_type = IntType;
+    using distribution_type = Distribution;
 
-    friend class ::ext::uniform_int_distribution_fast<IntType>;
+    using unsigned_result_type = typename unsign_integer<result_type>::type;
+
+    friend class ::ext::uniform_int_distribution_fast<result_type>;
 
     explicit param_type ( result_type min_, result_type max_ ) noexcept :
         min ( min_ ),
-        range ( max_ - min_ ) {
-        assert ( min_ <= max_ );
+        range ( max_ - min_ + 1 ) {
+        assert ( min_ < max_ );
     }
 
     [[ nodiscard ]] constexpr bool operator == ( const param_type & rhs ) const noexcept {
@@ -74,19 +106,22 @@ struct param_type {
     }
 
     [[ nodiscard ]] constexpr result_type b ( ) const noexcept {
-        return range + min;
+        return range + min - 1;
     }
 
     private:
 
-    result_type min, range;
+    result_type min;
+    unsigned_result_type range;
 };
 }
 
 template<typename IntType>
-class uniform_int_distribution_fast : public detail::param_type<uniform_int_distribution_fast<IntType>, IntType> {
+class uniform_int_distribution_fast : public detail::param_type<IntType, uniform_int_distribution_fast<IntType>> {
 
     static_assert ( ( ( sizeof ( IntType ) > 1 ) and ( sizeof ( IntType ) <= 8 ) ), "char (8-bit) not supported." );
+
+    friend struct detail::param_type<IntType, uniform_int_distribution_fast<IntType>>;
 
     public:
 
@@ -94,21 +129,8 @@ class uniform_int_distribution_fast : public detail::param_type<uniform_int_dist
 
     private:
 
-    template<typename IT> struct unsign { };
-    template<> struct unsign<std::uint16_t> { using type = std::uint16_t; };
-    template<> struct unsign<std::uint32_t> { using type = std::uint32_t; };
-    template<> struct unsign<std::uint64_t> { using type = std::uint64_t; };
-    template<> struct unsign<std::int16_t > { using type = std::uint16_t; };
-    template<> struct unsign<std::int32_t > { using type = std::uint32_t; };
-    template<> struct unsign<std::int64_t > { using type = std::uint64_t; };
-
-    template<typename IT> struct double_width { };
-    template<> struct double_width<std::uint16_t> { using type = std::uint32_t; };
-    template<> struct double_width<std::uint32_t> { using type = std::uint64_t; };
-    template<> struct double_width<std::uint64_t> { using type = __uint128_t; };
-
-    using unsigned_result_type = typename unsign<result_type>::type;
-    using double_width_unsigned_result_type = typename double_width<unsigned_result_type>::type;
+    using unsigned_result_type = typename detail::unsign_integer<result_type>::type;
+    using double_width_unsigned_result_type = typename detail::double_width_integer<unsigned_result_type>::type;
 
     [[ nodiscard ]] constexpr unsigned_result_type range_max ( ) const noexcept {
         return unsigned_result_type { 1 } << ( sizeof ( unsigned_result_type ) * 8 - 1 );
@@ -116,10 +138,10 @@ class uniform_int_distribution_fast : public detail::param_type<uniform_int_dist
 
     public:
 
-    using param_type = detail::param_type<uniform_int_distribution_fast, uniform_int_distribution_fast::result_type>;
+    using param_type = detail::param_type<result_type, uniform_int_distribution_fast>;
 
     explicit uniform_int_distribution_fast ( ) noexcept :
-        param_type ( 0, std::numeric_limits<unsigned_result_type>::max ( ) ) {
+        param_type ( std::numeric_limits<unsigned_result_type>::min ( ), std::numeric_limits<unsigned_result_type>::max ( ) ) {
     }
     explicit uniform_int_distribution_fast ( result_type a, result_type b = std::numeric_limits<result_type>::max ( ) ) noexcept :
         param_type ( a, b ) {
@@ -133,28 +155,57 @@ class uniform_int_distribution_fast : public detail::param_type<uniform_int_dist
 
     template<typename Gen>
     [[ nodiscard ]] result_type operator ( ) ( Gen & rng ) const noexcept {
-        unsigned_result_type x = rng ( );
-        if ( param_type::range >= range_max ( ) ) {
-            while ( x >= param_type::range ) {
-                x = rng ( );
+        if constexpr ( Gen::max ( ) < std::numeric_limits<unsigned_result_type>::max ( ) ) {
+            // std::cout << "bits" << nl;
+            static detail::bits_engine<Gen, unsigned_result_type> bits ( rng );
+            unsigned_result_type x = bits ( );
+            if ( param_type::range >= range_max ( ) ) {
+                do {
+                    x = rng ( );
+                } while ( x >= param_type::range );
+                return result_type ( x ) + param_type::min;
             }
-            return result_type ( x ); // +param_type::min;
+            double_width_unsigned_result_type m = double_width_unsigned_result_type ( x ) * double_width_unsigned_result_type ( param_type::range );
+            unsigned_result_type l = unsigned_result_type ( m );
+            if ( l < param_type::range ) {
+                unsigned_result_type t = -param_type::range;
+                t -= param_type::range;
+                if ( t >= param_type::range ) {
+                    t %= param_type::range;
+                }
+                while ( l < t ) {
+                    x = bits ( );
+                    m = double_width_unsigned_result_type ( x ) * double_width_unsigned_result_type ( param_type::range );
+                    l = unsigned_result_type ( m );
+                }
+            }
+            return result_type ( m >> std::numeric_limits<unsigned_result_type>::digits ) + param_type::min;
         }
-        double_width_unsigned_result_type m = double_width_unsigned_result_type ( x ) * double_width_unsigned_result_type ( param_type::range );
-        unsigned_result_type l = unsigned_result_type ( m );
-        if ( l < param_type::range ) {
-            unsigned_result_type t = -param_type::range;
-            t -= param_type::range;
-            if ( t >= param_type::range ) {
-                t %= param_type::range;
+        else {
+            // std::cout << "raw" << nl;
+            unsigned_result_type x = rng ( );
+            if ( param_type::range >= range_max ( ) ) {
+                do {
+                    x = rng ( );
+                } while ( x >= param_type::range );
+                return result_type ( x ) + param_type::min;
             }
-            while ( l < t ) {
-                x = rng ( );
-                m = double_width_unsigned_result_type ( x ) * double_width_unsigned_result_type ( param_type::range );
-                l = unsigned_result_type ( m );
+            double_width_unsigned_result_type m = double_width_unsigned_result_type ( x ) * double_width_unsigned_result_type ( param_type::range );
+            unsigned_result_type l = unsigned_result_type ( m );
+            if ( l < param_type::range ) {
+                unsigned_result_type t = -param_type::range;
+                t -= param_type::range;
+                if ( t >= param_type::range ) {
+                    t %= param_type::range;
+                }
+                while ( l < t ) {
+                    x = rng ( );
+                    m = double_width_unsigned_result_type ( x ) * double_width_unsigned_result_type ( param_type::range );
+                    l = unsigned_result_type ( m );
+                }
             }
+            return result_type ( m >> std::numeric_limits<unsigned_result_type>::digits ) + param_type::min;
         }
-        return result_type ( m >> 64 ); // +param_type::min;
     }
 
     [[ nodiscard ]] param_type param ( ) const noexcept {

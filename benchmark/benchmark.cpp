@@ -153,36 +153,37 @@ BENCHMARK_TEMPLATE ( bm_generator_no_clobber, splitmix64 )
 
 */
 
+int main ( ) {
 
-int main435345 ( ) {
+    std::minstd_rand rng ( [ ] ( ) { std::random_device rdev; return ( static_cast<std::uint64_t> ( rdev ( ) ) << 32 ) | rdev ( ); } ( ) );
+    ext::uniform_int_distribution_fast<std::int64_t> dis ( 500 );
 
-    splitmix64 g ( [ ] ( ) { std::random_device rdev; return ( static_cast<std::uint64_t> ( rdev ( ) ) << 32 ) | rdev ( ); } ( ) );
-    ext::uniform_int_distribution_fast<std::int64_t> d ( -100, 100 );
+    for ( int k = 0; k < 1000; k++ ) {
+        std::cout << dis ( rng ) << std::endl;
+    }
 
-    std::cout << d ( g ) << nl;
-    std::cout << d ( g ) << nl;
-    std::cout << d ( g ) << nl;
-
-    std::cout << d.a ( ) << nl;
-
-    auto par = d.param ( );
-
-    ext::uniform_int_distribution_fast<std::int64_t> e ( -101, 100 );
-
-    std::cout << std::boolalpha << ( d == e ) << nl;
+    std::cout << dis.a ( ) << " " << dis.b ( ) << nl;
 
     return EXIT_SUCCESS;
 }
 
 
-int main ( ) {
+int main675656 ( ) {
 
-    splitmix64 rng;
-    ext::uniform_int_distribution_fast<std::uint64_t> dis ( -100, 100 );
+    std::minstd_rand prng ( 42 );
 
-    for ( int k = 0; k < 10; k++ ) {
-        std::cout << dis ( rng ) << std::endl;
+    std::uniform_int_distribution<uint64_t> dist ( uint64_t ( 0 ), ~uint64_t ( 0 ) );
+
+    for ( size_t i = 0; i < 10; ++i ) {
+
+        uint64_t x = dist ( prng );
+
+        const uint64_t m = ( uint64_t { 1 } << 31 ) - 2;
+
+        std::cout << x << " " << ( x < m ) << std::endl;
     }
+
+    return EXIT_SUCCESS;
 }
 
 
