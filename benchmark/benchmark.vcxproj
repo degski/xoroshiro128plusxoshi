@@ -84,7 +84,6 @@
     <ClCompile Include="benchmark.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\uniform_int_distribution_fast.hpp" />
     <ClInclude Include="..\lehmer.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

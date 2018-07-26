@@ -74,7 +74,6 @@ void bm_generator_no_clobber ( benchmark::State & state ) noexcept {
     }
 }
 
-/*
 
 constexpr int repeats = 16;
 
@@ -150,41 +149,6 @@ BENCHMARK_TEMPLATE ( bm_generator_no_clobber, mcg128_fast )
 BENCHMARK_TEMPLATE ( bm_generator_no_clobber, splitmix64 )
 ->Repetitions ( repeats )
 ->ReportAggregatesOnly ( true );
-
-*/
-
-int main ( ) {
-
-    splitmix64 rng ( [ ] ( ) { std::random_device rdev; return ( static_cast<std::uint64_t> ( rdev ( ) ) << 32 ) | rdev ( ); } ( ) );
-    ext::uniform_int_distribution_fast<std::uint64_t> dis;
-
-    for ( int k = 0; k < 1000; k++ ) {
-        std::cout << dis ( rng ) << std::endl;
-    }
-
-    std::cout << dis.a ( ) << " " << dis.b ( ) << nl;
-
-    return EXIT_SUCCESS;
-}
-
-
-int main675656 ( ) {
-
-    std::minstd_rand prng ( 42 );
-
-    std::uniform_int_distribution<uint64_t> dist ( uint64_t ( 0 ), ~uint64_t ( 0 ) );
-
-    for ( size_t i = 0; i < 10; ++i ) {
-
-        uint64_t x = dist ( prng );
-
-        const uint64_t m = ( uint64_t { 1 } << 31 ) - 2;
-
-        std::cout << x << " " << ( x < m ) << std::endl;
-    }
-
-    return EXIT_SUCCESS;
-}
 
 
 
