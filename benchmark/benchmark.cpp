@@ -155,8 +155,8 @@ BENCHMARK_TEMPLATE ( bm_generator_no_clobber, splitmix64 )
 
 int main ( ) {
 
-    std::minstd_rand rng ( [ ] ( ) { std::random_device rdev; return ( static_cast<std::uint64_t> ( rdev ( ) ) << 32 ) | rdev ( ); } ( ) );
-    ext::uniform_int_distribution_fast<std::int64_t> dis ( 500 );
+    splitmix64 rng ( [ ] ( ) { std::random_device rdev; return ( static_cast<std::uint64_t> ( rdev ( ) ) << 32 ) | rdev ( ); } ( ) );
+    ext::uniform_int_distribution_fast<std::uint64_t> dis;
 
     for ( int k = 0; k < 1000; k++ ) {
         std::cout << dis ( rng ) << std::endl;
