@@ -561,7 +561,55 @@ Interupted the test.
 
 #### mcg128_fast
 
-Not tested.
+    RNG_test using PractRand version 0.94
+    RNG = RNG_stdin64, seed = unknown
+    test set = core, folding = standard (64 bit)
+
+    rng=RNG_stdin64, seed=unknown
+    length= 128 megabytes (2^27 bytes), time= 2.6 seconds
+      no anomalies in 193 test result(s)
+
+    rng=RNG_stdin64, seed=unknown
+    length= 256 megabytes (2^28 bytes), time= 6.0 seconds
+      no anomalies in 210 test result(s)
+
+    rng=RNG_stdin64, seed=unknown
+    length= 512 megabytes (2^29 bytes), time= 11.7 seconds
+      no anomalies in 226 test result(s)
+
+    rng=RNG_stdin64, seed=unknown
+    length= 1 gigabyte (2^30 bytes), time= 23.1 seconds
+      no anomalies in 243 test result(s)
+
+    rng=RNG_stdin64, seed=unknown
+    length= 2 gigabytes (2^31 bytes), time= 44.1 seconds
+      no anomalies in 261 test result(s)
+
+    rng=RNG_stdin64, seed=unknown
+    length= 4 gigabytes (2^32 bytes), time= 87.0 seconds
+      no anomalies in 277 test result(s)
+
+    rng=RNG_stdin64, seed=unknown
+    length= 8 gigabytes (2^33 bytes), time= 168 seconds
+      no anomalies in 294 test result(s)
+
+    rng=RNG_stdin64, seed=unknown
+    length= 16 gigabytes (2^34 bytes), time= 328 seconds
+      Test Name                         Raw       Processed     Evaluation
+      [Low16/64]DC6-9x1Bytes-1          R=  +5.8  p =  3.9e-3   unusual
+      ...and 309 test result(s) without anomalies
+
+    rng=RNG_stdin64, seed=unknown
+    length= 32 gigabytes (2^35 bytes), time= 639 seconds
+      no anomalies in 325 test result(s)
+
+    rng=RNG_stdin64, seed=unknown
+    length= 64 gigabytes (2^36 bytes), time= 1327 seconds
+      Test Name                         Raw       Processed     Evaluation
+      TMFn(2+11):wl                     R= +59.5  p~=   9e-29     FAIL !!
+      [Low16/64]TMFn(2+9):wl            R= +59.4  p~=   1e-28     FAIL !!
+      [Low4/64]TMFn(2+7):wl             R= +61.0  p~=   1e-29     FAIL !!!
+      ...and 337 test result(s) without anomalies
 
 
 #### splitmix64
