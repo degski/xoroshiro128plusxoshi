@@ -27,12 +27,15 @@
 #endif
 
 #include <cstdint>
+
+#include <chrono>
 #include <iostream>
+#include <thread>
 
 #include "generator.hpp" // in this order.
 
 
-auto main ( ) -> int {
+int main ( ) {
 
 #ifdef _WIN32 // Needed to allow binary stdout on Windhoze...
     _setmode ( _fileno ( stdout ), _O_BINARY );
@@ -42,7 +45,7 @@ auto main ( ) -> int {
 
     Generator rng ( 0xBEAC0467EBA5FACB );
 
-    const std::size_t page_size = 524'288, buffer_size = page_size / sizeof ( result_type );
+    constexpr std::size_t page_size = 524'288, buffer_size = page_size / sizeof ( result_type );
     result_type buffer [ buffer_size ];
 
     while ( true ) {
@@ -50,5 +53,8 @@ auto main ( ) -> int {
             buffer [ i ] = rng ( );
         }
         std::cout.write ( reinterpret_cast<char*>( buffer ), page_size );
+        std::this_thread::sleep_for ( std::chrono::microseconds ( 32 ) );
     }
+
+    return 0;
 }

@@ -59,7 +59,6 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MinimalRebuild />
-      <AdditionalOptions>-Xclang -fcxx-exceptions -Xclang -std=c++2a -Xclang -pedantic -Qunused-arguments -Xclang -ffast-math -Xclang -Wno-deprecated-declarations -Xclang -Wno-unknown-pragmas -Xclang -Wno-ignored-pragmas -Xclang -Wno-unused-private-field -mmmx  -msse  -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mavx -mavx2  -Xclang -Wno-unused-variable -Xclang -Wno-language-extension-token -Xclang -Wno-inconsistent-dllimport %(AdditionalOptions)</AdditionalOptions>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
     </ClCompile>
@@ -79,7 +78,6 @@
       <MinimalRebuild />
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>-Xclang -fcxx-exceptions -Xclang -std=c++2a -Xclang -pedantic -Qunused-arguments -Xclang -ffast-math -Xclang -Wno-deprecated-declarations -Xclang -Wno-unknown-pragmas -Xclang -Wno-ignored-pragmas -Xclang -Wno-unused-private-field -mmmx  -msse  -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mavx -mavx2  -Xclang -Wno-unused-variable -Xclang -Wno-language-extension-token -Xclang -Wno-inconsistent-dllimport %(AdditionalOptions)</AdditionalOptions>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
