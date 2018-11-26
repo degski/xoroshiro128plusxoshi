@@ -34,7 +34,7 @@
 #pragma comment ( lib, "Shlwapi.lib" )
 #endif
 
-// #include "../pcg/pcg_random.hpp"
+// #include <pcg/pcg_random.hpp>
 #include "../xoroshiro.hpp"
 #include "../xoroshiro128plusxoshi.hpp"
 #include "../splitmix.hpp"

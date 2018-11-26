@@ -29,7 +29,7 @@
 #include <string>
 #include <type_traits>
 
-#include "../pcg/pcg_random.hpp"
+#include <pcg/pcg_random.hpp>
 #include "../xoroshiro.hpp"
 #include "../xoroshiro128plusxoshi.hpp"
 #include "../splitmix.hpp"
